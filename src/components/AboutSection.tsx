@@ -11,7 +11,7 @@ const AboutSection = () => {
     {
       icon: <Languages className="h-6 w-6" />,
       title: "Languages",
-      description: "Fluent English, Native Tamil, Basic French",
+      description: "English, Tamil, French",
     },
     {
       icon: <Users className="h-6 w-6" />,
