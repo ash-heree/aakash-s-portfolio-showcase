@@ -21,7 +21,7 @@ const SkillsSection = () => {
     {
       icon: <GitBranch className="h-8 w-8" />,
       title: "Development Tools",
-      skills: ["Git", "GitHub", "Version Control"],
+      skills: ["Git", "GitHub", "VS Code", "Google Colab", "Version Control"],
     },
   ];
 

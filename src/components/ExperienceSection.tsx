@@ -6,7 +6,7 @@ const ExperienceSection = () => {
     {
       icon: <Briefcase className="h-6 w-6" />,
       role: "Program Participant",
-      organization: "Tamil Nadu Water Budget Program",
+      organization: "Jal Shakthi Abhiyan - Water Budget",
       location: "Tiruvallur Collector Office",
       description:
         "Collaborated with Government Engineers on water resource management initiatives, contributing to data collection and analysis for regional water budget planning.",
