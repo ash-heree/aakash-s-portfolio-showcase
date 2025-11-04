@@ -1,6 +1,6 @@
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Hand, ShoppingCart } from "lucide-react";
+import { Hand, ShoppingCart, BarChart3 } from "lucide-react";
 
 const ProjectsSection = () => {
   const projects = [
@@ -18,6 +18,13 @@ const ProjectsSection = () => {
         "Built a full-featured e-commerce platform during ICT Virtual Internship, leveraging data science techniques for user recommendations and inventory management.",
       technologies: ["Data Science", "Web Development", "E-commerce", "Analytics"],
     },
+    {
+      icon: <BarChart3 className="h-8 w-8" />,
+      title: "Mini Data Analyst (Survey & Insights)",
+      description:
+        "Created a comprehensive food survey project titled 'Yummy Opinions', collecting and analyzing consumer preferences using data visualization and statistical analysis techniques.",
+      technologies: ["Google Forms", "Google Colab", "Pandas", "Matplotlib"],
+    },
   ];
 
   return (
@@ -29,7 +36,7 @@ const ProjectsSection = () => {
           </h2>
           <div className="w-20 h-1 bg-gradient-primary mx-auto mb-12 rounded-full" />
 
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {projects.map((project, index) => (
               <Card
                 key={index}
