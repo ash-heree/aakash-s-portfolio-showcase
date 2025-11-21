@@ -27,6 +27,7 @@ const Navigation = () => {
     { href: "#projects", label: "Projects" },
     { href: "#experience", label: "Experience" },
     { href: "#education", label: "Education" },
+    { href: "#achievements", label: "Achievements" },
     { href: "#contact", label: "Contact" },
   ];
 
@@ -42,7 +43,7 @@ const Navigation = () => {
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? "bg-background/80 backdrop-blur-lg shadow-card" : "bg-transparent"
+        isScrolled ? "glass shadow-card" : "bg-transparent"
       }`}
     >
       <div className="container mx-auto px-4">
@@ -95,7 +96,7 @@ const Navigation = () => {
 
         {/* Mobile Menu */}
         {isMenuOpen && (
-          <div className="md:hidden py-4 space-y-4 bg-background/95 backdrop-blur-lg rounded-lg mt-2 shadow-card">
+          <div className="md:hidden py-4 space-y-4 glass rounded-lg mt-2 shadow-card">
             {navLinks.map((link) => (
               <a
                 key={link.href}
