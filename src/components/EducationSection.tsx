@@ -44,13 +44,6 @@ const EducationSection = () => {
         backgroundAttachment: 'fixed',
       }}
     >
-      {/* Soft tech grid overlay */}
-      <div 
-        className="absolute inset-0 z-0"
-        style={{
-          background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.75) 0%, rgba(139, 92, 246, 0.75) 100%)',
-        }}
-      />
       
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-4xl mx-auto">

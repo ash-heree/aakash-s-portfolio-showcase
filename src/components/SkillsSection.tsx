@@ -37,13 +37,6 @@ const SkillsSection = () => {
         backgroundAttachment: 'fixed',
       }}
     >
-      {/* Purple/blue gradient overlay */}
-      <div 
-        className="absolute inset-0 z-0"
-        style={{
-          background: 'linear-gradient(135deg, rgba(139, 92, 246, 0.8) 0%, rgba(59, 130, 246, 0.8) 100%)',
-        }}
-      />
       
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-6xl mx-auto">
