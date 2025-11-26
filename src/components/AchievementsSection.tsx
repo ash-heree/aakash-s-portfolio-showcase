@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { useState, useRef } from "react";
+import achievementsBackground from "@/assets/achievements-tech-bg.jpg";
 
 interface Achievement {
   title: string;
@@ -144,25 +145,42 @@ const AchievementsSection = () => {
   };
 
   return (
-    <section id="achievements" className="py-20 bg-background">
-      <div className="container mx-auto px-4">
+    <section 
+      id="achievements" 
+      className="py-20 relative overflow-hidden"
+      style={{
+        backgroundImage: `url(${achievementsBackground})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundAttachment: 'fixed',
+      }}
+    >
+      {/* Glowing particle overlay */}
+      <div 
+        className="absolute inset-0 z-0"
+        style={{
+          background: 'linear-gradient(135deg, rgba(20, 10, 40, 0.9) 0%, rgba(40, 20, 50, 0.85) 100%)',
+        }}
+      />
+      
+      <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-6xl mx-auto">
           {/* Main Section Title */}
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-4 text-foreground">
+          <h2 className="text-4xl md:text-5xl font-bold text-center mb-4 text-white">
             Achievements
           </h2>
           <div className="w-20 h-1 bg-gradient-primary mx-auto mb-16 rounded-full" />
 
           {/* Certifications Subsection */}
           <div className="mb-16">
-            <h3 className="text-3xl font-bold text-center mb-8 text-foreground">
+            <h3 className="text-3xl font-bold text-center mb-8 text-white">
               Certifications
             </h3>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {certifications.map((cert, index) => (
                 <Card
                   key={index}
-                  className="p-6 hover:shadow-glow transition-all duration-300 hover:-translate-y-2 bg-card border-border cursor-pointer group"
+                  className="p-6 hover:shadow-glow transition-all duration-300 hover:-translate-y-2 cursor-pointer group"
                   onClick={() => setSelectedItem({ type: "certification", index })}
                 >
                   <Award className="h-10 w-10 text-accent mb-4 group-hover:scale-110 transition-transform duration-300" />
@@ -182,14 +200,14 @@ const AchievementsSection = () => {
 
           {/* Workshops Subsection */}
           <div className="mb-16">
-            <h3 className="text-3xl font-bold text-center mb-8 text-foreground">
+            <h3 className="text-3xl font-bold text-center mb-8 text-white">
               Workshops
             </h3>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {workshops.map((workshop, index) => (
                 <Card
                   key={index}
-                  className="p-6 hover:shadow-glow transition-all duration-300 hover:-translate-y-2 bg-card border-border cursor-pointer group"
+                  className="p-6 hover:shadow-glow transition-all duration-300 hover:-translate-y-2 cursor-pointer group"
                   onClick={() => setSelectedItem({ type: "workshop", index })}
                 >
                   <GraduationCap className="h-10 w-10 text-accent mb-4 group-hover:scale-110 transition-transform duration-300" />
@@ -209,14 +227,14 @@ const AchievementsSection = () => {
 
           {/* Internships Subsection */}
           <div>
-            <h3 className="text-3xl font-bold text-center mb-8 text-foreground">
+            <h3 className="text-3xl font-bold text-center mb-8 text-white">
               Internships
             </h3>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {internships.map((internship, index) => (
                 <Card
                   key={index}
-                  className="p-6 hover:shadow-glow transition-all duration-300 hover:-translate-y-2 bg-card border-border cursor-pointer group"
+                  className="p-6 hover:shadow-glow transition-all duration-300 hover:-translate-y-2 cursor-pointer group"
                   onClick={() => setSelectedItem({ type: "internship", index })}
                 >
                   <Briefcase className="h-10 w-10 text-accent mb-4 group-hover:scale-110 transition-transform duration-300" />

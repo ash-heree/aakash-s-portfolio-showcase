@@ -1,23 +1,31 @@
 import { ArrowDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import heroBackground from "@/assets/hero-tech-bg.jpg";
 
 const HeroSection = () => {
   return (
     <section
       id="home"
       className="min-h-screen flex items-center justify-center relative overflow-hidden"
+      style={{
+        backgroundImage: `url(${heroBackground})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundAttachment: 'fixed',
+      }}
     >
-      <div className="absolute inset-0 bg-gradient-primary opacity-10" />
+      {/* Dark overlay for readability */}
+      <div className="absolute inset-0 bg-black/60 z-0" />
       
-      <div className="container mx-auto px-4 z-10">
+      <div className="container mx-auto px-4 z-10 relative">
         <div className="max-w-4xl mx-auto text-center animate-fade-in">
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-primary bg-clip-text text-transparent">
+          <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-primary via-accent to-secondary bg-clip-text text-transparent">
             Aakash S
           </h1>
-          <h2 className="text-2xl md:text-3xl font-semibold text-foreground mb-8">
+          <h2 className="text-2xl md:text-3xl font-semibold text-white mb-8">
             Entry-Level IT Professional
           </h2>
-          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-12 leading-relaxed">
+          <p className="text-lg md:text-xl text-white/90 max-w-2xl mx-auto mb-12 leading-relaxed">
             Passionate about technology, programming, and problem-solving. 
             Driven to create innovative solutions and continuously expand my technical expertise.
           </p>
@@ -38,6 +46,7 @@ const HeroSection = () => {
               onClick={() =>
                 document.querySelector("#projects")?.scrollIntoView({ behavior: "smooth" })
               }
+              className="border-white/30 text-white hover:bg-white/10 hover:text-white"
             >
               View Projects
             </Button>
@@ -45,8 +54,8 @@ const HeroSection = () => {
         </div>
       </div>
 
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-float">
-        <ArrowDown className="h-6 w-6 text-muted-foreground" />
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-float z-10">
+        <ArrowDown className="h-6 w-6 text-white/80" />
       </div>
     </section>
   );
