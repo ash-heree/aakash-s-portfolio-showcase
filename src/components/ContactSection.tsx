@@ -1,6 +1,7 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Mail, Phone, MapPin, Linkedin } from "lucide-react";
+import contactBackground from "@/assets/contact-tech-bg.jpg";
 
 const ContactSection = () => {
   const contactInfo = [
@@ -31,15 +32,32 @@ const ContactSection = () => {
   ];
 
   return (
-    <section id="contact" className="py-20 bg-background">
-      <div className="container mx-auto px-4">
+    <section 
+      id="contact" 
+      className="py-20 relative overflow-hidden"
+      style={{
+        backgroundImage: `url(${contactBackground})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundAttachment: 'fixed',
+      }}
+    >
+      {/* Digital network overlay */}
+      <div 
+        className="absolute inset-0 z-0"
+        style={{
+          background: 'linear-gradient(135deg, rgba(20, 10, 40, 0.9) 0%, rgba(30, 20, 50, 0.85) 100%)',
+        }}
+      />
+      
+      <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-4 text-foreground">
+          <h2 className="text-4xl md:text-5xl font-bold text-center mb-4 text-white">
             Get In Touch
           </h2>
           <div className="w-20 h-1 bg-gradient-primary mx-auto mb-12 rounded-full" />
 
-          <p className="text-lg text-muted-foreground text-center mb-12 leading-relaxed">
+          <p className="text-lg text-white/90 text-center mb-12 leading-relaxed">
             I'm always open to discussing new opportunities, collaborations, or just 
             connecting with fellow tech enthusiasts. Feel free to reach out!
           </p>
@@ -48,7 +66,7 @@ const ContactSection = () => {
             {contactInfo.map((info, index) => (
               <Card
                 key={index}
-                className="p-6 hover:shadow-glow transition-all duration-300 bg-card border-border"
+                className="p-6 hover:shadow-glow transition-all duration-300"
               >
                 <div className="flex items-start gap-4">
                   <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary flex-shrink-0">

@@ -1,5 +1,6 @@
 import { Card } from "@/components/ui/card";
 import { Code2, FileImage, GitBranch, Laptop } from "lucide-react";
+import skillsBackground from "@/assets/skills-tech-bg.jpg";
 
 const SkillsSection = () => {
   const skillCategories = [
@@ -26,19 +27,36 @@ const SkillsSection = () => {
   ];
 
   return (
-    <section id="skills" className="py-20 bg-background">
-      <div className="container mx-auto px-4">
+    <section 
+      id="skills" 
+      className="py-20 relative overflow-hidden"
+      style={{
+        backgroundImage: `url(${skillsBackground})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundAttachment: 'fixed',
+      }}
+    >
+      {/* Purple/blue gradient overlay */}
+      <div 
+        className="absolute inset-0 z-0"
+        style={{
+          background: 'linear-gradient(135deg, rgba(139, 92, 246, 0.8) 0%, rgba(59, 130, 246, 0.8) 100%)',
+        }}
+      />
+      
+      <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-4 text-foreground">
+          <h2 className="text-4xl md:text-5xl font-bold text-center mb-4 text-white">
             Skills & Expertise
           </h2>
-          <div className="w-20 h-1 bg-gradient-primary mx-auto mb-12 rounded-full" />
+          <div className="w-20 h-1 bg-white/50 mx-auto mb-12 rounded-full" />
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {skillCategories.map((category, index) => (
               <Card
                 key={index}
-                className="p-6 hover:shadow-glow transition-all duration-300 hover:-translate-y-1 bg-card border-border"
+                className="p-6 hover:shadow-glow transition-all duration-300 hover:-translate-y-1"
               >
                 <div className="text-accent mb-4">{category.icon}</div>
                 <h3 className="text-xl font-semibold mb-4 text-card-foreground">

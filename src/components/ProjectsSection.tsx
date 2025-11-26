@@ -1,6 +1,7 @@
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Hand, ShoppingCart, BarChart3 } from "lucide-react";
+import projectsBackground from "@/assets/projects-tech-bg.jpg";
 
 const ProjectsSection = () => {
   const projects = [
@@ -28,10 +29,27 @@ const ProjectsSection = () => {
   ];
 
   return (
-    <section id="projects" className="py-20 bg-gradient-subtle">
-      <div className="container mx-auto px-4">
+    <section 
+      id="projects" 
+      className="py-20 relative overflow-hidden"
+      style={{
+        backgroundImage: `url(${projectsBackground})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundAttachment: 'fixed',
+      }}
+    >
+      {/* Dark overlay with hologram effect */}
+      <div 
+        className="absolute inset-0 z-0"
+        style={{
+          background: 'linear-gradient(135deg, rgba(0, 0, 0, 0.85) 0%, rgba(30, 20, 50, 0.9) 100%)',
+        }}
+      />
+      
+      <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-5xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-4 text-foreground">
+          <h2 className="text-4xl md:text-5xl font-bold text-center mb-4 text-white">
             Featured Projects
           </h2>
           <div className="w-20 h-1 bg-gradient-primary mx-auto mb-12 rounded-full" />
@@ -40,7 +58,7 @@ const ProjectsSection = () => {
             {projects.map((project, index) => (
               <Card
                 key={index}
-                className="p-8 hover:shadow-glow transition-all duration-300 hover:-translate-y-2 bg-card border-border"
+                className="p-8 hover:shadow-glow transition-all duration-300 hover:-translate-y-2"
               >
                 <div className="text-primary mb-4">{project.icon}</div>
                 <h3 className="text-2xl font-bold mb-3 text-card-foreground">

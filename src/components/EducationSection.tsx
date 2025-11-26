@@ -1,4 +1,5 @@
 import { Card } from "@/components/ui/card";
+import educationBackground from "@/assets/education-tech-bg.jpg";
 
 const EducationSection = () => {
   const education = [
@@ -33,25 +34,42 @@ const EducationSection = () => {
   ];
 
   return (
-    <section id="education" className="py-20 bg-gradient-subtle">
-      <div className="container mx-auto px-4">
+    <section 
+      id="education" 
+      className="py-20 relative overflow-hidden"
+      style={{
+        backgroundImage: `url(${educationBackground})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundAttachment: 'fixed',
+      }}
+    >
+      {/* Soft tech grid overlay */}
+      <div 
+        className="absolute inset-0 z-0"
+        style={{
+          background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.75) 0%, rgba(139, 92, 246, 0.75) 100%)',
+        }}
+      />
+      
+      <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-4 text-foreground">
+          <h2 className="text-4xl md:text-5xl font-bold text-center mb-4 text-white">
             Education Timeline
           </h2>
-          <div className="w-20 h-1 bg-gradient-primary mx-auto mb-12 rounded-full" />
+          <div className="w-20 h-1 bg-white/50 mx-auto mb-12 rounded-full" />
 
           <div className="relative">
             {/* Timeline line */}
-            <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-primary/20 hidden md:block" />
+            <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-white/30 hidden md:block" />
 
             <div className="space-y-8">
               {education.map((edu, index) => (
                 <div key={index} className="relative">
                   {/* Timeline dot */}
-                  <div className="absolute left-6 top-6 w-4 h-4 rounded-full bg-primary hidden md:block" />
+                  <div className="absolute left-6 top-6 w-4 h-4 rounded-full bg-white hidden md:block shadow-glow" />
 
-                  <Card className="md:ml-16 p-6 hover:shadow-glow transition-all duration-300 bg-card border-border">
+                  <Card className="md:ml-16 p-6 hover:shadow-glow transition-all duration-300">
                     <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-2">
                       <h3 className="text-xl font-bold text-card-foreground">
                         {edu.degree}
