@@ -41,11 +41,12 @@ const HeroSection = () => {
               Get In Touch
             </Button>
             <Button
-              variant="secondary"
+              variant="outline"
               size="lg"
               onClick={() =>
                 document.querySelector("#projects")?.scrollIntoView({ behavior: "smooth" })
               }
+              className="bg-black/40 border-white/30 text-white hover:bg-black/60 hover:border-white/50"
             >
               View Projects
             </Button>
