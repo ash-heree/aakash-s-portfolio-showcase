@@ -155,13 +155,6 @@ const AchievementsSection = () => {
         backgroundAttachment: 'fixed',
       }}
     >
-      {/* Glowing particle overlay */}
-      <div 
-        className="absolute inset-0 z-0"
-        style={{
-          background: 'linear-gradient(135deg, rgba(20, 10, 40, 0.9) 0%, rgba(40, 20, 50, 0.85) 100%)',
-        }}
-      />
       
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-6xl mx-auto">
@@ -180,7 +173,7 @@ const AchievementsSection = () => {
               {certifications.map((cert, index) => (
                 <Card
                   key={index}
-                  className="p-6 hover:shadow-glow transition-all duration-300 hover:-translate-y-2 cursor-pointer group"
+                  className="p-6 hover:shadow-glow transition-all duration-300 cursor-pointer group"
                   onClick={() => setSelectedItem({ type: "certification", index })}
                 >
                   <Award className="h-10 w-10 text-accent mb-4 group-hover:scale-110 transition-transform duration-300" />
@@ -207,7 +200,7 @@ const AchievementsSection = () => {
               {workshops.map((workshop, index) => (
                 <Card
                   key={index}
-                  className="p-6 hover:shadow-glow transition-all duration-300 hover:-translate-y-2 cursor-pointer group"
+                  className="p-6 hover:shadow-glow transition-all duration-300 cursor-pointer group"
                   onClick={() => setSelectedItem({ type: "workshop", index })}
                 >
                   <GraduationCap className="h-10 w-10 text-accent mb-4 group-hover:scale-110 transition-transform duration-300" />
@@ -234,7 +227,7 @@ const AchievementsSection = () => {
               {internships.map((internship, index) => (
                 <Card
                   key={index}
-                  className="p-6 hover:shadow-glow transition-all duration-300 hover:-translate-y-2 cursor-pointer group"
+                  className="p-6 hover:shadow-glow transition-all duration-300 cursor-pointer group"
                   onClick={() => setSelectedItem({ type: "internship", index })}
                 >
                   <Briefcase className="h-10 w-10 text-accent mb-4 group-hover:scale-110 transition-transform duration-300" />
