@@ -39,7 +39,7 @@ const ExperienceSection = () => {
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-4 text-white">
             Experience
           </h2>
-          <div className="w-20 h-1 bg-gradient-primary mx-auto mb-12 rounded-full" />
+          <div className="w-20 h-1 bg-white/50 mx-auto mb-12 rounded-full" />
 
           <div className="space-y-6">
             {experiences.map((exp, index) => (
@@ -48,17 +48,17 @@ const ExperienceSection = () => {
                 className="p-6 hover:shadow-glow transition-all duration-300"
               >
                 <div className="flex gap-4">
-                  <div className="flex-shrink-0 w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+                  <div className="flex-shrink-0 w-12 h-12 rounded-full bg-accent/20 flex items-center justify-center text-accent">
                     {exp.icon}
                   </div>
                   <div className="flex-1">
-                    <h3 className="text-xl font-bold text-card-foreground mb-1">
+                    <h3 className="text-xl font-bold text-white mb-1">
                       {exp.role}
                     </h3>
-                    <p className="text-muted-foreground font-medium mb-2">
+                    <p className="text-white/80 font-medium mb-2">
                       {exp.organization} • {exp.location}
                     </p>
-                    <p className="text-muted-foreground leading-relaxed">
+                    <p className="text-white/70 leading-relaxed">
                       {exp.description}
                     </p>
                   </div>

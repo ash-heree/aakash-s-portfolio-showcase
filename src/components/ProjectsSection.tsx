@@ -45,7 +45,7 @@ const ProjectsSection = () => {
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-4 text-white">
             Featured Projects
           </h2>
-          <div className="w-20 h-1 bg-gradient-primary mx-auto mb-12 rounded-full" />
+          <div className="w-20 h-1 bg-white/50 mx-auto mb-12 rounded-full" />
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {projects.map((project, index) => (
@@ -53,16 +53,16 @@ const ProjectsSection = () => {
                 key={index}
                 className="p-6 hover:shadow-glow transition-all duration-300"
               >
-                <div className="text-primary mb-4">{project.icon}</div>
-                <h3 className="text-2xl font-bold mb-3 text-card-foreground">
+                <div className="text-accent mb-4">{project.icon}</div>
+                <h3 className="text-2xl font-bold mb-3 text-white">
                   {project.title}
                 </h3>
-                <p className="text-muted-foreground mb-6 leading-relaxed">
+                <p className="text-white/80 mb-6 leading-relaxed">
                   {project.description}
                 </p>
                 <div className="flex flex-wrap gap-2">
                   {project.technologies.map((tech, idx) => (
-                    <Badge key={idx} variant="secondary">
+                    <Badge key={idx} variant="secondary" className="text-white">
                       {tech}
                     </Badge>
                   ))}

@@ -48,7 +48,7 @@ const ContactSection = () => {
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-4 text-white">
             Get In Touch
           </h2>
-          <div className="w-20 h-1 bg-gradient-primary mx-auto mb-12 rounded-full" />
+          <div className="w-20 h-1 bg-white/50 mx-auto mb-12 rounded-full" />
 
           <p className="text-lg text-white/90 text-center mb-12 leading-relaxed">
             I'm always open to discussing new opportunities, collaborations, or just 
@@ -62,22 +62,22 @@ const ContactSection = () => {
                 className="p-6 hover:shadow-glow transition-all duration-300"
               >
                 <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary flex-shrink-0">
+                  <div className="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center text-accent flex-shrink-0">
                     {info.icon}
                   </div>
                   <div className="flex-1">
-                    <p className="text-sm text-muted-foreground mb-1">{info.label}</p>
+                    <p className="text-sm text-white/70 mb-1">{info.label}</p>
                     {info.href ? (
                       <a
                         href={info.href}
                         target={info.href.startsWith("http") ? "_blank" : undefined}
                         rel={info.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                        className="text-card-foreground font-medium hover:text-primary transition-colors"
+                        className="text-white font-medium hover:text-accent transition-colors"
                       >
                         {info.value}
                       </a>
                     ) : (
-                      <p className="text-card-foreground font-medium">{info.value}</p>
+                      <p className="text-white font-medium">{info.value}</p>
                     )}
                   </div>
                 </div>

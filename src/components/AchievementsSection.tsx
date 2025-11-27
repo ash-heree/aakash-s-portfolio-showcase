@@ -162,7 +162,7 @@ const AchievementsSection = () => {
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-4 text-white">
             Achievements
           </h2>
-          <div className="w-20 h-1 bg-gradient-primary mx-auto mb-16 rounded-full" />
+          <div className="w-20 h-1 bg-white/50 mx-auto mb-16 rounded-full" />
 
           {/* Certifications Subsection */}
           <div className="mb-16">
@@ -177,13 +177,13 @@ const AchievementsSection = () => {
                   onClick={() => setSelectedItem({ type: "certification", index })}
                 >
                   <Award className="h-10 w-10 text-accent mb-4 group-hover:scale-110 transition-transform duration-300" />
-                  <h4 className="text-lg font-bold text-card-foreground mb-2 leading-tight">
+                  <h4 className="text-lg font-bold text-white mb-2 leading-tight">
                     {cert.title}
                   </h4>
-                  <p className="text-sm text-muted-foreground font-medium">
+                  <p className="text-sm text-white/80 font-medium">
                     {cert.institution}
                   </p>
-                  <p className="text-xs text-muted-foreground mt-3 opacity-70">
+                  <p className="text-xs text-white/60 mt-3">
                     Click to view details
                   </p>
                 </Card>
@@ -204,13 +204,13 @@ const AchievementsSection = () => {
                   onClick={() => setSelectedItem({ type: "workshop", index })}
                 >
                   <GraduationCap className="h-10 w-10 text-accent mb-4 group-hover:scale-110 transition-transform duration-300" />
-                  <h4 className="text-lg font-bold text-card-foreground mb-2 leading-tight">
+                  <h4 className="text-lg font-bold text-white mb-2 leading-tight">
                     {workshop.title}
                   </h4>
-                  <p className="text-sm text-muted-foreground font-medium">
+                  <p className="text-sm text-white/80 font-medium">
                     {workshop.institution}
                   </p>
-                  <p className="text-xs text-muted-foreground mt-3 opacity-70">
+                  <p className="text-xs text-white/60 mt-3">
                     Click to view details
                   </p>
                 </Card>
@@ -231,13 +231,13 @@ const AchievementsSection = () => {
                   onClick={() => setSelectedItem({ type: "internship", index })}
                 >
                   <Briefcase className="h-10 w-10 text-accent mb-4 group-hover:scale-110 transition-transform duration-300" />
-                  <h4 className="text-lg font-bold text-card-foreground mb-2 leading-tight">
+                  <h4 className="text-lg font-bold text-white mb-2 leading-tight">
                     {internship.title}
                   </h4>
-                  <p className="text-sm text-muted-foreground font-medium">
+                  <p className="text-sm text-white/80 font-medium">
                     {internship.institution}
                   </p>
-                  <p className="text-xs text-muted-foreground mt-3 opacity-70">
+                  <p className="text-xs text-white/60 mt-3">
                     Click to view details
                   </p>
                 </Card>

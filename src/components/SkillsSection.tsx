@@ -52,16 +52,16 @@ const SkillsSection = () => {
                 className="p-6 hover:shadow-glow transition-all duration-300 hover:-translate-y-1"
               >
                 <div className="text-accent mb-4">{category.icon}</div>
-                <h3 className="text-xl font-semibold mb-4 text-card-foreground">
+                <h3 className="text-xl font-semibold mb-4 text-white">
                   {category.title}
                 </h3>
                 <ul className="space-y-2">
                   {category.skills.map((skill, idx) => (
                     <li
                       key={idx}
-                      className="text-muted-foreground flex items-center gap-2"
+                      className="text-white/80 flex items-center gap-2"
                     >
-                      <div className="w-1.5 h-1.5 rounded-full bg-primary" />
+                      <div className="w-1.5 h-1.5 rounded-full bg-white" />
                       {skill}
                     </li>
                   ))}
