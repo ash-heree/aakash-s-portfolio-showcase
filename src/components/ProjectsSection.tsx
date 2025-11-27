@@ -39,13 +39,6 @@ const ProjectsSection = () => {
         backgroundAttachment: 'fixed',
       }}
     >
-      {/* Dark overlay with hologram effect */}
-      <div 
-        className="absolute inset-0 z-0"
-        style={{
-          background: 'linear-gradient(135deg, rgba(0, 0, 0, 0.85) 0%, rgba(30, 20, 50, 0.9) 100%)',
-        }}
-      />
       
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-5xl mx-auto">
@@ -58,7 +51,7 @@ const ProjectsSection = () => {
             {projects.map((project, index) => (
               <Card
                 key={index}
-                className="p-8 hover:shadow-glow transition-all duration-300 hover:-translate-y-2"
+                className="p-6 hover:shadow-glow transition-all duration-300"
               >
                 <div className="text-primary mb-4">{project.icon}</div>
                 <h3 className="text-2xl font-bold mb-3 text-card-foreground">

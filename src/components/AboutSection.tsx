@@ -32,8 +32,6 @@ const AboutSection = () => {
         backgroundAttachment: 'fixed',
       }}
     >
-      {/* Blur and dark overlay */}
-      <div className="absolute inset-0 bg-black/70 backdrop-blur-sm z-0" />
       
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-4xl mx-auto">

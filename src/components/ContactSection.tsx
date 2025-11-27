@@ -42,13 +42,6 @@ const ContactSection = () => {
         backgroundAttachment: 'fixed',
       }}
     >
-      {/* Digital network overlay */}
-      <div 
-        className="absolute inset-0 z-0"
-        style={{
-          background: 'linear-gradient(135deg, rgba(20, 10, 40, 0.9) 0%, rgba(30, 20, 50, 0.85) 100%)',
-        }}
-      />
       
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-4xl mx-auto">
