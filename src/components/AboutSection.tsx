@@ -40,7 +40,7 @@ const AboutSection = () => {
           </h2>
           <div className="w-20 h-1 bg-white/50 mx-auto mb-12 rounded-full" />
 
-          <p className="text-lg text-white/90 text-center mb-12 leading-relaxed">
+          <p className="text-lg text-white text-center mb-12 leading-relaxed">
             I'm an aspiring IT professional with a strong foundation in computer applications 
             and a growing expertise in modern technologies. My journey from BCA to pursuing MCA 
             has equipped me with diverse technical skills and a problem-solving mindset.
@@ -54,7 +54,7 @@ const AboutSection = () => {
               >
                 <div className="text-accent mb-4">{item.icon}</div>
                 <h3 className="text-xl font-semibold mb-2 text-white">{item.title}</h3>
-                <p className="text-white/80">{item.description}</p>
+                <p className="text-white">{item.description}</p>
               </Card>
             ))}
           </div>

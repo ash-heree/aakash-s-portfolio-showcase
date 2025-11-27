@@ -180,10 +180,10 @@ const AchievementsSection = () => {
                   <h4 className="text-lg font-bold text-white mb-2 leading-tight">
                     {cert.title}
                   </h4>
-                  <p className="text-sm text-white/80 font-medium">
+                  <p className="text-sm text-white font-medium">
                     {cert.institution}
                   </p>
-                  <p className="text-xs text-white/60 mt-3">
+                  <p className="text-xs text-white mt-3">
                     Click to view details
                   </p>
                 </Card>
@@ -207,10 +207,10 @@ const AchievementsSection = () => {
                   <h4 className="text-lg font-bold text-white mb-2 leading-tight">
                     {workshop.title}
                   </h4>
-                  <p className="text-sm text-white/80 font-medium">
+                  <p className="text-sm text-white font-medium">
                     {workshop.institution}
                   </p>
-                  <p className="text-xs text-white/60 mt-3">
+                  <p className="text-xs text-white mt-3">
                     Click to view details
                   </p>
                 </Card>
@@ -234,10 +234,10 @@ const AchievementsSection = () => {
                   <h4 className="text-lg font-bold text-white mb-2 leading-tight">
                     {internship.title}
                   </h4>
-                  <p className="text-sm text-white/80 font-medium">
+                  <p className="text-sm text-white font-medium">
                     {internship.institution}
                   </p>
-                  <p className="text-xs text-white/60 mt-3">
+                  <p className="text-xs text-white mt-3">
                     Click to view details
                   </p>
                 </Card>

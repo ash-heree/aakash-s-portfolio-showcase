@@ -37,7 +37,6 @@ const SkillsSection = () => {
         backgroundAttachment: 'fixed',
       }}
     >
-      
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-4 text-white">
@@ -59,7 +58,7 @@ const SkillsSection = () => {
                   {category.skills.map((skill, idx) => (
                     <li
                       key={idx}
-                      className="text-white/80 flex items-center gap-2"
+                      className="text-white flex items-center gap-2"
                     >
                       <div className="w-1.5 h-1.5 rounded-full bg-white" />
                       {skill}

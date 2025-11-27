@@ -57,7 +57,7 @@ const ProjectsSection = () => {
                 <h3 className="text-2xl font-bold mb-3 text-white">
                   {project.title}
                 </h3>
-                <p className="text-white/80 mb-6 leading-relaxed">
+                <p className="text-white mb-6 leading-relaxed">
                   {project.description}
                 </p>
                 <div className="flex flex-wrap gap-2">
