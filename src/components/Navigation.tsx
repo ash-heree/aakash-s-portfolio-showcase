@@ -48,7 +48,7 @@ const Navigation = () => {
     >
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
-          <a href="#home" className="text-xl font-bold text-foreground">
+          <a href="#home" className="text-xl font-bold text-white" style={{ textShadow: '0 0 8px rgba(0, 0, 0, 0.8)' }}>
             Aakash S
           </a>
 
@@ -59,7 +59,8 @@ const Navigation = () => {
                 key={link.href}
                 href={link.href}
                 onClick={(e) => scrollToSection(e, link.href)}
-                className="text-sm font-medium text-foreground/80 hover:text-primary transition-colors"
+                className="text-sm font-medium text-white hover:text-[#8ECFFF] transition-colors"
+                style={{ textShadow: '0 0 8px rgba(0, 0, 0, 0.8)' }}
               >
                 {link.label}
               </a>
@@ -102,7 +103,8 @@ const Navigation = () => {
                 key={link.href}
                 href={link.href}
                 onClick={(e) => scrollToSection(e, link.href)}
-                className="block px-4 py-2 text-sm font-medium text-foreground/80 hover:text-primary transition-colors"
+                className="block px-4 py-2 text-sm font-medium text-white hover:text-[#8ECFFF] transition-colors"
+                style={{ textShadow: '0 0 8px rgba(0, 0, 0, 0.8)' }}
               >
                 {link.label}
               </a>

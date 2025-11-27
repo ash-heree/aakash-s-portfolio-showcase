@@ -24,8 +24,8 @@ const VolunteerSection = () => {
   ];
 
   return (
-    <section id="volunteer" className="py-20">
-      <div className="container mx-auto px-4">
+    <section id="volunteer" className="py-20 relative overflow-hidden">
+      <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-5xl mx-auto">
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-4 text-white">
             Volunteer & Campus Activities
@@ -44,7 +44,7 @@ const VolunteerSection = () => {
                 <h3 className="text-xl font-bold mb-3 text-white">
                   {activity.title}
                 </h3>
-                <p className="text-white/80 leading-relaxed">
+                <p className="text-white leading-relaxed">
                   {activity.description}
                 </p>
               </Card>

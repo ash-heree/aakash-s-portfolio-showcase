@@ -50,7 +50,7 @@ const ContactSection = () => {
           </h2>
           <div className="w-20 h-1 bg-white/50 mx-auto mb-12 rounded-full" />
 
-          <p className="text-lg text-white/90 text-center mb-12 leading-relaxed">
+          <p className="text-lg text-white text-center mb-12 leading-relaxed">
             I'm always open to discussing new opportunities, collaborations, or just 
             connecting with fellow tech enthusiasts. Feel free to reach out!
           </p>
@@ -66,7 +66,7 @@ const ContactSection = () => {
                     {info.icon}
                   </div>
                   <div className="flex-1">
-                    <p className="text-sm text-white/70 mb-1">{info.label}</p>
+                    <p className="text-sm text-white mb-1">{info.label}</p>
                     {info.href ? (
                       <a
                         href={info.href}

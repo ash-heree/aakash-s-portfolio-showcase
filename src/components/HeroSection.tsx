@@ -46,7 +46,8 @@ const HeroSection = () => {
               onClick={() =>
                 document.querySelector("#projects")?.scrollIntoView({ behavior: "smooth" })
               }
-              className="bg-black/40 border-white/30 text-white hover:bg-black/60 hover:border-white/50"
+              className="border-white/30 text-white hover:border-white/50"
+              style={{ backgroundColor: '#4A90E2' }}
             >
               View Projects
             </Button>

@@ -55,10 +55,10 @@ const ExperienceSection = () => {
                     <h3 className="text-xl font-bold text-white mb-1">
                       {exp.role}
                     </h3>
-                    <p className="text-white/80 font-medium mb-2">
+                    <p className="text-white font-medium mb-2">
                       {exp.organization} • {exp.location}
                     </p>
-                    <p className="text-white/70 leading-relaxed">
+                    <p className="text-white leading-relaxed">
                       {exp.description}
                     </p>
                   </div>
