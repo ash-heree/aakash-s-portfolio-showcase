@@ -25,7 +25,7 @@ const ExperienceSection = () => {
   return (
     <section 
       id="experience" 
-      className="py-20 relative overflow-hidden"
+      className="relative py-20 bg-gradient-to-b from-[#0a0f1f]/40 to-[#0a0f1f]/20 backdrop-blur-xl overflow-hidden"
       style={{
         backgroundImage: `url(${experienceBackground})`,
         backgroundSize: 'cover',
@@ -45,7 +45,7 @@ const ExperienceSection = () => {
             {experiences.map((exp, index) => (
               <Card
                 key={index}
-                className="p-6 hover:shadow-glow transition-all duration-300"
+                className="p-6"
               >
                 <div className="flex gap-4">
                   <div className="flex-shrink-0 w-12 h-12 rounded-full bg-accent/20 flex items-center justify-center text-accent">
