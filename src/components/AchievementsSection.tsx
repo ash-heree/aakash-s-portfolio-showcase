@@ -147,7 +147,7 @@ const AchievementsSection = () => {
   return (
     <section 
       id="achievements" 
-      className="py-20 relative overflow-hidden"
+      className="relative py-20 bg-gradient-to-b from-[#0a0f1f]/40 to-[#0a0f1f]/20 backdrop-blur-xl overflow-hidden"
       style={{
         backgroundImage: `url(${achievementsBackground})`,
         backgroundSize: 'cover',
@@ -173,7 +173,7 @@ const AchievementsSection = () => {
               {certifications.map((cert, index) => (
                 <Card
                   key={index}
-                  className="p-6 hover:shadow-glow transition-all duration-300 cursor-pointer group"
+                  className="p-6 cursor-pointer group"
                   onClick={() => setSelectedItem({ type: "certification", index })}
                 >
                   <Award className="h-10 w-10 text-accent mb-4 group-hover:scale-110 transition-transform duration-300" />
@@ -200,7 +200,7 @@ const AchievementsSection = () => {
               {workshops.map((workshop, index) => (
                 <Card
                   key={index}
-                  className="p-6 hover:shadow-glow transition-all duration-300 cursor-pointer group"
+                  className="p-6 cursor-pointer group"
                   onClick={() => setSelectedItem({ type: "workshop", index })}
                 >
                   <GraduationCap className="h-10 w-10 text-accent mb-4 group-hover:scale-110 transition-transform duration-300" />
@@ -227,7 +227,7 @@ const AchievementsSection = () => {
               {internships.map((internship, index) => (
                 <Card
                   key={index}
-                  className="p-6 hover:shadow-glow transition-all duration-300 cursor-pointer group"
+                  className="p-6 cursor-pointer group"
                   onClick={() => setSelectedItem({ type: "internship", index })}
                 >
                   <Briefcase className="h-10 w-10 text-accent mb-4 group-hover:scale-110 transition-transform duration-300" />

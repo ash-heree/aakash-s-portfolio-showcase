@@ -34,7 +34,7 @@ const ContactSection = () => {
   return (
     <section 
       id="contact" 
-      className="py-20 relative overflow-hidden"
+      className="relative py-20 bg-gradient-to-b from-[#0a0f1f]/40 to-[#0a0f1f]/20 backdrop-blur-xl overflow-hidden"
       style={{
         backgroundImage: `url(${contactBackground})`,
         backgroundSize: 'cover',
@@ -59,7 +59,7 @@ const ContactSection = () => {
             {contactInfo.map((info, index) => (
               <Card
                 key={index}
-                className="p-6 hover:shadow-glow transition-all duration-300"
+                className="p-6"
               >
                 <div className="flex items-start gap-4">
                   <div className="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center text-accent flex-shrink-0">
@@ -87,11 +87,11 @@ const ContactSection = () => {
 
           <div className="text-center">
             <Button
+              variant="glass"
               size="lg"
               onClick={() =>
                 window.open("https://www.linkedin.com/in/aakash-s-3710572b0", "_blank")
               }
-              className="shadow-glow"
             >
               <Linkedin className="h-5 w-5 mr-2" />
               Connect on LinkedIn

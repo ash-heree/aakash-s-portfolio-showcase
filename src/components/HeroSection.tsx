@@ -4,9 +4,9 @@ import heroBackground from "@/assets/hero-tech-bg.jpg";
 
 const HeroSection = () => {
   return (
-    <section
-      id="home"
-      className="min-h-screen flex items-center justify-center relative overflow-hidden"
+    <section 
+      id="home" 
+      className="min-h-screen flex items-center justify-center relative overflow-hidden py-20 bg-gradient-to-b from-[#0a0f1f]/40 to-[#0a0f1f]/20 backdrop-blur-xl"
       style={{
         backgroundImage: `url(${heroBackground})`,
         backgroundSize: 'cover',
@@ -41,13 +41,11 @@ const HeroSection = () => {
               Get In Touch
             </Button>
             <Button
-              variant="outline"
+              variant="glass"
               size="lg"
               onClick={() =>
                 document.querySelector("#projects")?.scrollIntoView({ behavior: "smooth" })
               }
-              className="border-white/30 text-white hover:border-white/50"
-              style={{ backgroundColor: '#4A90E2' }}
             >
               View Projects
             </Button>

@@ -24,7 +24,7 @@ const AboutSection = () => {
   return (
     <section 
       id="about" 
-      className="py-20 relative overflow-hidden"
+      className="relative py-20 bg-gradient-to-b from-[#0a0f1f]/40 to-[#0a0f1f]/20 backdrop-blur-xl overflow-hidden"
       style={{
         backgroundImage: `url(${aboutBackground})`,
         backgroundSize: 'cover',

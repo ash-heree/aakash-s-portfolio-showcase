@@ -29,7 +29,7 @@ const SkillsSection = () => {
   return (
     <section 
       id="skills" 
-      className="py-20 relative overflow-hidden"
+      className="relative py-20 bg-gradient-to-b from-[#0a0f1f]/40 to-[#0a0f1f]/20 backdrop-blur-xl overflow-hidden"
       style={{
         backgroundImage: `url(${skillsBackground})`,
         backgroundSize: 'cover',
@@ -48,7 +48,7 @@ const SkillsSection = () => {
             {skillCategories.map((category, index) => (
               <Card
                 key={index}
-                className="p-6 hover:shadow-glow transition-all duration-300 hover:-translate-y-1"
+                className="p-6"
               >
                 <div className="text-accent mb-4">{category.icon}</div>
                 <h3 className="text-xl font-semibold mb-4 text-white">

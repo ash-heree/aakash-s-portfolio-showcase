@@ -36,7 +36,7 @@ const EducationSection = () => {
   return (
     <section 
       id="education" 
-      className="py-20 relative overflow-hidden"
+      className="relative py-20 bg-gradient-to-b from-[#0a0f1f]/40 to-[#0a0f1f]/20 backdrop-blur-xl overflow-hidden"
       style={{
         backgroundImage: `url(${educationBackground})`,
         backgroundSize: 'cover',
@@ -62,23 +62,23 @@ const EducationSection = () => {
                   {/* Timeline dot */}
                   <div className="absolute left-6 top-6 w-4 h-4 rounded-full bg-white hidden md:block shadow-glow" />
 
-                  <Card className="md:ml-16 p-6 hover:shadow-glow transition-all duration-300">
+                  <Card className="md:ml-16 p-6">
                     <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-2">
-                      <h3 className="text-xl font-bold text-card-foreground">
+                      <h3 className="text-xl font-bold text-white">
                         {edu.degree}
                       </h3>
-                      <span className="text-sm font-medium text-primary">
+                      <span className="text-sm font-medium text-white/80">
                         {edu.period}
                       </span>
                     </div>
-                    <p className="text-muted-foreground font-medium mb-2">
+                    <p className="text-white/80 font-medium mb-2">
                       {edu.institution}
                     </p>
                     <div className="flex gap-4 items-center">
-                      <span className="text-sm text-muted-foreground">
+                      <span className="text-sm text-white/80">
                         {edu.status}
                       </span>
-                      <span className="text-sm font-medium text-accent">
+                      <span className="text-sm font-medium text-white">
                         {edu.percentage}
                       </span>
                     </div>
