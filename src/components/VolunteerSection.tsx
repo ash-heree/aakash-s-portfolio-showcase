@@ -1,6 +1,6 @@
 import { Card } from "@/components/ui/card";
 import { Heart, Image, FolderTree } from "lucide-react";
-import skillsBackground from "@/assets/skills-tech-bg.jpg";
+import aboutBackground from "@/assets/about-tech-bg.jpg";
 
 const VolunteerSection = () => {
   const activities = [
@@ -29,7 +29,7 @@ const VolunteerSection = () => {
       id="volunteer" 
       className="relative py-20 bg-gradient-to-b from-[#0a0f1f]/40 to-[#0a0f1f]/20 backdrop-blur-xl overflow-hidden"
       style={{
-        backgroundImage: `url(${skillsBackground})`,
+        backgroundImage: `url(${aboutBackground})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundAttachment: 'fixed',
