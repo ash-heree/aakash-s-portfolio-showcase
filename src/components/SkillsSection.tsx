@@ -1,5 +1,6 @@
 import { Card } from "@/components/ui/card";
 import { Code2, FileImage, GitBranch, Laptop } from "lucide-react";
+import { motion } from "framer-motion";
 import aboutBackground from "@/assets/about-tech-bg.jpg";
 
 const SkillsSection = () => {
@@ -39,33 +40,43 @@ const SkillsSection = () => {
     >
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-4 text-white">
-            Skills & Expertise
-          </h2>
-          <div className="w-20 h-1 bg-white/50 mx-auto mb-12 rounded-full" />
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+          >
+            <h2 className="section-title">Skills & Expertise</h2>
+            <div className="section-divider" />
+          </motion.div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {skillCategories.map((category, index) => (
-              <Card
+              <motion.div
                 key={index}
-                className="p-6 hover:shadow-glow transition-all duration-300 hover:-translate-y-1"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-30px" }}
+                transition={{ duration: 0.5, delay: index * 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
               >
-                <div className="text-accent mb-4">{category.icon}</div>
-                <h3 className="text-xl font-semibold mb-4 text-white">
-                  {category.title}
-                </h3>
-                <ul className="space-y-2">
-                  {category.skills.map((skill, idx) => (
-                    <li
-                      key={idx}
-                      className="text-white flex items-center gap-2"
-                    >
-                      <div className="w-1.5 h-1.5 rounded-full bg-white" />
-                      {skill}
-                    </li>
-                  ))}
-                </ul>
-              </Card>
+                <Card className="p-6 h-full">
+                  <div className="text-accent mb-4 icon-hover">{category.icon}</div>
+                  <h3 className="text-xl font-semibold mb-4 text-white">
+                    {category.title}
+                  </h3>
+                  <ul className="space-y-2">
+                    {category.skills.map((skill, idx) => (
+                      <li
+                        key={idx}
+                        className="text-white/90 flex items-center gap-2"
+                      >
+                        <div className="w-1.5 h-1.5 rounded-full bg-accent/80" />
+                        {skill}
+                      </li>
+                    ))}
+                  </ul>
+                </Card>
+              </motion.div>
             ))}
           </div>
         </div>
