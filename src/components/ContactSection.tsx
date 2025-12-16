@@ -1,6 +1,7 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Mail, Phone, MapPin, Linkedin } from "lucide-react";
+import { motion } from "framer-motion";
 import contactBackground from "@/assets/contact-tech-bg.jpg";
 
 const ContactSection = () => {
@@ -45,58 +46,75 @@ const ContactSection = () => {
       
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-4 text-white">
-            Get In Touch
-          </h2>
-          <div className="w-20 h-1 bg-white/50 mx-auto mb-12 rounded-full" />
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+          >
+            <h2 className="section-title">Get In Touch</h2>
+            <div className="section-divider" />
 
-          <p className="text-lg text-white text-center mb-12 leading-relaxed">
-            I'm always open to discussing new opportunities, collaborations, or just 
-            connecting with fellow tech enthusiasts. Feel free to reach out!
-          </p>
+            <p className="text-lg text-white/90 text-center mb-12 leading-relaxed">
+              I'm always open to discussing new opportunities, collaborations, or just 
+              connecting with fellow tech enthusiasts. Feel free to reach out!
+            </p>
+          </motion.div>
 
           <div className="grid md:grid-cols-2 gap-6 mb-8">
             {contactInfo.map((info, index) => (
-              <Card
+              <motion.div
                 key={index}
-                className="p-6"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-30px" }}
+                transition={{ duration: 0.5, delay: index * 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
               >
-                <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center text-accent flex-shrink-0">
-                    {info.icon}
+                <Card className="p-6">
+                  <div className="flex items-start gap-4">
+                    <div className="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center text-accent flex-shrink-0 icon-hover">
+                      {info.icon}
+                    </div>
+                    <div className="flex-1">
+                      <p className="text-sm text-white/70 mb-1">{info.label}</p>
+                      {info.href ? (
+                        <a
+                          href={info.href}
+                          target={info.href.startsWith("http") ? "_blank" : undefined}
+                          rel={info.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                          className="text-white font-medium hover:text-accent transition-colors duration-300"
+                        >
+                          {info.value}
+                        </a>
+                      ) : (
+                        <p className="text-white font-medium">{info.value}</p>
+                      )}
+                    </div>
                   </div>
-                  <div className="flex-1">
-                    <p className="text-sm text-white mb-1">{info.label}</p>
-                    {info.href ? (
-                      <a
-                        href={info.href}
-                        target={info.href.startsWith("http") ? "_blank" : undefined}
-                        rel={info.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                        className="text-white font-medium hover:text-accent transition-colors"
-                      >
-                        {info.value}
-                      </a>
-                    ) : (
-                      <p className="text-white font-medium">{info.value}</p>
-                    )}
-                  </div>
-                </div>
-              </Card>
+                </Card>
+              </motion.div>
             ))}
           </div>
 
-          <div className="text-center">
+          <motion.div 
+            className="text-center"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-30px" }}
+            transition={{ duration: 0.5, delay: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
+          >
             <Button
               variant="glass"
               size="lg"
               onClick={() =>
                 window.open("https://www.linkedin.com/in/aakash-s-3710572b0", "_blank")
               }
+              className="btn-premium"
             >
               <Linkedin className="h-5 w-5 mr-2" />
               Connect on LinkedIn
             </Button>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

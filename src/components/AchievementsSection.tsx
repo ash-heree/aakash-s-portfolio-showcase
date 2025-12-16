@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { useState, useRef } from "react";
+import { motion } from "framer-motion";
 import achievementsBackground from "@/assets/achievements-tech-bg.jpg";
 
 interface Achievement {
@@ -159,88 +160,132 @@ const AchievementsSection = () => {
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-6xl mx-auto">
           {/* Main Section Title */}
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-4 text-white">
-            Achievements
-          </h2>
-          <div className="w-20 h-1 bg-white/50 mx-auto mb-16 rounded-full" />
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+          >
+            <h2 className="section-title">Achievements</h2>
+            <div className="section-divider mb-16" />
+          </motion.div>
 
           {/* Certifications Subsection */}
           <div className="mb-16">
-            <h3 className="text-3xl font-bold text-center mb-8 text-white">
+            <motion.h3 
+              className="text-3xl font-bold text-center mb-8 text-white"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+            >
               Certifications
-            </h3>
+            </motion.h3>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {certifications.map((cert, index) => (
-                <Card
+                <motion.div
                   key={index}
-                  className="p-6 cursor-pointer group"
-                  onClick={() => setSelectedItem({ type: "certification", index })}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-30px" }}
+                  transition={{ duration: 0.5, delay: index * 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
                 >
-                  <Award className="h-10 w-10 text-accent mb-4 group-hover:scale-110 transition-transform duration-300" />
-                  <h4 className="text-lg font-bold text-white mb-2 leading-tight">
-                    {cert.title}
-                  </h4>
-                  <p className="text-sm text-white font-medium">
-                    {cert.institution}
-                  </p>
-                  <p className="text-xs text-white mt-3">
-                    Click to view details
-                  </p>
-                </Card>
+                  <Card
+                    className="p-6 cursor-pointer group h-full"
+                    onClick={() => setSelectedItem({ type: "certification", index })}
+                  >
+                    <Award className="h-10 w-10 text-accent mb-4 group-hover:scale-110 transition-transform duration-300" />
+                    <h4 className="text-lg font-bold text-white mb-2 leading-tight">
+                      {cert.title}
+                    </h4>
+                    <p className="text-sm text-white/80 font-medium">
+                      {cert.institution}
+                    </p>
+                    <p className="text-xs text-white/60 mt-3">
+                      Click to view details
+                    </p>
+                  </Card>
+                </motion.div>
               ))}
             </div>
           </div>
 
           {/* Workshops Subsection */}
           <div className="mb-16">
-            <h3 className="text-3xl font-bold text-center mb-8 text-white">
+            <motion.h3 
+              className="text-3xl font-bold text-center mb-8 text-white"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+            >
               Workshops
-            </h3>
+            </motion.h3>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {workshops.map((workshop, index) => (
-                <Card
+                <motion.div
                   key={index}
-                  className="p-6 cursor-pointer group"
-                  onClick={() => setSelectedItem({ type: "workshop", index })}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-30px" }}
+                  transition={{ duration: 0.5, delay: index * 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
                 >
-                  <GraduationCap className="h-10 w-10 text-accent mb-4 group-hover:scale-110 transition-transform duration-300" />
-                  <h4 className="text-lg font-bold text-white mb-2 leading-tight">
-                    {workshop.title}
-                  </h4>
-                  <p className="text-sm text-white font-medium">
-                    {workshop.institution}
-                  </p>
-                  <p className="text-xs text-white mt-3">
-                    Click to view details
-                  </p>
-                </Card>
+                  <Card
+                    className="p-6 cursor-pointer group h-full"
+                    onClick={() => setSelectedItem({ type: "workshop", index })}
+                  >
+                    <GraduationCap className="h-10 w-10 text-accent mb-4 group-hover:scale-110 transition-transform duration-300" />
+                    <h4 className="text-lg font-bold text-white mb-2 leading-tight">
+                      {workshop.title}
+                    </h4>
+                    <p className="text-sm text-white/80 font-medium">
+                      {workshop.institution}
+                    </p>
+                    <p className="text-xs text-white/60 mt-3">
+                      Click to view details
+                    </p>
+                  </Card>
+                </motion.div>
               ))}
             </div>
           </div>
 
           {/* Internships Subsection */}
           <div>
-            <h3 className="text-3xl font-bold text-center mb-8 text-white">
+            <motion.h3 
+              className="text-3xl font-bold text-center mb-8 text-white"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+            >
               Internships
-            </h3>
+            </motion.h3>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {internships.map((internship, index) => (
-                <Card
+                <motion.div
                   key={index}
-                  className="p-6 cursor-pointer group"
-                  onClick={() => setSelectedItem({ type: "internship", index })}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-30px" }}
+                  transition={{ duration: 0.5, delay: index * 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
                 >
-                  <Briefcase className="h-10 w-10 text-accent mb-4 group-hover:scale-110 transition-transform duration-300" />
-                  <h4 className="text-lg font-bold text-white mb-2 leading-tight">
-                    {internship.title}
-                  </h4>
-                  <p className="text-sm text-white font-medium">
-                    {internship.institution}
-                  </p>
-                  <p className="text-xs text-white mt-3">
-                    Click to view details
-                  </p>
-                </Card>
+                  <Card
+                    className="p-6 cursor-pointer group h-full"
+                    onClick={() => setSelectedItem({ type: "internship", index })}
+                  >
+                    <Briefcase className="h-10 w-10 text-accent mb-4 group-hover:scale-110 transition-transform duration-300" />
+                    <h4 className="text-lg font-bold text-white mb-2 leading-tight">
+                      {internship.title}
+                    </h4>
+                    <p className="text-sm text-white/80 font-medium">
+                      {internship.institution}
+                    </p>
+                    <p className="text-xs text-white/60 mt-3">
+                      Click to view details
+                    </p>
+                  </Card>
+                </motion.div>
               ))}
             </div>
           </div>
