@@ -48,7 +48,7 @@ const SkillsSection = () => {
             {skillCategories.map((category, index) => (
               <Card
                 key={index}
-                className="p-6"
+                className="p-6 hover:shadow-glow transition-all duration-300 hover:-translate-y-1"
               >
                 <div className="text-accent mb-4">{category.icon}</div>
                 <h3 className="text-xl font-semibold mb-4 text-white">
