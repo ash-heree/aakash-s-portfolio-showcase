@@ -1,6 +1,6 @@
 import { Card } from "@/components/ui/card";
 import { Code2, FileImage, GitBranch, Laptop } from "lucide-react";
-import skillsBackground from "@/assets/skills-tech-bg.jpg";
+import aboutBackground from "@/assets/about-tech-bg.jpg";
 
 const SkillsSection = () => {
   const skillCategories = [
@@ -31,7 +31,7 @@ const SkillsSection = () => {
       id="skills" 
       className="relative py-20 bg-gradient-to-b from-[#0a0f1f]/40 to-[#0a0f1f]/20 backdrop-blur-xl overflow-hidden"
       style={{
-        backgroundImage: `url(${skillsBackground})`,
+        backgroundImage: `url(${aboutBackground})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundAttachment: 'fixed',
