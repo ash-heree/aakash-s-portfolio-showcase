@@ -10,14 +10,14 @@ const HeroSection = () => {
   const headingHoverEffect: TargetAndTransition | undefined = isMobile ? undefined : {
     scale: 1.03,
     y: -3,
-    textShadow: "0 0 25px hsl(var(--primary) / 0.6)",
+    filter: "drop-shadow(0 0 20px hsl(200, 100%, 60%)) drop-shadow(0 0 40px hsl(200, 100%, 50%))",
     transition: { duration: 0.25, ease: "easeInOut" as const }
   };
 
   const subtitleHoverEffect: TargetAndTransition | undefined = isMobile ? undefined : {
     scale: 1.02,
     y: -2,
-    textShadow: "0 0 20px hsl(var(--accent) / 0.5)",
+    textShadow: "0 0 20px rgba(255, 255, 255, 0.6), 0 0 40px rgba(255, 255, 255, 0.3)",
     transition: { duration: 0.25, ease: "easeInOut" as const }
   };
 
