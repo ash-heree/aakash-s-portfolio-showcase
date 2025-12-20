@@ -57,10 +57,11 @@ const Navigation = () => {
                 key={link.href}
                 href={link.href}
                 onClick={(e) => scrollToSection(e, link.href)}
-                className="text-sm font-medium text-white hover:text-[#8ECFFF] transition-colors"
+                className="relative text-sm font-medium text-white transition-all duration-250 ease-in-out hover:text-[#8ECFFF] hover:-translate-y-0.5 group"
                 style={{ textShadow: '0 0 8px rgba(0, 0, 0, 0.8)' }}
               >
                 {link.label}
+                <span className="absolute left-0 -bottom-1 w-full h-0.5 bg-gradient-to-r from-[#8ECFFF] to-[#60a5fa] transform scale-x-0 transition-transform duration-250 ease-in-out origin-left group-hover:scale-x-100" />
               </a>
             ))}
             <Button
