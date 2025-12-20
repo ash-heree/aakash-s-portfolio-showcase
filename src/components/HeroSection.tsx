@@ -23,16 +23,28 @@ const HeroSection = () => {
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
+            whileHover={{ 
+              scale: 1.03, 
+              y: -3,
+              textShadow: "0 0 20px hsl(var(--primary) / 0.5)",
+              transition: { duration: 0.25, ease: "easeInOut" }
+            }}
             transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
-            className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-primary via-accent to-secondary bg-clip-text text-transparent"
+            className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-primary via-accent to-secondary bg-clip-text text-transparent cursor-default md:cursor-pointer"
           >
             Aakash S
           </motion.h1>
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
+            whileHover={{ 
+              scale: 1.02, 
+              y: -2,
+              textShadow: "0 0 15px hsl(var(--accent) / 0.4)",
+              transition: { duration: 0.25, ease: "easeInOut" }
+            }}
             transition={{ duration: 0.8, delay: 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
-            className="text-2xl md:text-3xl font-semibold text-white mb-8"
+            className="text-2xl md:text-3xl font-semibold text-white mb-8 cursor-default md:cursor-pointer"
           >
             Entry-Level IT Professional
           </motion.h2>
