@@ -57,11 +57,12 @@ const Navigation = () => {
                 key={link.href}
                 href={link.href}
                 onClick={(e) => scrollToSection(e, link.href)}
-                className="relative text-sm font-medium text-white transition-all duration-250 ease-in-out hover:text-[#8ECFFF] hover:-translate-y-0.5 group"
+                className="relative px-3 py-1.5 text-sm font-medium text-white transition-all duration-300 ease-in-out hover:text-[#8ECFFF] hover:-translate-y-0.5 group rounded-lg"
                 style={{ textShadow: '0 0 8px rgba(0, 0, 0, 0.8)' }}
               >
-                {link.label}
-                <span className="absolute left-0 -bottom-1 w-full h-0.5 bg-gradient-to-r from-[#8ECFFF] to-[#60a5fa] transform scale-x-0 transition-transform duration-250 ease-in-out origin-left group-hover:scale-x-100" />
+                {/* Glassmorphism background layer */}
+                <span className="absolute inset-0 rounded-lg bg-white/0 backdrop-blur-0 border border-transparent transition-all duration-300 ease-in-out group-hover:bg-white/10 group-hover:backdrop-blur-md group-hover:border-white/20 group-hover:shadow-[0_0_15px_rgba(142,207,255,0.3)]" />
+                <span className="relative z-10">{link.label}</span>
               </a>
             ))}
             <Button
