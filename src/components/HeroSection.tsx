@@ -1,9 +1,26 @@
 import { ArrowDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { motion } from "framer-motion";
+import { motion, type TargetAndTransition } from "framer-motion";
 import heroBackground from "@/assets/hero-tech-bg.jpg";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const HeroSection = () => {
+  const isMobile = useIsMobile();
+
+  const headingHoverEffect: TargetAndTransition | undefined = isMobile ? undefined : {
+    scale: 1.03,
+    y: -3,
+    textShadow: "0 0 25px hsl(var(--primary) / 0.6)",
+    transition: { duration: 0.25, ease: "easeInOut" as const }
+  };
+
+  const subtitleHoverEffect: TargetAndTransition | undefined = isMobile ? undefined : {
+    scale: 1.02,
+    y: -2,
+    textShadow: "0 0 20px hsl(var(--accent) / 0.5)",
+    transition: { duration: 0.25, ease: "easeInOut" as const }
+  };
+
   return (
     <section 
       id="home" 
@@ -23,28 +40,18 @@ const HeroSection = () => {
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            whileHover={{ 
-              scale: 1.03, 
-              y: -3,
-              textShadow: "0 0 20px hsl(var(--primary) / 0.5)",
-              transition: { duration: 0.25, ease: "easeInOut" }
-            }}
+            whileHover={headingHoverEffect}
             transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
-            className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-primary via-accent to-secondary bg-clip-text text-transparent cursor-default md:cursor-pointer"
+            className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-primary via-accent to-secondary bg-clip-text text-transparent cursor-default md:cursor-pointer select-none"
           >
             Aakash S
           </motion.h1>
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            whileHover={{ 
-              scale: 1.02, 
-              y: -2,
-              textShadow: "0 0 15px hsl(var(--accent) / 0.4)",
-              transition: { duration: 0.25, ease: "easeInOut" }
-            }}
+            whileHover={subtitleHoverEffect}
             transition={{ duration: 0.8, delay: 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
-            className="text-2xl md:text-3xl font-semibold text-white mb-8 cursor-default md:cursor-pointer"
+            className="text-2xl md:text-3xl font-semibold text-white mb-8 cursor-default md:cursor-pointer select-none"
           >
             Entry-Level IT Professional
           </motion.h2>
