@@ -116,7 +116,7 @@ const Navigation = () => {
           </a>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-1">
+          <div className="hidden md:flex items-center gap-2">
             {navLinks.map((link) => {
               const isActive = activeSection === link.href.replace("#", "");
               return (
@@ -124,58 +124,78 @@ const Navigation = () => {
                   key={link.href}
                   href={link.href}
                   onClick={(e) => scrollToSection(e, link.href)}
-                  className="relative px-5 py-2.5 text-[13px] font-medium tracking-[0.08em] uppercase text-white/75 transition-colors duration-300 hover:text-white group"
+                  className="relative px-4 py-2 text-[12px] font-semibold tracking-[0.1em] uppercase text-white/90 transition-all duration-300 hover:text-white group"
                   style={{ 
-                    textShadow: '0 2px 10px rgba(0, 0, 0, 0.4), 0 0 30px rgba(142, 207, 255, 0.1)',
                     fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif",
                   }}
-                  whileHover={{ y: -2 }}
-                  transition={{ duration: 0.3, ease: "easeOut" }}
+                  whileHover={{ y: -3, scale: 1.02 }}
+                  transition={{ duration: 0.35, ease: [0.25, 0.46, 0.45, 0.94] }}
                 >
-                  {/* Glass capsule background */}
+                  {/* Premium glass capsule - always visible */}
                   <motion.span
-                    className="absolute inset-0 rounded-full"
+                    className="absolute inset-0 rounded-full border"
                     initial={false}
                     animate={{
-                      backgroundColor: isActive ? "rgba(255, 255, 255, 0.1)" : "rgba(255, 255, 255, 0)",
-                      backdropFilter: isActive ? "blur(12px)" : "blur(0px)",
+                      backgroundColor: isActive 
+                        ? "rgba(142, 207, 255, 0.12)" 
+                        : "rgba(255, 255, 255, 0.06)",
+                      borderColor: isActive 
+                        ? "rgba(142, 207, 255, 0.35)" 
+                        : "rgba(255, 255, 255, 0.12)",
                       boxShadow: isActive 
-                        ? "0 0 20px rgba(142, 207, 255, 0.2), inset 0 0 20px rgba(255, 255, 255, 0.05)" 
-                        : "none",
-                      borderWidth: 1,
-                      borderColor: isActive ? "rgba(255, 255, 255, 0.15)" : "transparent",
+                        ? "0 0 25px rgba(142, 207, 255, 0.25), inset 0 1px 1px rgba(255, 255, 255, 0.15), 0 4px 15px rgba(0, 0, 0, 0.2)" 
+                        : "inset 0 1px 1px rgba(255, 255, 255, 0.08), 0 2px 10px rgba(0, 0, 0, 0.15)",
                     }}
                     transition={{ duration: 0.4, ease: "easeOut" }}
+                    style={{
+                      backdropFilter: "blur(12px)",
+                      WebkitBackdropFilter: "blur(12px)",
+                    }}
                   />
                   
-                  {/* Hover glass effect */}
-                  <span className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 ease-out bg-white/8 backdrop-blur-md border border-white/15 shadow-[0_0_25px_rgba(142,207,255,0.15),inset_0_0_15px_rgba(255,255,255,0.03)]" 
+                  {/* Enhanced hover glass effect */}
+                  <motion.span 
+                    className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-350 ease-out border"
                     style={{ 
-                      background: "linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%)" 
+                      background: "linear-gradient(135deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.05) 50%, rgba(142, 207, 255, 0.1) 100%)",
+                      backdropFilter: "blur(16px)",
+                      WebkitBackdropFilter: "blur(16px)",
+                      borderColor: "rgba(255, 255, 255, 0.25)",
+                      boxShadow: "0 0 30px rgba(142, 207, 255, 0.2), inset 0 1px 2px rgba(255, 255, 255, 0.2), 0 8px 25px rgba(0, 0, 0, 0.25)",
+                    }}
+                  />
+
+                  {/* Inner glow accent */}
+                  <span 
+                    className="absolute inset-[1px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    style={{
+                      background: "linear-gradient(180deg, rgba(255, 255, 255, 0.1) 0%, transparent 50%)",
                     }}
                   />
 
                   {/* Text with premium styling */}
                   <span 
-                    className="relative z-10 transition-all duration-300 group-hover:text-white"
+                    className="relative z-10 transition-all duration-300"
                     style={{
                       textShadow: isActive 
-                        ? '0 0 20px rgba(142, 207, 255, 0.6), 0 0 40px rgba(142, 207, 255, 0.3)' 
-                        : 'inherit',
+                        ? '0 0 20px rgba(142, 207, 255, 0.7), 0 0 40px rgba(142, 207, 255, 0.4)' 
+                        : '0 2px 8px rgba(0, 0, 0, 0.4)',
                     }}
                   >
                     {link.label}
                   </span>
 
-                  {/* Active indicator glow */}
+                  {/* Active indicator dot with glow */}
                   {isActive && (
                     <motion.span
-                      className="absolute bottom-0 left-1/2 w-1 h-1 rounded-full bg-cyan-400"
+                      className="absolute -bottom-1 left-1/2 w-1.5 h-1.5 rounded-full"
                       layoutId="activeIndicator"
-                      initial={{ opacity: 0 }}
+                      initial={{ opacity: 0, scale: 0 }}
                       animate={{ 
                         opacity: 1,
-                        boxShadow: "0 0 10px rgba(103, 232, 249, 0.8), 0 0 20px rgba(103, 232, 249, 0.4)",
+                        scale: 1,
+                        backgroundColor: "rgb(103, 232, 249)",
+                        boxShadow: "0 0 12px rgba(103, 232, 249, 0.9), 0 0 25px rgba(103, 232, 249, 0.5), 0 0 40px rgba(103, 232, 249, 0.3)",
                       }}
                       transition={{ duration: 0.4, ease: "easeOut" }}
                       style={{ transform: "translateX(-50%)" }}

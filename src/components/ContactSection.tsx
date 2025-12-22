@@ -1,6 +1,6 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Mail, Phone, MapPin, Linkedin } from "lucide-react";
+import { Mail, Phone, MapPin, Linkedin, Github } from "lucide-react";
 import { motion } from "framer-motion";
 import contactBackground from "@/assets/contact-tech-bg.jpg";
 
@@ -29,6 +29,12 @@ const ContactSection = () => {
       label: "LinkedIn",
       value: "Connect on LinkedIn",
       href: "https://www.linkedin.com/in/aakash-s-3710572b0",
+    },
+    {
+      icon: <Github className="h-5 w-5" />,
+      label: "GitHub",
+      value: "View My Projects",
+      href: "https://github.com/Aakassh03",
     },
   ];
 
