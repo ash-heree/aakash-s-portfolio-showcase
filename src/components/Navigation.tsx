@@ -124,8 +124,11 @@ const Navigation = () => {
                   key={link.href}
                   href={link.href}
                   onClick={(e) => scrollToSection(e, link.href)}
-                  className="relative px-4 py-2 text-sm font-medium text-white/80 transition-colors duration-300 hover:text-white group"
-                  style={{ textShadow: '0 0 8px rgba(0, 0, 0, 0.5)' }}
+                  className="relative px-5 py-2.5 text-[13px] font-medium tracking-[0.08em] uppercase text-white/75 transition-colors duration-300 hover:text-white group"
+                  style={{ 
+                    textShadow: '0 2px 10px rgba(0, 0, 0, 0.4), 0 0 30px rgba(142, 207, 255, 0.1)',
+                    fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif",
+                  }}
                   whileHover={{ y: -2 }}
                   transition={{ duration: 0.3, ease: "easeOut" }}
                 >
@@ -152,8 +155,17 @@ const Navigation = () => {
                     }}
                   />
 
-                  {/* Text */}
-                  <span className="relative z-10">{link.label}</span>
+                  {/* Text with premium styling */}
+                  <span 
+                    className="relative z-10 transition-all duration-300 group-hover:text-white"
+                    style={{
+                      textShadow: isActive 
+                        ? '0 0 20px rgba(142, 207, 255, 0.6), 0 0 40px rgba(142, 207, 255, 0.3)' 
+                        : 'inherit',
+                    }}
+                  >
+                    {link.label}
+                  </span>
 
                   {/* Active indicator glow */}
                   {isActive && (
