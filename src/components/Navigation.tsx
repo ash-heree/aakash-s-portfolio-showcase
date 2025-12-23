@@ -108,49 +108,12 @@ const Navigation = () => {
         onMouseEnter={() => setIsHoveringNav(true)}
         onMouseLeave={() => setIsHoveringNav(false)}
       >
-        {/* Command bar glass background with noise texture */}
+        {/* Subtle ambient backdrop - no visible container */}
         <div 
-          className="absolute inset-0 rounded-2xl overflow-hidden"
+          className="absolute inset-0 pointer-events-none"
           style={{
-            background: "linear-gradient(135deg, rgba(8, 12, 28, 0.75) 0%, rgba(15, 20, 40, 0.65) 50%, rgba(8, 12, 28, 0.75) 100%)",
-            backdropFilter: `blur(${navBlur}px) saturate(200%)`,
-            WebkitBackdropFilter: `blur(24px) saturate(200%)`,
-            border: "1px solid rgba(103, 232, 249, 0.12)",
-            boxShadow: `
-              0 0 0 1px rgba(255, 255, 255, 0.03) inset,
-              0 0 60px rgba(103, 232, 249, 0.08),
-              0 25px 50px -12px rgba(0, 0, 0, 0.5),
-              0 0 1px rgba(103, 232, 249, 0.5)
-            `,
-          }}
-        >
-          {/* Noise texture overlay */}
-          <div 
-            className="absolute inset-0 opacity-[0.03]"
-            style={{
-              backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
-            }}
-          />
-          
-          {/* Inner glow */}
-          <div 
-            className="absolute inset-0"
-            style={{
-              background: "linear-gradient(180deg, rgba(255, 255, 255, 0.04) 0%, transparent 50%)",
-              borderRadius: "1rem",
-            }}
-          />
-        </div>
-
-        {/* Glowing border effect */}
-        <div 
-          className="absolute -inset-[1px] rounded-2xl opacity-60"
-          style={{
-            background: "linear-gradient(135deg, rgba(103, 232, 249, 0.3) 0%, transparent 25%, transparent 75%, rgba(139, 92, 246, 0.2) 100%)",
-            mask: "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
-            maskComposite: "exclude",
-            WebkitMaskComposite: "xor",
-            padding: "1px",
+            backdropFilter: `blur(${navBlur}px) saturate(150%)`,
+            WebkitBackdropFilter: `blur(24px) saturate(150%)`,
           }}
         />
 
