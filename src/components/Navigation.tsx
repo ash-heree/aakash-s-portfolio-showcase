@@ -97,8 +97,8 @@ const Navigation = () => {
   return (
     <motion.nav
       ref={navRef}
-      className="fixed top-0 left-0 right-0 z-50 flex justify-center"
-      style={{ paddingTop: navPadding, paddingBottom: navPadding }}
+      className="relative w-full z-50 flex justify-center"
+      style={{ paddingTop: 20, paddingBottom: 20 }}
     >
       {/* Desktop Command Bar */}
       <motion.div
