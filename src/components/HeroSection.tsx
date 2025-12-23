@@ -43,17 +43,28 @@ const HeroSection = () => {
         className="absolute inset-0"
         style={{ y: backgroundY }}
       >
-        {/* Base gradient */}
+        {/* Premium background image with overlay */}
         <div 
           className="absolute inset-0"
           style={{
-            background: "linear-gradient(135deg, #050810 0%, #0a0f1f 25%, #0d1225 50%, #080c18 75%, #050810 100%)",
+            backgroundImage: "url('/src/assets/hero-tech-bg.jpg')",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            filter: "blur(1px)",
+          }}
+        />
+        
+        {/* Dark overlay for text readability */}
+        <div 
+          className="absolute inset-0"
+          style={{
+            background: "linear-gradient(135deg, rgba(5, 8, 16, 0.85) 0%, rgba(10, 15, 31, 0.8) 25%, rgba(13, 18, 37, 0.75) 50%, rgba(8, 12, 24, 0.8) 75%, rgba(5, 8, 16, 0.9) 100%)",
           }}
         />
 
         {/* Abstract grid with depth */}
         <div 
-          className="absolute inset-0 opacity-[0.15]"
+          className="absolute inset-0 opacity-[0.12]"
           style={{
             backgroundImage: `
               linear-gradient(rgba(103, 232, 249, 0.1) 1px, transparent 1px),
