@@ -103,17 +103,18 @@ const Navigation = () => {
       {/* Desktop Command Bar */}
       <motion.div
         ref={commandBarRef}
-        className="hidden lg:flex items-center relative mx-4"
+        className="hidden lg:flex items-center justify-between w-full px-8"
         style={{ scale: navScale }}
         onMouseEnter={() => setIsHoveringNav(true)}
         onMouseLeave={() => setIsHoveringNav(false)}
       >
-        {/* Subtle ambient backdrop - no visible container */}
+        {/* Subtle translucent backdrop - light glass effect */}
         <div 
-          className="absolute inset-0 pointer-events-none"
+          className="absolute inset-0 pointer-events-none rounded-2xl"
           style={{
-            backdropFilter: `blur(${navBlur}px) saturate(150%)`,
-            WebkitBackdropFilter: `blur(24px) saturate(150%)`,
+            background: "rgba(8, 12, 28, 0.3)",
+            backdropFilter: `blur(${navBlur}px) saturate(120%)`,
+            WebkitBackdropFilter: `blur(24px) saturate(120%)`,
           }}
         />
 
@@ -144,16 +145,13 @@ const Navigation = () => {
           )}
         </AnimatePresence>
 
-        {/* Logo */}
-        <a href="#home" className="relative z-10 pl-5 pr-4">
+        {/* Logo - positioned at left edge */}
+        <a href="#home" className="relative z-10 flex-shrink-0">
           <TechLogo />
         </a>
 
-        {/* Separator */}
-        <div className="h-5 w-px bg-gradient-to-b from-transparent via-white/10 to-transparent" />
-
-        {/* Navigation items container */}
-        <div className="relative flex items-center px-2 py-2.5">
+        {/* Navigation items container - centered */}
+        <div className="relative flex items-center px-2 py-2.5 mx-auto">
           {/* Liquid glass active indicator */}
           <motion.div
             className="absolute h-8 rounded-xl pointer-events-none"
@@ -215,11 +213,8 @@ const Navigation = () => {
           })}
         </div>
 
-        {/* Separator */}
-        <div className="h-5 w-px bg-gradient-to-b from-transparent via-white/10 to-transparent" />
-
-        {/* Theme toggle */}
-        <div className="relative z-10 px-4">
+        {/* Theme toggle - positioned at right edge */}
+        <div className="relative z-10 flex-shrink-0">
           <motion.button
             onClick={toggleTheme}
             className="p-2 rounded-lg text-white/40 hover:text-white/70 transition-colors duration-300"
