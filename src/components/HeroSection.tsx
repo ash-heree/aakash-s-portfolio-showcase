@@ -37,176 +37,210 @@ const HeroSection = () => {
       id="home" 
       className="min-h-screen flex items-center justify-center relative overflow-hidden"
     >
-      {/* Deep dark premium tech backdrop */}
+      {/* NEW Premium Cinematic Tech Backdrop - Complete Override */}
       <motion.div 
         className="absolute inset-0"
         style={{ y: backgroundY }}
       >
-        {/* Base gradient - deep dark with tech colors */}
+        {/* Ultra deep cinematic base - darker with teal/navy undertones */}
         <div 
           className="absolute inset-0"
           style={{
-            background: "linear-gradient(135deg, #020408 0%, #050a14 15%, #0a1628 35%, #061220 55%, #041018 75%, #020408 100%)",
+            background: "linear-gradient(180deg, #000810 0%, #001020 25%, #002035 50%, #001525 75%, #000510 100%)",
           }}
         />
         
-        {/* Animated gradient overlay */}
+        {/* Primary aurora effect - teal and cyan sweep */}
         <motion.div 
           className="absolute inset-0"
           animate={{
-            background: [
-              "radial-gradient(ellipse 80% 60% at 20% 30%, rgba(6, 78, 117, 0.25) 0%, transparent 60%)",
-              "radial-gradient(ellipse 80% 60% at 80% 70%, rgba(6, 78, 117, 0.25) 0%, transparent 60%)",
-              "radial-gradient(ellipse 80% 60% at 50% 50%, rgba(103, 232, 249, 0.15) 0%, transparent 60%)",
-              "radial-gradient(ellipse 80% 60% at 20% 30%, rgba(6, 78, 117, 0.25) 0%, transparent 60%)",
-            ],
+            opacity: [0.6, 0.9, 0.6],
           }}
           transition={{
-            duration: 15,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-        
-        {/* Secondary animated gradient */}
-        <motion.div 
-          className="absolute inset-0"
-          animate={{
-            background: [
-              "radial-gradient(ellipse 60% 80% at 80% 20%, rgba(139, 92, 246, 0.12) 0%, transparent 50%)",
-              "radial-gradient(ellipse 60% 80% at 20% 80%, rgba(139, 92, 246, 0.12) 0%, transparent 50%)",
-              "radial-gradient(ellipse 60% 80% at 60% 40%, rgba(59, 130, 246, 0.1) 0%, transparent 50%)",
-              "radial-gradient(ellipse 60% 80% at 80% 20%, rgba(139, 92, 246, 0.12) 0%, transparent 50%)",
-            ],
-          }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 5,
-          }}
-        />
-
-        {/* Abstract grid with depth */}
-        <div 
-          className="absolute inset-0 opacity-[0.08]"
-          style={{
-            backgroundImage: `
-              linear-gradient(rgba(103, 232, 249, 0.15) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(103, 232, 249, 0.15) 1px, transparent 1px)
-            `,
-            backgroundSize: "80px 80px",
-            maskImage: "radial-gradient(ellipse at center, black 0%, transparent 75%)",
-            WebkitMaskImage: "radial-gradient(ellipse at center, black 0%, transparent 75%)",
-          }}
-        />
-
-        {/* Perspective grid floor with subtle animation */}
-        <motion.div 
-          className="absolute bottom-0 left-0 right-0 h-[65%] opacity-[0.06]"
-          style={{
-            x: springX,
-            y: springY,
-            background: `
-              linear-gradient(180deg, transparent 0%, rgba(103, 232, 249, 0.08) 100%)
-            `,
-            backgroundImage: `
-              linear-gradient(90deg, rgba(103, 232, 249, 0.4) 1px, transparent 1px),
-              linear-gradient(rgba(103, 232, 249, 0.25) 1px, transparent 1px)
-            `,
-            backgroundSize: "100px 50px",
-            transform: "perspective(600px) rotateX(65deg)",
-            transformOrigin: "center bottom",
-          }}
-        />
-
-        {/* Animated neon light streaks */}
-        <motion.div 
-          className="absolute inset-0"
-          animate={{
-            opacity: [0.4, 0.7, 0.4],
-          }}
-          transition={{
-            duration: 6,
+            duration: 8,
             repeat: Infinity,
             ease: "easeInOut",
           }}
         >
-          <motion.div 
-            className="absolute top-1/4 -left-32 w-[600px] h-[3px] rotate-[18deg]"
-            animate={{ x: [-100, 100, -100] }}
-            transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
-            style={{
-              background: "linear-gradient(90deg, transparent, rgba(103, 232, 249, 0.5), rgba(103, 232, 249, 0.8), rgba(103, 232, 249, 0.5), transparent)",
-              filter: "blur(1px)",
-              boxShadow: "0 0 40px rgba(103, 232, 249, 0.5), 0 0 80px rgba(103, 232, 249, 0.3)",
+          <motion.div
+            className="absolute inset-0"
+            animate={{
+              background: [
+                "radial-gradient(ellipse 120% 80% at 0% 0%, rgba(0, 180, 180, 0.35) 0%, transparent 50%)",
+                "radial-gradient(ellipse 120% 80% at 100% 100%, rgba(0, 180, 180, 0.35) 0%, transparent 50%)",
+                "radial-gradient(ellipse 120% 80% at 50% 0%, rgba(0, 220, 220, 0.25) 0%, transparent 50%)",
+                "radial-gradient(ellipse 120% 80% at 0% 0%, rgba(0, 180, 180, 0.35) 0%, transparent 50%)",
+              ],
             }}
-          />
-          <motion.div 
-            className="absolute top-1/3 -right-20 w-[450px] h-[2px] -rotate-[12deg]"
-            animate={{ x: [50, -50, 50] }}
-            transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-            style={{
-              background: "linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.4), rgba(139, 92, 246, 0.6), rgba(139, 92, 246, 0.4), transparent)",
-              filter: "blur(1px)",
-              boxShadow: "0 0 30px rgba(139, 92, 246, 0.4)",
-            }}
-          />
-          <motion.div 
-            className="absolute bottom-1/3 left-1/4 w-[350px] h-[2px] rotate-[28deg]"
-            animate={{ x: [-30, 30, -30] }}
-            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 4 }}
-            style={{
-              background: "linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.35), rgba(59, 130, 246, 0.5), rgba(59, 130, 246, 0.35), transparent)",
-              filter: "blur(0.5px)",
-              boxShadow: "0 0 25px rgba(59, 130, 246, 0.3)",
+            transition={{
+              duration: 12,
+              repeat: Infinity,
+              ease: "easeInOut",
             }}
           />
         </motion.div>
 
-        {/* Floating particles with glow */}
+        {/* Secondary warm accent - orange/gold highlights */}
+        <motion.div 
+          className="absolute inset-0"
+          animate={{
+            opacity: [0.3, 0.5, 0.3],
+          }}
+          transition={{
+            duration: 10,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 3,
+          }}
+        >
+          <motion.div
+            className="absolute inset-0"
+            animate={{
+              background: [
+                "radial-gradient(ellipse 60% 60% at 90% 30%, rgba(255, 150, 50, 0.15) 0%, transparent 40%)",
+                "radial-gradient(ellipse 60% 60% at 10% 70%, rgba(255, 180, 80, 0.12) 0%, transparent 40%)",
+                "radial-gradient(ellipse 60% 60% at 70% 80%, rgba(255, 120, 30, 0.1) 0%, transparent 40%)",
+                "radial-gradient(ellipse 60% 60% at 90% 30%, rgba(255, 150, 50, 0.15) 0%, transparent 40%)",
+              ],
+            }}
+            transition={{
+              duration: 15,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
+        </motion.div>
+
+        {/* Animated diagonal light beams - very visible */}
+        <motion.div 
+          className="absolute inset-0 overflow-hidden"
+          animate={{ opacity: [0.5, 0.8, 0.5] }}
+          transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+        >
+          {/* Main cyan beam */}
+          <motion.div 
+            className="absolute -top-20 -left-40 w-[800px] h-[6px] rotate-[25deg]"
+            animate={{ 
+              x: [-200, 400, -200],
+              opacity: [0.4, 0.9, 0.4],
+            }}
+            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+            style={{
+              background: "linear-gradient(90deg, transparent 0%, rgba(0, 255, 255, 0.3) 20%, rgba(0, 255, 255, 0.8) 50%, rgba(0, 255, 255, 0.3) 80%, transparent 100%)",
+              filter: "blur(2px)",
+              boxShadow: "0 0 60px rgba(0, 255, 255, 0.6), 0 0 120px rgba(0, 255, 255, 0.4), 0 0 180px rgba(0, 255, 255, 0.2)",
+            }}
+          />
+          
+          {/* Secondary teal beam */}
+          <motion.div 
+            className="absolute top-1/3 -right-32 w-[600px] h-[4px] -rotate-[15deg]"
+            animate={{ 
+              x: [100, -300, 100],
+              opacity: [0.3, 0.7, 0.3],
+            }}
+            transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+            style={{
+              background: "linear-gradient(90deg, transparent 0%, rgba(0, 200, 200, 0.4) 30%, rgba(0, 220, 220, 0.7) 50%, rgba(0, 200, 200, 0.4) 70%, transparent 100%)",
+              filter: "blur(1.5px)",
+              boxShadow: "0 0 50px rgba(0, 200, 200, 0.5), 0 0 100px rgba(0, 200, 200, 0.3)",
+            }}
+          />
+          
+          {/* Accent orange beam */}
+          <motion.div 
+            className="absolute bottom-1/4 left-1/3 w-[500px] h-[3px] rotate-[35deg]"
+            animate={{ 
+              x: [-50, 150, -50],
+              opacity: [0.2, 0.5, 0.2],
+            }}
+            transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 4 }}
+            style={{
+              background: "linear-gradient(90deg, transparent 0%, rgba(255, 150, 50, 0.3) 30%, rgba(255, 180, 80, 0.5) 50%, rgba(255, 150, 50, 0.3) 70%, transparent 100%)",
+              filter: "blur(1px)",
+              boxShadow: "0 0 40px rgba(255, 150, 50, 0.4)",
+            }}
+          />
+          
+          {/* Additional accent beams */}
+          <motion.div 
+            className="absolute top-2/3 -left-20 w-[400px] h-[2px] rotate-[45deg]"
+            animate={{ 
+              x: [0, 200, 0],
+              opacity: [0.2, 0.6, 0.2],
+            }}
+            transition={{ duration: 9, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+            style={{
+              background: "linear-gradient(90deg, transparent, rgba(0, 255, 200, 0.5), rgba(0, 255, 200, 0.7), rgba(0, 255, 200, 0.5), transparent)",
+              filter: "blur(1px)",
+              boxShadow: "0 0 30px rgba(0, 255, 200, 0.5)",
+            }}
+          />
+        </motion.div>
+
+        {/* Floating glowing orbs - more visible */}
         <div className="absolute inset-0 overflow-hidden">
-          {[...Array(30)].map((_, i) => (
-            <motion.div
-              key={i}
-              className="absolute rounded-full"
-              style={{
-                width: Math.random() * 4 + 1,
-                height: Math.random() * 4 + 1,
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-                background: i % 3 === 0 
-                  ? `rgba(103, 232, 249, ${Math.random() * 0.5 + 0.2})` 
-                  : i % 3 === 1
-                  ? `rgba(139, 92, 246, ${Math.random() * 0.4 + 0.15})`
-                  : `rgba(59, 130, 246, ${Math.random() * 0.4 + 0.15})`,
-                boxShadow: i % 3 === 0 
-                  ? `0 0 ${Math.random() * 10 + 5}px rgba(103, 232, 249, 0.4)` 
-                  : i % 3 === 1
-                  ? `0 0 ${Math.random() * 10 + 5}px rgba(139, 92, 246, 0.3)`
-                  : `0 0 ${Math.random() * 10 + 5}px rgba(59, 130, 246, 0.3)`,
-              }}
-              animate={{
-                y: [0, -40 - Math.random() * 30, 0],
-                x: [0, Math.random() * 20 - 10, 0],
-                opacity: [0.2, 0.7, 0.2],
-                scale: [1, 1.2, 1],
-              }}
-              transition={{
-                duration: Math.random() * 6 + 4,
-                repeat: Infinity,
-                delay: Math.random() * 5,
-                ease: "easeInOut",
-              }}
-            />
-          ))}
+          {[...Array(45)].map((_, i) => {
+            const size = Math.random() * 6 + 2;
+            const colors = [
+              { bg: "rgba(0, 255, 255, 0.7)", shadow: "rgba(0, 255, 255, 0.5)" },
+              { bg: "rgba(0, 220, 180, 0.6)", shadow: "rgba(0, 220, 180, 0.4)" },
+              { bg: "rgba(255, 180, 80, 0.5)", shadow: "rgba(255, 180, 80, 0.3)" },
+              { bg: "rgba(0, 200, 255, 0.6)", shadow: "rgba(0, 200, 255, 0.4)" },
+            ];
+            const color = colors[i % 4];
+            
+            return (
+              <motion.div
+                key={i}
+                className="absolute rounded-full"
+                style={{
+                  width: size,
+                  height: size,
+                  left: `${Math.random() * 100}%`,
+                  top: `${Math.random() * 100}%`,
+                  background: color.bg,
+                  boxShadow: `0 0 ${size * 4}px ${color.shadow}, 0 0 ${size * 8}px ${color.shadow}`,
+                }}
+                animate={{
+                  y: [0, -60 - Math.random() * 40, 0],
+                  x: [0, Math.random() * 40 - 20, 0],
+                  opacity: [0.3, 0.9, 0.3],
+                  scale: [1, 1.4, 1],
+                }}
+                transition={{
+                  duration: Math.random() * 5 + 4,
+                  repeat: Infinity,
+                  delay: Math.random() * 4,
+                  ease: "easeInOut",
+                }}
+              />
+            );
+          })}
         </div>
 
-        {/* Gradient vignette */}
+        {/* Hexagonal tech grid overlay */}
+        <div 
+          className="absolute inset-0 opacity-[0.05]"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='52' viewBox='0 0 60 52'%3E%3Cpath d='M30 0L60 15v22L30 52L0 37V15z' fill='none' stroke='%2300ffff' stroke-width='0.5'/%3E%3C/svg%3E")`,
+            backgroundSize: "60px 52px",
+          }}
+        />
+
+        {/* Depth overlay */}
         <div 
           className="absolute inset-0"
           style={{
-            background: "radial-gradient(ellipse at center, transparent 0%, rgba(2, 4, 8, 0.5) 60%, rgba(2, 4, 8, 0.9) 100%)",
+            background: "radial-gradient(ellipse 80% 60% at 50% 50%, transparent 0%, rgba(0, 8, 16, 0.4) 50%, rgba(0, 5, 10, 0.8) 100%)",
+          }}
+        />
+
+        {/* Top edge glow */}
+        <div 
+          className="absolute top-0 left-0 right-0 h-48"
+          style={{
+            background: "linear-gradient(180deg, rgba(0, 200, 200, 0.08) 0%, transparent 100%)",
           }}
         />
       </motion.div>

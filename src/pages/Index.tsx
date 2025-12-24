@@ -22,14 +22,6 @@ const Index = () => {
       <AchievementsSection />
       <VolunteerSection />
       <ContactSection />
-      
-      <footer className="relative py-8 bg-gradient-to-b from-[#0a0f1f]/40 to-[#0a0f1f]/20 backdrop-blur-xl border-t border-white/20">
-        <div className="container mx-auto px-4">
-          <p className="text-center text-white/80">
-            © 2025 Aakash S. All rights reserved.
-          </p>
-        </div>
-      </footer>
     </div>
   );
 };
