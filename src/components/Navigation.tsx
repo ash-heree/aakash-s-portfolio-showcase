@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from "react";
 import { Moon, Sun, Menu, X } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import TechLogo from "./TechLogo";
 
@@ -10,13 +9,14 @@ const Navigation = () => {
   const [activeSection, setActiveSection] = useState("home");
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isHoveringNav, setIsHoveringNav] = useState(false);
+  const [hoveredItem, setHoveredItem] = useState<string | null>(null);
   const navRef = useRef<HTMLDivElement>(null);
   const commandBarRef = useRef<HTMLDivElement>(null);
   
   const { scrollY } = useScroll();
   const navPadding = useTransform(scrollY, [0, 100], [20, 8]);
   const navScale = useTransform(scrollY, [0, 100], [1, 0.98]);
-  const navBlur = useTransform(scrollY, [0, 100], [24, 32]);
+  const navBlur = useTransform(scrollY, [0, 100], [32, 40]);
 
   useEffect(() => {
     const navLinks = [
@@ -98,23 +98,32 @@ const Navigation = () => {
     <motion.nav
       ref={navRef}
       className="relative w-full z-50 flex justify-center"
-      style={{ paddingTop: 20, paddingBottom: 20 }}
+      style={{ paddingTop: 24, paddingBottom: 24 }}
     >
       {/* Desktop Command Bar */}
       <motion.div
         ref={commandBarRef}
-        className="hidden lg:flex items-center justify-between w-full px-8"
+        className="hidden lg:flex items-center justify-between w-full px-10"
         style={{ scale: navScale }}
         onMouseEnter={() => setIsHoveringNav(true)}
         onMouseLeave={() => setIsHoveringNav(false)}
       >
-        {/* Subtle translucent backdrop - light glass effect */}
+        {/* Premium glassmorphism backdrop with stronger opacity */}
         <div 
           className="absolute inset-0 pointer-events-none rounded-2xl"
           style={{
-            background: "rgba(8, 12, 28, 0.3)",
-            backdropFilter: `blur(${navBlur}px) saturate(120%)`,
-            WebkitBackdropFilter: `blur(24px) saturate(120%)`,
+            background: "linear-gradient(135deg, rgba(10, 15, 30, 0.7) 0%, rgba(15, 20, 40, 0.6) 100%)",
+            backdropFilter: `blur(40px) saturate(150%)`,
+            WebkitBackdropFilter: `blur(40px) saturate(150%)`,
+            boxShadow: "0 8px 32px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(103, 232, 249, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.05)",
+          }}
+        />
+        
+        {/* Bottom border glow line */}
+        <div 
+          className="absolute bottom-0 left-4 right-4 h-px pointer-events-none"
+          style={{
+            background: "linear-gradient(90deg, transparent, rgba(103, 232, 249, 0.3), rgba(139, 92, 246, 0.2), transparent)",
           }}
         />
 
@@ -125,84 +134,116 @@ const Navigation = () => {
               className="absolute pointer-events-none z-0 rounded-full"
               initial={{ opacity: 0 }}
               animate={{ 
-                opacity: 0.6,
-                x: mousePosition.x - 100,
-                y: mousePosition.y - 50,
+                opacity: 0.8,
+                x: mousePosition.x - 120,
+                y: mousePosition.y - 60,
               }}
               exit={{ opacity: 0 }}
               transition={{
                 opacity: { duration: 0.4 },
-                x: { duration: 0.2, ease: "easeOut" },
-                y: { duration: 0.2, ease: "easeOut" },
+                x: { duration: 0.15, ease: "easeOut" },
+                y: { duration: 0.15, ease: "easeOut" },
               }}
               style={{
-                width: 200,
-                height: 100,
-                background: "radial-gradient(ellipse at center, rgba(103, 232, 249, 0.15) 0%, transparent 70%)",
-                filter: "blur(30px)",
+                width: 240,
+                height: 120,
+                background: "radial-gradient(ellipse at center, rgba(103, 232, 249, 0.12) 0%, transparent 70%)",
+                filter: "blur(25px)",
               }}
             />
           )}
         </AnimatePresence>
 
         {/* Logo - positioned at left edge */}
-        <a href="#home" className="relative z-10 flex-shrink-0">
+        <motion.a 
+          href="#home" 
+          className="relative z-10 flex-shrink-0"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          transition={{ duration: 0.2 }}
+        >
           <TechLogo />
-        </a>
+        </motion.a>
 
-        {/* Navigation items container - centered */}
-        <div className="relative flex items-center px-2 py-2.5 mx-auto">
-          {/* Liquid glass active indicator */}
+        {/* Navigation items container - centered with better spacing */}
+        <div className="relative flex items-center gap-1 px-3 py-3 mx-auto">
+          {/* Liquid glass active indicator with neon glow */}
           <motion.div
-            className="absolute h-8 rounded-xl pointer-events-none"
+            className="absolute h-9 rounded-xl pointer-events-none"
             initial={false}
             animate={{
               x: `calc(${getActiveIndex() * 100}% + ${getActiveIndex() * 4}px)`,
               width: commandBarRef.current 
-                ? commandBarRef.current.querySelectorAll('a')[getActiveIndex()]?.offsetWidth || 80 
-                : 80,
+                ? commandBarRef.current.querySelectorAll('a')[getActiveIndex()]?.offsetWidth || 85 
+                : 85,
             }}
             transition={{
               type: "spring",
-              stiffness: 400,
-              damping: 35,
+              stiffness: 350,
+              damping: 30,
             }}
             style={{
-              background: "linear-gradient(135deg, rgba(103, 232, 249, 0.15) 0%, rgba(59, 130, 246, 0.12) 100%)",
-              boxShadow: "0 0 20px rgba(103, 232, 249, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.1)",
-              border: "1px solid rgba(103, 232, 249, 0.25)",
+              background: "linear-gradient(135deg, rgba(103, 232, 249, 0.2) 0%, rgba(59, 130, 246, 0.15) 100%)",
+              boxShadow: "0 0 25px rgba(103, 232, 249, 0.35), 0 0 50px rgba(103, 232, 249, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.15)",
+              border: "1px solid rgba(103, 232, 249, 0.35)",
+            }}
+          />
+          
+          {/* Glowing underline for active item */}
+          <motion.div
+            className="absolute bottom-1 h-0.5 rounded-full pointer-events-none"
+            initial={false}
+            animate={{
+              x: `calc(${getActiveIndex() * 100}% + ${getActiveIndex() * 4}px + 16px)`,
+              width: (commandBarRef.current 
+                ? commandBarRef.current.querySelectorAll('a')[getActiveIndex()]?.offsetWidth || 85 
+                : 85) - 32,
+            }}
+            transition={{
+              type: "spring",
+              stiffness: 350,
+              damping: 30,
+            }}
+            style={{
+              background: "linear-gradient(90deg, transparent, rgba(103, 232, 249, 0.9), transparent)",
+              boxShadow: "0 0 12px rgba(103, 232, 249, 0.8), 0 0 24px rgba(103, 232, 249, 0.4)",
             }}
           />
 
           {navLinks.map((link) => {
             const isActive = activeSection === link.href.replace("#", "");
+            const isHovered = hoveredItem === link.href;
             return (
               <motion.a
                 key={link.href}
                 href={link.href}
                 onClick={(e) => scrollToSection(e, link.href)}
-                className="relative px-4 py-2 transition-all duration-300 group cursor-pointer"
-                whileHover={{ y: -1 }}
-                whileTap={{ scale: 0.98 }}
+                onMouseEnter={() => setHoveredItem(link.href)}
+                onMouseLeave={() => setHoveredItem(null)}
+                className="relative px-5 py-2.5 transition-all duration-300 group cursor-pointer"
+                whileHover={{ y: -2 }}
+                whileTap={{ scale: 0.97 }}
                 transition={{ duration: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
               >
-                {/* Hover glow */}
+                {/* Hover glow effect */}
                 <motion.span 
-                  className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  className="absolute inset-0 rounded-xl transition-opacity duration-300"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: isHovered && !isActive ? 0.8 : 0 }}
                   style={{ 
-                    background: "radial-gradient(ellipse at center, rgba(103, 232, 249, 0.08) 0%, transparent 70%)",
+                    background: "radial-gradient(ellipse at center, rgba(103, 232, 249, 0.1) 0%, transparent 70%)",
                   }}
                 />
 
                 {/* Text */}
                 <span 
-                  className={`relative z-10 text-[13px] font-light tracking-[0.04em] transition-all duration-300 ${
-                    isActive ? 'text-cyan-300' : 'text-white/50 group-hover:text-white/80'
+                  className={`relative z-10 text-[13px] font-medium tracking-[0.05em] transition-all duration-300 ${
+                    isActive ? 'text-cyan-300' : 'text-white/55 group-hover:text-white/90'
                   }`}
                   style={{
                     fontFamily: "'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Inter', sans-serif",
                     textShadow: isActive 
-                      ? '0 0 20px rgba(103, 232, 249, 0.6)' 
+                      ? '0 0 25px rgba(103, 232, 249, 0.8), 0 0 50px rgba(103, 232, 249, 0.4)' 
                       : 'none',
                   }}
                 >
@@ -217,11 +258,12 @@ const Navigation = () => {
         <div className="relative z-10 flex-shrink-0">
           <motion.button
             onClick={toggleTheme}
-            className="p-2 rounded-lg text-white/40 hover:text-white/70 transition-colors duration-300"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+            className="p-2.5 rounded-xl text-white/45 hover:text-white/80 transition-all duration-300"
+            whileHover={{ scale: 1.1, rotate: 15 }}
+            whileTap={{ scale: 0.9 }}
             style={{
-              background: "rgba(255, 255, 255, 0.03)",
+              background: "rgba(255, 255, 255, 0.05)",
+              border: "1px solid rgba(255, 255, 255, 0.1)",
             }}
           >
             {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
@@ -234,41 +276,49 @@ const Navigation = () => {
         <motion.div
           className="relative rounded-2xl overflow-hidden"
           style={{
-            background: "linear-gradient(135deg, rgba(8, 12, 28, 0.85) 0%, rgba(15, 20, 40, 0.75) 100%)",
-            backdropFilter: "blur(24px) saturate(180%)",
-            WebkitBackdropFilter: "blur(24px) saturate(180%)",
-            border: "1px solid rgba(103, 232, 249, 0.1)",
-            boxShadow: "0 0 40px rgba(103, 232, 249, 0.05), 0 20px 40px -20px rgba(0, 0, 0, 0.5)",
+            background: "linear-gradient(135deg, rgba(10, 15, 30, 0.9) 0%, rgba(15, 20, 40, 0.85) 100%)",
+            backdropFilter: "blur(40px) saturate(180%)",
+            WebkitBackdropFilter: "blur(40px) saturate(180%)",
+            border: "1px solid rgba(103, 232, 249, 0.15)",
+            boxShadow: "0 8px 40px rgba(0, 0, 0, 0.5), 0 0 60px rgba(103, 232, 249, 0.08)",
           }}
         >
-          {/* Noise texture */}
+          {/* Bottom glow line */}
           <div 
-            className="absolute inset-0 opacity-[0.02] pointer-events-none"
+            className="absolute bottom-0 left-4 right-4 h-px pointer-events-none"
             style={{
-              backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
+              background: "linear-gradient(90deg, transparent, rgba(103, 232, 249, 0.3), transparent)",
             }}
           />
 
-          <div className="flex items-center justify-between p-4 relative z-10">
+          <div className="flex items-center justify-between p-5 relative z-10">
             <a href="#home">
               <TechLogo />
             </a>
 
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-3">
               <motion.button
                 onClick={toggleTheme}
-                className="p-2 rounded-lg text-white/50 hover:text-white/70"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                className="p-2.5 rounded-xl text-white/50 hover:text-white/70"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                style={{
+                  background: "rgba(255, 255, 255, 0.05)",
+                  border: "1px solid rgba(255, 255, 255, 0.08)",
+                }}
               >
                 {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
               </motion.button>
               
               <motion.button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="p-2 rounded-lg text-white/50 hover:text-white/70"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                className="p-2.5 rounded-xl text-white/50 hover:text-white/70"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                style={{
+                  background: "rgba(255, 255, 255, 0.05)",
+                  border: "1px solid rgba(255, 255, 255, 0.08)",
+                }}
               >
                 <AnimatePresence mode="wait">
                   {isMenuOpen ? (
@@ -307,7 +357,7 @@ const Navigation = () => {
                 transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
                 className="overflow-hidden"
               >
-                <div className="px-4 pb-4 space-y-1">
+                <div className="px-5 pb-5 space-y-1">
                   {navLinks.map((link, index) => {
                     const isActive = activeSection === link.href.replace("#", "");
                     return (
@@ -318,20 +368,22 @@ const Navigation = () => {
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: index * 0.05, duration: 0.3 }}
-                        className="relative block px-4 py-3 rounded-xl transition-all duration-300"
+                        className="relative block px-4 py-3.5 rounded-xl transition-all duration-300"
                         style={{
                           background: isActive 
-                            ? "linear-gradient(135deg, rgba(103, 232, 249, 0.1) 0%, rgba(59, 130, 246, 0.08) 100%)"
+                            ? "linear-gradient(135deg, rgba(103, 232, 249, 0.15) 0%, rgba(59, 130, 246, 0.1) 100%)"
                             : "transparent",
-                          border: isActive ? "1px solid rgba(103, 232, 249, 0.2)" : "1px solid transparent",
+                          border: isActive ? "1px solid rgba(103, 232, 249, 0.25)" : "1px solid transparent",
+                          boxShadow: isActive ? "0 0 20px rgba(103, 232, 249, 0.15)" : "none",
                         }}
                       >
                         <span 
-                          className={`text-[13px] font-light tracking-[0.04em] ${
-                            isActive ? 'text-cyan-300' : 'text-white/50'
+                          className={`text-[14px] font-medium tracking-[0.04em] ${
+                            isActive ? 'text-cyan-300' : 'text-white/55'
                           }`}
                           style={{
                             fontFamily: "'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Inter', sans-serif",
+                            textShadow: isActive ? '0 0 20px rgba(103, 232, 249, 0.6)' : 'none',
                           }}
                         >
                           {link.label}
