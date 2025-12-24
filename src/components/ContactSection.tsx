@@ -121,6 +121,19 @@ const ContactSection = () => {
               Connect on LinkedIn
             </Button>
           </motion.div>
+
+          {/* Integrated footer copyright */}
+          <motion.div 
+            className="mt-20 pt-8 border-t border-white/10"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.5 }}
+          >
+            <p className="text-center text-xs font-light tracking-wide text-white/40">
+              © 2025 Aakash S. All rights reserved.
+            </p>
+          </motion.div>
         </div>
       </div>
     </section>
