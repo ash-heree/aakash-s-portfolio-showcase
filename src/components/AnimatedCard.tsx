@@ -20,11 +20,12 @@ const AnimatedCard = ({ children, className = "", delay = 0 }: AnimatedCardProps
         ease: [0.25, 0.46, 0.45, 0.94],
       }}
       whileHover={{
-        scale: 1.02,
-        transition: { duration: 0.2 },
+        scale: 1.03,
+        y: -4,
+        transition: { duration: 0.25, ease: "easeOut" },
       }}
       className={cn(
-        "bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl shadow-xl transition-shadow duration-300 hover:shadow-2xl hover:shadow-accent/10 hover:border-white/30",
+        "bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl shadow-xl transition-all duration-300 hover:shadow-2xl hover:shadow-cyan-500/20 hover:border-cyan-400/30 hover:bg-white/15",
         className
       )}
     >

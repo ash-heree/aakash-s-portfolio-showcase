@@ -32,7 +32,7 @@ const ProjectsSection = () => {
   return (
     <section 
       id="projects" 
-      className="relative py-20 bg-gradient-to-b from-[#0a0f1f]/40 to-[#0a0f1f]/20 backdrop-blur-xl overflow-hidden"
+      className="relative py-32 bg-gradient-to-b from-[#0a0f1f]/40 to-[#0a0f1f]/20 backdrop-blur-xl overflow-hidden"
       style={{
         backgroundImage: `url(${projectsBackground})`,
         backgroundSize: 'cover',
