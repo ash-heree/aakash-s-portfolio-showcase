@@ -83,24 +83,26 @@ const Navigation = () => {
       animate={{ y: 0 }}
       transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
     >
-      {/* Desktop Navigation - Ultra Minimal */}
+      {/* Desktop Navigation - Glassmorphism */}
       <motion.div
-        className="hidden lg:flex items-center gap-1 px-4 py-2.5 rounded-full transition-all duration-500"
+        className="hidden lg:flex items-center gap-1 px-6 py-3 rounded-2xl transition-all duration-500"
         style={{
-          background: hasScrolled ? "rgba(0, 10, 20, 0.7)" : "rgba(0, 10, 20, 0.4)",
-          backdropFilter: hasScrolled ? "blur(20px)" : "blur(12px)",
-          WebkitBackdropFilter: hasScrolled ? "blur(20px)" : "blur(12px)",
-          border: hasScrolled ? "1px solid rgba(255, 255, 255, 0.1)" : "1px solid rgba(255, 255, 255, 0.06)",
-          boxShadow: hasScrolled ? "0 4px 30px rgba(0, 0, 0, 0.3)" : "none",
+          background: hasScrolled ? "rgba(255, 255, 255, 0.12)" : "rgba(255, 255, 255, 0.08)",
+          backdropFilter: "blur(20px)",
+          WebkitBackdropFilter: "blur(20px)",
+          border: "1px solid rgba(255, 255, 255, 0.2)",
+          boxShadow: hasScrolled 
+            ? "0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1)" 
+            : "0 4px 20px rgba(0, 0, 0, 0.2)",
         }}
       >
         {/* Logo */}
-        <a href="#home" className="flex-shrink-0 mr-6 opacity-80 hover:opacity-100 transition-opacity duration-300">
+        <a href="#home" className="flex-shrink-0 mr-8 opacity-90 hover:opacity-100 transition-opacity duration-300">
           <TechLogo />
         </a>
 
         {/* Navigation items */}
-        <div className="flex items-center gap-0.5">
+        <div className="flex items-center gap-1">
           {navLinks.map((link) => {
             const isActive = activeSection === link.href.replace("#", "");
             return (
@@ -109,32 +111,39 @@ const Navigation = () => {
                 href={link.href}
                 onClick={(e) => scrollToSection(e, link.href)}
                 className="relative px-4 py-2 group"
-                whileHover={{ y: -1 }}
-                transition={{ duration: 0.2 }}
+                whileHover={{ y: -2 }}
+                transition={{ duration: 0.2, ease: "easeOut" }}
               >
                 <span 
-                  className={`text-[13px] tracking-[0.02em] transition-all duration-300 ${
+                  className={`text-[13px] tracking-[0.03em] transition-all duration-300 ${
                     isActive 
                       ? 'text-white font-medium' 
-                      : 'text-white/40 group-hover:text-white/70 font-normal'
+                      : 'text-white/60 group-hover:text-white font-normal'
                   }`}
                   style={{ fontFamily: "'Sora', 'Space Grotesk', sans-serif" }}
                 >
                   {link.label}
                 </span>
                 
-                {/* Animated underline */}
+                {/* Animated underline for active state */}
                 <motion.span 
-                  className="absolute bottom-1 left-4 right-4 h-px"
-                  style={{ background: "rgba(255, 255, 255, 0.5)" }}
-                  initial={{ scaleX: 0 }}
-                  animate={{ scaleX: isActive ? 1 : 0 }}
+                  className="absolute bottom-0.5 left-4 right-4 h-[2px] rounded-full bg-accent"
+                  initial={{ scaleX: 0, opacity: 0 }}
+                  animate={{ 
+                    scaleX: isActive ? 1 : 0, 
+                    opacity: isActive ? 1 : 0 
+                  }}
                   transition={{ duration: 0.3, ease: "easeOut" }}
+                  style={{ originX: 0 }}
                 />
                 
-                {/* Hover underline */}
-                <span 
-                  className="absolute bottom-1 left-4 right-4 h-px bg-white/20 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"
+                {/* Hover underline effect */}
+                <motion.span 
+                  className="absolute bottom-0.5 left-4 right-4 h-[2px] rounded-full bg-white/40"
+                  initial={{ scaleX: 0 }}
+                  whileHover={{ scaleX: 1 }}
+                  transition={{ duration: 0.25, ease: "easeOut" }}
+                  style={{ originX: 0 }}
                 />
               </motion.a>
             );
@@ -142,43 +151,53 @@ const Navigation = () => {
         </div>
 
         {/* Theme toggle */}
-        <div className="flex-shrink-0 ml-4">
-          <button
+        <div className="flex-shrink-0 ml-6">
+          <motion.button
             onClick={toggleTheme}
-            className="p-2 rounded-full text-white/30 hover:text-white/60 transition-colors duration-300"
+            className="p-2.5 rounded-xl text-white/50 hover:text-white transition-colors duration-300"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            style={{
+              background: "rgba(255, 255, 255, 0.05)",
+            }}
           >
             {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
-          </button>
+          </motion.button>
         </div>
       </motion.div>
 
       {/* Mobile Navigation */}
       <div className="lg:hidden w-full">
         <div
-          className="relative rounded-xl overflow-hidden"
+          className="relative rounded-2xl overflow-hidden"
           style={{
-            background: "rgba(0, 10, 20, 0.6)",
-            backdropFilter: "blur(12px)",
-            WebkitBackdropFilter: "blur(12px)",
-            border: "1px solid rgba(255, 255, 255, 0.06)",
+            background: "rgba(255, 255, 255, 0.1)",
+            backdropFilter: "blur(20px)",
+            WebkitBackdropFilter: "blur(20px)",
+            border: "1px solid rgba(255, 255, 255, 0.2)",
+            boxShadow: "0 8px 32px rgba(0, 0, 0, 0.2)",
           }}
         >
           <div className="flex items-center justify-between p-4">
-            <a href="#home" className="opacity-80">
+            <a href="#home" className="opacity-90">
               <TechLogo />
             </a>
 
             <div className="flex items-center gap-2">
-              <button
+              <motion.button
                 onClick={toggleTheme}
-                className="p-2 rounded-lg text-white/40 hover:text-white/70 transition-colors"
+                className="p-2 rounded-xl text-white/50 hover:text-white transition-colors"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               >
                 {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
-              </button>
+              </motion.button>
               
-              <button
+              <motion.button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="p-2 rounded-lg text-white/40 hover:text-white/70 transition-colors"
+                className="p-2 rounded-xl text-white/50 hover:text-white transition-colors"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               >
                 <AnimatePresence mode="wait">
                   {isMenuOpen ? (
@@ -203,7 +222,7 @@ const Navigation = () => {
                     </motion.div>
                   )}
                 </AnimatePresence>
-              </button>
+              </motion.button>
             </div>
           </div>
 
@@ -214,7 +233,7 @@ const Navigation = () => {
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: "auto" }}
                 exit={{ opacity: 0, height: 0 }}
-                transition={{ duration: 0.2 }}
+                transition={{ duration: 0.25, ease: "easeOut" }}
                 className="overflow-hidden"
               >
                 <div className="px-4 pb-4 space-y-1">
@@ -227,15 +246,15 @@ const Navigation = () => {
                         onClick={(e) => scrollToSection(e, link.href)}
                         initial={{ opacity: 0, x: -10 }}
                         animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: index * 0.03, duration: 0.2 }}
-                        className="block px-4 py-3 rounded-lg transition-all duration-200"
+                        transition={{ delay: index * 0.04, duration: 0.25 }}
+                        className="block px-4 py-3 rounded-xl transition-all duration-200"
                         style={{
-                          background: isActive ? "rgba(255, 255, 255, 0.05)" : "transparent",
+                          background: isActive ? "rgba(255, 255, 255, 0.1)" : "transparent",
                         }}
                       >
                         <span 
-                          className={`text-[14px] tracking-[0.02em] ${
-                            isActive ? 'text-white font-medium' : 'text-white/40'
+                          className={`text-[14px] tracking-[0.03em] ${
+                            isActive ? 'text-white font-medium' : 'text-white/60'
                           }`}
                           style={{ fontFamily: "'Sora', 'Space Grotesk', sans-serif" }}
                         >
