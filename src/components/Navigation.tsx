@@ -7,6 +7,7 @@ const Navigation = () => {
   const [isDark, setIsDark] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
+  const [hasScrolled, setHasScrolled] = useState(false);
 
   useEffect(() => {
     const navLinks = [
@@ -36,9 +37,18 @@ const Navigation = () => {
       }
     };
 
+    const handleScrollEffect = () => {
+      setHasScrolled(window.scrollY > 20);
+    };
+
     window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScrollEffect);
     handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
+    handleScrollEffect();
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("scroll", handleScrollEffect);
+    };
   }, []);
 
   const toggleTheme = () => {
@@ -74,13 +84,14 @@ const Navigation = () => {
       transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
     >
       {/* Desktop Navigation - Ultra Minimal */}
-      <div
-        className="hidden lg:flex items-center gap-1 px-4 py-2.5 rounded-full"
+      <motion.div
+        className="hidden lg:flex items-center gap-1 px-4 py-2.5 rounded-full transition-all duration-500"
         style={{
-          background: "rgba(0, 10, 20, 0.4)",
-          backdropFilter: "blur(12px)",
-          WebkitBackdropFilter: "blur(12px)",
-          border: "1px solid rgba(255, 255, 255, 0.06)",
+          background: hasScrolled ? "rgba(0, 10, 20, 0.7)" : "rgba(0, 10, 20, 0.4)",
+          backdropFilter: hasScrolled ? "blur(20px)" : "blur(12px)",
+          WebkitBackdropFilter: hasScrolled ? "blur(20px)" : "blur(12px)",
+          border: hasScrolled ? "1px solid rgba(255, 255, 255, 0.1)" : "1px solid rgba(255, 255, 255, 0.06)",
+          boxShadow: hasScrolled ? "0 4px 30px rgba(0, 0, 0, 0.3)" : "none",
         }}
       >
         {/* Logo */}
@@ -93,31 +104,39 @@ const Navigation = () => {
           {navLinks.map((link) => {
             const isActive = activeSection === link.href.replace("#", "");
             return (
-              <a
+              <motion.a
                 key={link.href}
                 href={link.href}
                 onClick={(e) => scrollToSection(e, link.href)}
-                className="relative px-4 py-2 transition-all duration-300 group"
+                className="relative px-4 py-2 group"
+                whileHover={{ y: -1 }}
+                transition={{ duration: 0.2 }}
               >
                 <span 
                   className={`text-[13px] tracking-[0.02em] transition-all duration-300 ${
                     isActive 
                       ? 'text-white font-medium' 
-                      : 'text-white/40 hover:text-white/70 font-normal'
+                      : 'text-white/40 group-hover:text-white/70 font-normal'
                   }`}
                   style={{ fontFamily: "'Sora', 'Space Grotesk', sans-serif" }}
                 >
                   {link.label}
                 </span>
                 
-                {/* Subtle underline for active */}
-                <span 
-                  className={`absolute bottom-1 left-4 right-4 h-px transition-all duration-300 ${
-                    isActive ? 'opacity-100' : 'opacity-0'
-                  }`}
-                  style={{ background: "rgba(255, 255, 255, 0.4)" }}
+                {/* Animated underline */}
+                <motion.span 
+                  className="absolute bottom-1 left-4 right-4 h-px"
+                  style={{ background: "rgba(255, 255, 255, 0.5)" }}
+                  initial={{ scaleX: 0 }}
+                  animate={{ scaleX: isActive ? 1 : 0 }}
+                  transition={{ duration: 0.3, ease: "easeOut" }}
                 />
-              </a>
+                
+                {/* Hover underline */}
+                <span 
+                  className="absolute bottom-1 left-4 right-4 h-px bg-white/20 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"
+                />
+              </motion.a>
             );
           })}
         </div>
@@ -131,7 +150,7 @@ const Navigation = () => {
             {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
           </button>
         </div>
-      </div>
+      </motion.div>
 
       {/* Mobile Navigation */}
       <div className="lg:hidden w-full">
