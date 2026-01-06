@@ -1,5 +1,7 @@
 import { Hand, ShoppingCart, BarChart3, CloudSun } from "lucide-react";
 import { motion } from "framer-motion";
+import { Card } from "@/components/ui/card";
+import projectsBackground from "@/assets/projects-tech-bg.jpg";
 
 const ProjectsSection = () => {
   const projects = [
@@ -36,99 +38,66 @@ const ProjectsSection = () => {
   return (
     <section 
       id="projects" 
-      className="relative py-32 overflow-hidden"
+      className="relative py-32 bg-gradient-to-b from-[#0a0f1f]/40 to-[#0a0f1f]/20 backdrop-blur-xl overflow-hidden"
       style={{
-        background: "linear-gradient(180deg, #060a10 0%, #080c14 50%, #060a10 100%)",
+        backgroundImage: `url(${projectsBackground})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundAttachment: 'fixed',
       }}
     >
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-4xl mx-auto">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
-            className="mb-20"
+            transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
           >
-            <h2 
-              className="text-4xl md:text-5xl font-extralight text-white mb-4 tracking-[-0.02em]"
-              style={{ fontFamily: "'Sora', 'Space Grotesk', sans-serif" }}
-            >
-              Featured Projects
-            </h2>
-            <div className="w-12 h-px bg-white/20" />
+            <h2 className="section-title">Featured Projects</h2>
+            <div className="section-divider" />
           </motion.div>
 
-          <div className="space-y-1">
+          <div className="space-y-6">
             {projects.map((project, index) => (
-              <motion.article
+              <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.6, delay: index * 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
+                viewport={{ once: true, margin: "-30px" }}
+                transition={{ duration: 0.5, delay: index * 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
               >
                 <motion.div
-                  className="group py-10 px-6 -mx-6 rounded-lg cursor-pointer"
-                  whileHover={{ y: -4 }}
+                  whileHover={{ y: -4, scale: 1.01 }}
                   transition={{ duration: 0.3, ease: "easeOut" }}
-                  style={{
-                    background: "transparent",
-                    boxShadow: "none",
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.background = "rgba(255, 255, 255, 0.015)";
-                    e.currentTarget.style.boxShadow = "0 10px 40px rgba(0, 0, 0, 0.25)";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.background = "transparent";
-                    e.currentTarget.style.boxShadow = "none";
-                  }}
                 >
-                  <div className="flex items-start gap-6">
-                    {/* Icon */}
-                    <div className="text-white/30 group-hover:text-white/50 transition-colors duration-300 mt-1">
-                      {project.icon}
-                    </div>
-                    
-                    <div className="flex-1">
-                      {/* Title */}
-                      <h3 
-                        className="text-2xl md:text-3xl font-light text-white/90 mb-4 group-hover:text-white transition-colors duration-300 tracking-[-0.01em]"
-                        style={{ fontFamily: "'Sora', 'Space Grotesk', sans-serif" }}
-                      >
-                        {project.title}
-                      </h3>
-                      
-                      {/* Description */}
-                      <p 
-                        className="text-white/40 mb-6 leading-relaxed max-w-2xl text-[15px] font-light"
-                        style={{ fontFamily: "'Sora', sans-serif" }}
-                      >
-                        {project.description}
-                      </p>
-                      
-                      {/* Tech stack - muted small text */}
-                      <div className="flex flex-wrap gap-3">
-                        {project.technologies.map((tech, idx) => (
-                          <span 
-                            key={idx} 
-                            className="text-xs text-white/25 font-normal tracking-wide"
-                            style={{ fontFamily: "'Sora', sans-serif" }}
-                          >
-                            {tech}
-                          </span>
-                        ))}
+                  <Card className="p-6 hover:shadow-[0_8px_30px_rgba(0,255,255,0.15)] transition-shadow duration-300">
+                    <div className="flex gap-4">
+                      <div className="flex-shrink-0 w-12 h-12 rounded-full bg-accent/20 flex items-center justify-center text-accent icon-hover">
+                        {project.icon}
+                      </div>
+                      <div className="flex-1">
+                        <h3 className="text-xl font-bold text-white mb-2">
+                          {project.title}
+                        </h3>
+                        <p className="text-white/80 leading-relaxed mb-4">
+                          {project.description}
+                        </p>
+                        <div className="flex flex-wrap gap-2">
+                          {project.technologies.map((tech, idx) => (
+                            <span 
+                              key={idx} 
+                              className="text-xs px-3 py-1 rounded-full bg-white/10 text-white/70 border border-white/10"
+                            >
+                              {tech}
+                            </span>
+                          ))}
+                        </div>
                       </div>
                     </div>
-                  </div>
+                  </Card>
                 </motion.div>
-                
-                {/* Divider */}
-                {index < projects.length - 1 && (
-                  <div className="h-px bg-white/5" />
-                )}
-              </motion.article>
+              </motion.div>
             ))}
           </div>
         </div>
