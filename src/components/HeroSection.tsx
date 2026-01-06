@@ -160,46 +160,46 @@ const HeroSection = () => {
         style={{ y: contentY, opacity }}
       >
         <div className="max-w-4xl mx-auto text-center">
-          {/* Name - Large typography, gradient */}
+          {/* Name - Large typography, slow animated gradient */}
           <motion.h1
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, ease: [0.25, 0.46, 0.45, 0.94] }}
+            transition={{ duration: 1.2, ease: [0.25, 0.46, 0.45, 0.94] }}
             className="text-8xl md:text-[10rem] font-extralight mb-6 cursor-default select-none tracking-[-0.02em] leading-[0.9]"
             style={{ fontFamily: "'Sora', 'Space Grotesk', sans-serif" }}
           >
             <motion.span
               className="relative inline-block"
               style={{
-                background: "linear-gradient(135deg, #ffffff 0%, #b0e0e6 40%, #7dd3dc 60%, #ffffff 100%)",
-                backgroundSize: "200% 200%",
+                background: "linear-gradient(135deg, #ffffff 0%, #b0e0e6 30%, #7dd3dc 50%, #b0e0e6 70%, #ffffff 100%)",
+                backgroundSize: "300% 300%",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
                 backgroundClip: "text",
               }}
               animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
-              transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+              transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
             >
               Aakash S
             </motion.span>
           </motion.h1>
 
-          {/* Subtitle - fade-in */}
+          {/* Subtitle - gentle fade + slide-up */}
           <motion.h2
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 25 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.15, ease: [0.25, 0.46, 0.45, 0.94] }}
+            transition={{ duration: 1, delay: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
             className="text-lg md:text-xl font-light text-white/50 mb-8 tracking-[0.25em] cursor-default select-none uppercase"
             style={{ fontFamily: "'Sora', 'Space Grotesk', sans-serif" }}
           >
             Entry-Level IT Professional
           </motion.h2>
 
-          {/* Description */}
+          {/* Description - gentle fade + slide-up */}
           <motion.p
-            initial={{ opacity: 0, y: 15 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+            transition={{ duration: 1, delay: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
             className="text-base md:text-lg text-white/35 max-w-xl mx-auto mb-14 leading-relaxed font-light"
             style={{ fontFamily: "'Sora', sans-serif" }}
           >
@@ -207,31 +207,35 @@ const HeroSection = () => {
             Driven to create innovative solutions and continuously expand my technical expertise.
           </motion.p>
 
-          {/* Restrained glass buttons */}
+          {/* Buttons with soft hover animation */}
           <motion.div
-            initial={{ opacity: 0, y: 15 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.45, ease: [0.25, 0.46, 0.45, 0.94] }}
+            transition={{ duration: 1, delay: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
             className="flex gap-5 justify-center flex-wrap"
           >
             <motion.button
               onClick={() => document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" })}
               className="relative px-8 py-3.5 rounded-full overflow-hidden group"
-              whileHover={{ scale: 1.03 }}
+              whileHover={{ scale: 1.02, y: -2 }}
               whileTap={{ scale: 0.98 }}
-              transition={{ duration: 0.2 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
             >
               <div 
-                className="absolute inset-0 transition-all duration-300"
+                className="absolute inset-0 transition-all duration-400"
                 style={{
                   background: "rgba(0, 180, 200, 0.12)",
                   backdropFilter: "blur(10px)",
                   border: "1px solid rgba(0, 200, 220, 0.25)",
+                  boxShadow: "0 2px 15px rgba(0, 180, 200, 0)",
                 }}
               />
               <div 
-                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                style={{ background: "rgba(0, 200, 220, 0.08)" }}
+                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-400"
+                style={{ 
+                  background: "rgba(0, 200, 220, 0.08)",
+                  boxShadow: "0 8px 25px rgba(0, 180, 200, 0.15)",
+                }}
               />
               <span 
                 className="relative z-10 text-sm font-normal tracking-[0.1em] text-white/80 group-hover:text-white transition-colors duration-300 uppercase"
@@ -244,12 +248,12 @@ const HeroSection = () => {
             <motion.button
               onClick={() => document.querySelector("#projects")?.scrollIntoView({ behavior: "smooth" })}
               className="relative px-8 py-3.5 rounded-full overflow-hidden group"
-              whileHover={{ scale: 1.03 }}
+              whileHover={{ scale: 1.02, y: -2 }}
               whileTap={{ scale: 0.98 }}
-              transition={{ duration: 0.2 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
             >
               <div 
-                className="absolute inset-0 transition-all duration-300"
+                className="absolute inset-0 transition-all duration-400"
                 style={{
                   background: "rgba(255, 255, 255, 0.04)",
                   backdropFilter: "blur(10px)",
@@ -257,8 +261,11 @@ const HeroSection = () => {
                 }}
               />
               <div 
-                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                style={{ background: "rgba(255, 255, 255, 0.04)" }}
+                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-400"
+                style={{ 
+                  background: "rgba(255, 255, 255, 0.06)",
+                  boxShadow: "0 8px 25px rgba(255, 255, 255, 0.05)",
+                }}
               />
               <span 
                 className="relative z-10 text-sm font-normal tracking-[0.1em] text-white/50 group-hover:text-white/80 transition-colors duration-300 uppercase"

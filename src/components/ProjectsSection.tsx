@@ -63,20 +63,22 @@ const ProjectsSection = () => {
             {projects.map((project, index) => (
               <motion.article
                 key={index}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-30px" }}
-                transition={{ duration: 0.5, delay: index * 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.6, delay: index * 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
               >
                 <motion.div
-                  className="group py-10 px-6 -mx-6 rounded-lg cursor-pointer transition-all duration-300"
-                  whileHover={{ y: -2 }}
+                  className="group py-10 px-6 -mx-6 rounded-lg cursor-pointer"
+                  whileHover={{ y: -4 }}
+                  transition={{ duration: 0.3, ease: "easeOut" }}
                   style={{
                     background: "transparent",
+                    boxShadow: "none",
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.background = "rgba(255, 255, 255, 0.02)";
-                    e.currentTarget.style.boxShadow = "0 4px 20px rgba(0, 0, 0, 0.2)";
+                    e.currentTarget.style.background = "rgba(255, 255, 255, 0.015)";
+                    e.currentTarget.style.boxShadow = "0 10px 40px rgba(0, 0, 0, 0.25)";
                   }}
                   onMouseLeave={(e) => {
                     e.currentTarget.style.background = "transparent";
