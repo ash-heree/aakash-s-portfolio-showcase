@@ -17,13 +17,13 @@ const HeroSection = () => {
     >
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-4xl mx-auto text-center">
-          {/* Name with futuristic tech font and animated gradient */}
+          {/* Name with Orbitron futuristic font and cyan neon glow */}
           <motion.h1
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
             className="text-5xl sm:text-6xl md:text-8xl font-bold mb-8 cursor-default select-none"
-            style={{ fontFamily: "'Orbitron', 'Space Grotesk', sans-serif" }}
+            style={{ fontFamily: "'Orbitron', sans-serif" }}
           >
             <motion.span
               className="relative inline-block"
@@ -33,8 +33,9 @@ const HeroSection = () => {
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
                 backgroundClip: "text",
-                filter: "drop-shadow(0 0 20px rgba(0, 200, 255, 0.25))",
-                letterSpacing: "0.02em",
+                filter: "drop-shadow(0 0 30px rgba(0, 229, 255, 0.4)) drop-shadow(0 0 60px rgba(0, 180, 255, 0.2))",
+                letterSpacing: "0.08em",
+                textShadow: "0 0 40px rgba(0, 229, 255, 0.3)",
               }}
               animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
               transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
@@ -43,15 +44,17 @@ const HeroSection = () => {
             </motion.span>
           </motion.h1>
 
-          {/* Subtitle with clean sans-serif */}
+          {/* Subtitle with Space Grotesk - medium weight, reduced opacity */}
           <motion.h2
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
-            className="text-lg sm:text-xl md:text-2xl font-medium text-white/85 mb-10 tracking-wide"
+            className="text-lg sm:text-xl md:text-2xl mb-10"
             style={{ 
-              fontFamily: "'Outfit', 'Sora', sans-serif",
-              letterSpacing: "0.1em",
+              fontFamily: "'Space Grotesk', sans-serif",
+              fontWeight: 500,
+              letterSpacing: "0.12em",
+              color: "rgba(255, 255, 255, 0.7)",
             }}
           >
             Entry-Level IT Professional
@@ -72,8 +75,14 @@ const HeroSection = () => {
               }}
             >
               <p 
-                className="text-white/80 leading-relaxed text-base sm:text-lg"
-                style={{ fontFamily: "'Inter', 'Sora', sans-serif" }}
+                className="text-base sm:text-lg"
+                style={{ 
+                  fontFamily: "'Inter', sans-serif",
+                  fontWeight: 400,
+                  lineHeight: 1.8,
+                  color: "rgba(255, 255, 255, 0.75)",
+                  letterSpacing: "0.01em",
+                }}
               >
                 Passionate about technology, programming, and problem-solving. 
                 Driven to create innovative solutions and continuously expand my technical expertise.
