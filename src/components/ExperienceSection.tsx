@@ -15,11 +15,11 @@ const ExperienceSection = () => {
     },
     {
       icon: <Briefcase className="h-6 w-6" />,
-      role: "ICT Intern",
+      role: "ICT Virtual Internship – Data Science",
       organization: "ICT Academy",
-      location: "Online Internship",
+      location: "Online / Virtual • Completed",
       description:
-        "Participated in an online internship program focused on Information and Communication Technology, gaining practical skills in digital tools and IT fundamentals.",
+        "Completed a virtual internship program focused on Data Science and Information Technology, gaining practical skills in data analysis, digital tools, and IT fundamentals.",
     },
     {
       icon: <Briefcase className="h-6 w-6" />,
