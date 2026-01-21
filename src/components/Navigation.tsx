@@ -1,14 +1,8 @@
 import { useState } from "react";
-import { Moon, Sun, Menu, X } from "lucide-react";
+import { Menu, X, Cpu } from "lucide-react";
 
 const Navigation = () => {
-  const [isDark, setIsDark] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  const toggleTheme = () => {
-    setIsDark(!isDark);
-    document.documentElement.classList.toggle("dark");
-  };
 
   const navLinks = [
     { href: "#home", label: "Home" },
@@ -31,22 +25,21 @@ const Navigation = () => {
   };
 
   return (
-    <nav className="relative w-full z-50">
-      {/* Premium glassmorphism navbar - NON-STICKY */}
-      <div
-        className="w-full px-6 py-5"
-        style={{
-          background: "rgba(10, 15, 30, 0.35)",
-          backdropFilter: "blur(12px)",
-          WebkitBackdropFilter: "blur(12px)",
-          borderBottom: "1px solid rgba(255, 255, 255, 0.08)",
-        }}
-      >
+    <nav 
+      className="absolute top-0 left-0 right-0 w-full z-50"
+      style={{
+        background: "rgba(10, 15, 30, 0.25)",
+        backdropFilter: "blur(14px)",
+        WebkitBackdropFilter: "blur(14px)",
+        borderBottom: "1px solid rgba(255, 255, 255, 0.08)",
+      }}
+    >
+      <div className="w-full px-6 py-5">
         <div className="max-w-7xl mx-auto">
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center justify-center">
-            {/* Navigation Links Only - No Logo */}
-            <ul className="flex items-center gap-10">
+          {/* Desktop Navigation - Left-aligned links, Right-aligned logo */}
+          <div className="hidden md:flex items-center justify-between">
+            {/* Navigation Links - LEFT ALIGNED */}
+            <ul className="flex items-center gap-8">
               {navLinks.map((link) => (
                 <li key={link.href}>
                   <a
@@ -59,8 +52,18 @@ const Navigation = () => {
                 </li>
               ))}
             </ul>
-          </div>
 
+            {/* Tech Logo - RIGHT ALIGNED */}
+            <div 
+              className="flex items-center justify-center w-10 h-10 rounded-lg"
+              style={{
+                background: "rgba(103, 232, 249, 0.1)",
+                border: "1px solid rgba(103, 232, 249, 0.3)",
+              }}
+            >
+              <Cpu className="w-5 h-5 text-cyan-400" />
+            </div>
+          </div>
           {/* Mobile Navigation */}
           <div className="md:hidden">
             <div className="flex items-center justify-between">
@@ -71,12 +74,16 @@ const Navigation = () => {
                 {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
               </button>
 
-              <button
-                onClick={toggleTheme}
-                className="p-2 text-white/60 hover:text-cyan-400 transition-colors duration-300"
+              {/* Tech Logo - Mobile */}
+              <div 
+                className="flex items-center justify-center w-9 h-9 rounded-lg"
+                style={{
+                  background: "rgba(103, 232, 249, 0.1)",
+                  border: "1px solid rgba(103, 232, 249, 0.3)",
+                }}
               >
-                {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
-              </button>
+                <Cpu className="w-4 h-4 text-cyan-400" />
+              </div>
             </div>
 
             {/* Mobile Menu Items */}
