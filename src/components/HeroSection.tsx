@@ -17,12 +17,19 @@ const HeroSection = () => {
     >
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-4xl mx-auto text-center">
-          {/* Name - clean sans-serif font */}
+          {/* Name - cyan-blue with glow effect */}
           <motion.h1
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
-            className="text-5xl sm:text-6xl md:text-8xl font-bold mb-8 text-white tracking-tight"
+            className="text-5xl sm:text-6xl md:text-8xl font-bold mb-8 tracking-tight"
+            style={{
+              background: "linear-gradient(135deg, #67e8f9 0%, #38bdf8 50%, #818cf8 100%)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              backgroundClip: "text",
+              filter: "drop-shadow(0 0 20px rgba(103, 232, 249, 0.5)) drop-shadow(0 0 40px rgba(56, 189, 248, 0.3))",
+            }}
           >
             Aakash S
           </motion.h1>

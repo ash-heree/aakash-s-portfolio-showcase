@@ -34,91 +34,49 @@ const Navigation = () => {
     <nav className="relative w-full z-50">
       {/* Premium glassmorphism navbar - NON-STICKY */}
       <div
-        className="w-full px-6 py-5 border-b border-white/10"
+        className="w-full px-6 py-5"
         style={{
           background: "rgba(10, 15, 30, 0.35)",
-          backdropFilter: "blur(10px)",
-          WebkitBackdropFilter: "blur(10px)",
+          backdropFilter: "blur(12px)",
+          WebkitBackdropFilter: "blur(12px)",
+          borderBottom: "1px solid rgba(255, 255, 255, 0.08)",
         }}
       >
         <div className="max-w-7xl mx-auto">
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center justify-between">
-            {/* Branded logo with cyan-blue glow */}
-            <a
-              href="#home"
-              onClick={(e) => scrollToSection(e, "#home")}
-              className="text-xl font-semibold tracking-wide"
-              style={{
-                background: "linear-gradient(135deg, #67e8f9 0%, #818cf8 100%)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text",
-                textShadow: "0 0 20px rgba(103, 232, 249, 0.4)",
-                filter: "drop-shadow(0 0 8px rgba(103, 232, 249, 0.3))",
-              }}
-            >
-              Aakash
-            </a>
-
-            {/* Navigation Links - premium styling */}
-            <ul className="flex items-center gap-8">
+          <div className="hidden md:flex items-center justify-center">
+            {/* Navigation Links Only - No Logo */}
+            <ul className="flex items-center gap-10">
               {navLinks.map((link) => (
                 <li key={link.href}>
                   <a
                     href={link.href}
                     onClick={(e) => scrollToSection(e, link.href)}
-                    className="text-sm font-medium text-blue-100/80 hover:text-cyan-400 transition-colors duration-300"
+                    className="text-sm font-medium text-white/75 hover:text-cyan-400 transition-colors duration-300"
                   >
                     {link.label}
                   </a>
                 </li>
               ))}
             </ul>
-
-            {/* Theme toggle */}
-            <button
-              onClick={toggleTheme}
-              className="p-2 text-blue-100/60 hover:text-cyan-400 transition-colors duration-300"
-            >
-              {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
-            </button>
           </div>
 
           {/* Mobile Navigation */}
           <div className="md:hidden">
             <div className="flex items-center justify-between">
-              {/* Branded logo */}
-              <a
-                href="#home"
-                onClick={(e) => scrollToSection(e, "#home")}
-                className="text-lg font-semibold tracking-wide"
-                style={{
-                  background: "linear-gradient(135deg, #67e8f9 0%, #818cf8 100%)",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                  backgroundClip: "text",
-                  filter: "drop-shadow(0 0 8px rgba(103, 232, 249, 0.3))",
-                }}
+              <button
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                className="p-2 text-white/70 hover:text-cyan-400 transition-colors duration-300"
               >
-                Aakash
-              </a>
+                {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+              </button>
 
-              <div className="flex items-center gap-3">
-                <button
-                  onClick={toggleTheme}
-                  className="p-2 text-blue-100/60 hover:text-cyan-400 transition-colors duration-300"
-                >
-                  {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
-                </button>
-
-                <button
-                  onClick={() => setIsMenuOpen(!isMenuOpen)}
-                  className="p-2 text-blue-100/70 hover:text-cyan-400 transition-colors duration-300"
-                >
-                  {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-                </button>
-              </div>
+              <button
+                onClick={toggleTheme}
+                className="p-2 text-white/60 hover:text-cyan-400 transition-colors duration-300"
+              >
+                {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+              </button>
             </div>
 
             {/* Mobile Menu Items */}
@@ -129,7 +87,7 @@ const Navigation = () => {
                     key={link.href}
                     href={link.href}
                     onClick={(e) => scrollToSection(e, link.href)}
-                    className="block px-2 py-3 text-sm text-blue-100/80 hover:text-cyan-400 transition-colors duration-300"
+                    className="block px-2 py-3 text-sm text-white/80 hover:text-cyan-400 transition-colors duration-300"
                   >
                     {link.label}
                   </a>
