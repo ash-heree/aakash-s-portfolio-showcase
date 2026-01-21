@@ -1,5 +1,46 @@
 import { useState } from "react";
-import { Menu, X, Cpu } from "lucide-react";
+import { Menu, X } from "lucide-react";
+
+// Custom minimal tech logo - abstract hexagon with circuit nodes
+const TechLogo = () => (
+  <svg
+    width="32"
+    height="32"
+    viewBox="0 0 32 32"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    className="drop-shadow-[0_0_8px_rgba(103,232,249,0.4)]"
+  >
+    {/* Outer hexagon */}
+    <path
+      d="M16 2L28 9V23L16 30L4 23V9L16 2Z"
+      stroke="url(#hexGradient)"
+      strokeWidth="1.5"
+      fill="rgba(103, 232, 249, 0.08)"
+    />
+    {/* Inner triangle */}
+    <path
+      d="M16 8L23 20H9L16 8Z"
+      stroke="url(#hexGradient)"
+      strokeWidth="1"
+      fill="none"
+    />
+    {/* Center node */}
+    <circle cx="16" cy="16" r="2" fill="url(#hexGradient)" />
+    {/* Corner nodes */}
+    <circle cx="16" cy="8" r="1.5" fill="#67e8f9" />
+    <circle cx="23" cy="20" r="1.5" fill="#38bdf8" />
+    <circle cx="9" cy="20" r="1.5" fill="#818cf8" />
+    {/* Gradient definition */}
+    <defs>
+      <linearGradient id="hexGradient" x1="4" y1="2" x2="28" y2="30" gradientUnits="userSpaceOnUse">
+        <stop stopColor="#67e8f9" />
+        <stop offset="0.5" stopColor="#38bdf8" />
+        <stop offset="1" stopColor="#818cf8" />
+      </linearGradient>
+    </defs>
+  </svg>
+);
 
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -36,9 +77,14 @@ const Navigation = () => {
     >
       <div className="w-full px-6 py-5">
         <div className="max-w-7xl mx-auto">
-          {/* Desktop Navigation - Left-aligned links, Right-aligned logo */}
+          {/* Desktop Navigation - Logo LEFT, Menu RIGHT */}
           <div className="hidden md:flex items-center justify-between">
-            {/* Navigation Links - LEFT ALIGNED */}
+            {/* Tech Logo - LEFT */}
+            <div className="flex items-center">
+              <TechLogo />
+            </div>
+
+            {/* Navigation Links - RIGHT ALIGNED */}
             <ul className="flex items-center gap-8">
               {navLinks.map((link) => (
                 <li key={link.href}>
@@ -52,38 +98,20 @@ const Navigation = () => {
                 </li>
               ))}
             </ul>
-
-            {/* Tech Logo - RIGHT ALIGNED */}
-            <div 
-              className="flex items-center justify-center w-10 h-10 rounded-lg"
-              style={{
-                background: "rgba(103, 232, 249, 0.1)",
-                border: "1px solid rgba(103, 232, 249, 0.3)",
-              }}
-            >
-              <Cpu className="w-5 h-5 text-cyan-400" />
-            </div>
           </div>
+
           {/* Mobile Navigation */}
           <div className="md:hidden">
             <div className="flex items-center justify-between">
+              {/* Tech Logo - Mobile LEFT */}
+              <TechLogo />
+
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
                 className="p-2 text-white/70 hover:text-cyan-400 transition-colors duration-300"
               >
                 {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
               </button>
-
-              {/* Tech Logo - Mobile */}
-              <div 
-                className="flex items-center justify-center w-9 h-9 rounded-lg"
-                style={{
-                  background: "rgba(103, 232, 249, 0.1)",
-                  border: "1px solid rgba(103, 232, 249, 0.3)",
-                }}
-              >
-                <Cpu className="w-4 h-4 text-cyan-400" />
-              </div>
             </div>
 
             {/* Mobile Menu Items */}
