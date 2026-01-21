@@ -7,11 +7,27 @@ const ExperienceSection = () => {
   const experiences = [
     {
       icon: <Briefcase className="h-6 w-6" />,
+      role: "Machine Learning Intern",
+      organization: "YBI Foundation",
+      location: "Completed",
+      description:
+        "Completed hands-on training in machine learning concepts including data preprocessing, model building, and evaluation using Python and scikit-learn.",
+    },
+    {
+      icon: <Briefcase className="h-6 w-6" />,
+      role: "ICT Intern",
+      organization: "ICT Academy",
+      location: "Online Internship",
+      description:
+        "Participated in an online internship program focused on Information and Communication Technology, gaining practical skills in digital tools and IT fundamentals.",
+    },
+    {
+      icon: <Briefcase className="h-6 w-6" />,
       role: "Program Participant",
       organization: "Jal Shakthi Abhiyan - Water Budget",
       location: "Tiruvallur Collector Office",
       description:
-        "Collaborated with Government Engineers on water resource management initiatives, contributing to data collection and analysis for regional water budget planning.",
+        "Collaborated with Government Engineers on water resource management and data collection for regional water budget planning.",
     },
     {
       icon: <GraduationCap className="h-6 w-6" />,
@@ -19,7 +35,7 @@ const ExperienceSection = () => {
       organization: "Dasar Matriculation School",
       location: "Teaching Position",
       description:
-        "Delivered comprehensive computer applications training to 11th standard students, covering essential software skills and programming fundamentals.",
+        "Delivered computer applications training to 11th standard students, covering essential software skills and programming fundamentals.",
     },
   ];
 

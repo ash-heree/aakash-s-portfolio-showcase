@@ -32,35 +32,43 @@ const Navigation = () => {
 
   return (
     <nav className="relative w-full z-50">
-      {/* Ultra minimal glass blur - NON-STICKY */}
+      {/* Premium glassmorphism navbar - NON-STICKY */}
       <div
-        className="w-full px-6 py-5"
+        className="w-full px-6 py-5 border-b border-white/10"
         style={{
-          background: "transparent",
-          backdropFilter: "blur(12px)",
-          WebkitBackdropFilter: "blur(12px)",
+          background: "rgba(10, 15, 30, 0.35)",
+          backdropFilter: "blur(10px)",
+          WebkitBackdropFilter: "blur(10px)",
         }}
       >
         <div className="max-w-7xl mx-auto">
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center justify-between">
-            {/* Clean logo */}
+            {/* Branded logo with cyan-blue glow */}
             <a
               href="#home"
               onClick={(e) => scrollToSection(e, "#home")}
-              className="text-xl font-semibold text-white tracking-wide"
+              className="text-xl font-semibold tracking-wide"
+              style={{
+                background: "linear-gradient(135deg, #67e8f9 0%, #818cf8 100%)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+                textShadow: "0 0 20px rgba(103, 232, 249, 0.4)",
+                filter: "drop-shadow(0 0 8px rgba(103, 232, 249, 0.3))",
+              }}
             >
               Aakash
             </a>
 
-            {/* Navigation Links - clean and minimal */}
+            {/* Navigation Links - premium styling */}
             <ul className="flex items-center gap-8">
               {navLinks.map((link) => (
                 <li key={link.href}>
                   <a
                     href={link.href}
                     onClick={(e) => scrollToSection(e, link.href)}
-                    className="text-sm font-medium text-white/70 hover:text-white transition-colors duration-200"
+                    className="text-sm font-medium text-blue-100/80 hover:text-cyan-400 transition-colors duration-300"
                   >
                     {link.label}
                   </a>
@@ -68,10 +76,10 @@ const Navigation = () => {
               ))}
             </ul>
 
-            {/* Theme toggle - minimal */}
+            {/* Theme toggle */}
             <button
               onClick={toggleTheme}
-              className="p-2 text-white/60 hover:text-white transition-colors duration-200"
+              className="p-2 text-blue-100/60 hover:text-cyan-400 transition-colors duration-300"
             >
               {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
             </button>
@@ -80,11 +88,18 @@ const Navigation = () => {
           {/* Mobile Navigation */}
           <div className="md:hidden">
             <div className="flex items-center justify-between">
-              {/* Logo */}
+              {/* Branded logo */}
               <a
                 href="#home"
                 onClick={(e) => scrollToSection(e, "#home")}
-                className="text-lg font-semibold text-white tracking-wide"
+                className="text-lg font-semibold tracking-wide"
+                style={{
+                  background: "linear-gradient(135deg, #67e8f9 0%, #818cf8 100%)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  backgroundClip: "text",
+                  filter: "drop-shadow(0 0 8px rgba(103, 232, 249, 0.3))",
+                }}
               >
                 Aakash
               </a>
@@ -92,21 +107,21 @@ const Navigation = () => {
               <div className="flex items-center gap-3">
                 <button
                   onClick={toggleTheme}
-                  className="p-2 text-white/60 hover:text-white transition-colors duration-200"
+                  className="p-2 text-blue-100/60 hover:text-cyan-400 transition-colors duration-300"
                 >
                   {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
                 </button>
 
                 <button
                   onClick={() => setIsMenuOpen(!isMenuOpen)}
-                  className="p-2 text-white/70 hover:text-white transition-colors duration-200"
+                  className="p-2 text-blue-100/70 hover:text-cyan-400 transition-colors duration-300"
                 >
                   {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
                 </button>
               </div>
             </div>
 
-            {/* Mobile Menu Items - minimal */}
+            {/* Mobile Menu Items */}
             {isMenuOpen && (
               <div className="mt-4 py-2">
                 {navLinks.map((link) => (
@@ -114,7 +129,7 @@ const Navigation = () => {
                     key={link.href}
                     href={link.href}
                     onClick={(e) => scrollToSection(e, link.href)}
-                    className="block px-2 py-3 text-sm text-white/70 hover:text-white transition-colors duration-200"
+                    className="block px-2 py-3 text-sm text-blue-100/80 hover:text-cyan-400 transition-colors duration-300"
                   >
                     {link.label}
                   </a>
