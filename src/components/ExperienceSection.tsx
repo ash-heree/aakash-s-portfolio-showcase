@@ -8,8 +8,8 @@ const ExperienceSection = () => {
     {
       icon: <Briefcase className="h-6 w-6" />,
       role: "Machine Learning Internship",
-      organization: "Vcodez Company",
-      location: "Online • Completed",
+      organization: "Vcodez Company (Online)",
+      location: "",
       description:
         "Completed hands-on training in machine learning concepts including data preprocessing, model building, and evaluation using Python and scikit-learn.",
     },
@@ -82,7 +82,7 @@ const ExperienceSection = () => {
                         {exp.role}
                       </h3>
                       <p className="text-white/90 font-medium mb-2">
-                        {exp.organization} • {exp.location}
+                        {exp.organization}{exp.location ? ` • ${exp.location}` : ''}
                       </p>
                       <p className="text-white/80 leading-relaxed">
                         {exp.description}
