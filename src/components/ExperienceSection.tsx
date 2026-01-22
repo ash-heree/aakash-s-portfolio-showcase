@@ -7,9 +7,9 @@ const ExperienceSection = () => {
   const experiences = [
     {
       icon: <Briefcase className="h-6 w-6" />,
-      role: "Machine Learning Intern",
-      organization: "YBI Foundation",
-      location: "Completed",
+      role: "Machine Learning Internship",
+      organization: "Vcodez Company",
+      location: "Online • Completed",
       description:
         "Completed hands-on training in machine learning concepts including data preprocessing, model building, and evaluation using Python and scikit-learn.",
     },
