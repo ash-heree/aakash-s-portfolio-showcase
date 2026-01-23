@@ -1,4 +1,4 @@
-import { Hand, ShoppingCart, BarChart3, CloudSun, ExternalLink, Github } from "lucide-react";
+import { Hand, ShoppingCart, BarChart3, CloudSun, ExternalLink, Github, Brain } from "lucide-react";
 import { motion } from "framer-motion";
 import { Card } from "@/components/ui/card";
 import projectsBackground from "@/assets/projects-tech-bg.jpg";
@@ -32,6 +32,13 @@ const ProjectsSection = () => {
       description:
         "A modern weather application UI designed to display real-time weather data with a clean, premium user experience. Built with focus on simplicity and usability.",
       technologies: ["Python", "Streamlit", "VS Code", "OpenWeather API"],
+    },
+    {
+      icon: <Brain className="h-6 w-6" />,
+      title: "Hybrid Neuro-Symbolic Machine Learning for Logical Reasoning Tasks",
+      description:
+        "Developed a hybrid AI system combining neural networks with symbolic reasoning to solve logical reasoning tasks more accurately. The model integrates data-driven learning with rule-based inference to improve interpretability and reasoning performance.",
+      technologies: ["Python", "Machine Learning", "Neural Networks", "Symbolic Logic"],
     },
   ];
 
