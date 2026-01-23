@@ -82,25 +82,26 @@ const ProjectsSection = () => {
                   <Card 
                     className="p-6 sm:p-8 h-full flex flex-col group cursor-pointer"
                     style={{
-                      background: "linear-gradient(135deg, rgba(0, 40, 80, 0.35) 0%, rgba(10, 30, 60, 0.4) 50%, rgba(0, 50, 90, 0.3) 100%)",
-                      border: "1px solid rgba(0, 200, 255, 0.12)",
-                      boxShadow: "0 4px 24px rgba(0, 0, 0, 0.2)",
+                      background: "linear-gradient(135deg, rgba(45, 20, 60, 0.45) 0%, rgba(30, 15, 45, 0.5) 50%, rgba(50, 25, 70, 0.4) 100%)",
+                      border: "1px solid rgba(255, 170, 80, 0.15)",
+                      boxShadow: "0 4px 24px rgba(0, 0, 0, 0.25), 0 0 40px rgba(255, 150, 50, 0.05)",
                     }}
                   >
                     {/* Icon and Title */}
                     <div className="flex items-start gap-4 mb-4">
                       <div 
-                        className="flex-shrink-0 w-12 h-12 rounded-xl flex items-center justify-center text-accent transition-all duration-300 group-hover:scale-110"
+                        className="flex-shrink-0 w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-300 group-hover:scale-110"
                         style={{
-                          background: "linear-gradient(135deg, rgba(0, 200, 255, 0.2) 0%, rgba(0, 150, 255, 0.15) 100%)",
-                          border: "1px solid rgba(0, 200, 255, 0.25)",
-                          boxShadow: "0 4px 16px rgba(0, 200, 255, 0.15)",
+                          background: "linear-gradient(135deg, rgba(255, 170, 80, 0.2) 0%, rgba(255, 140, 50, 0.15) 100%)",
+                          border: "1px solid rgba(255, 170, 80, 0.3)",
+                          boxShadow: "0 4px 16px rgba(255, 150, 50, 0.15)",
+                          color: "#ffaa50",
                         }}
                       >
                         {project.icon}
                       </div>
                       <h3 
-                        className="text-xl font-semibold text-white group-hover:text-accent transition-colors duration-300"
+                        className="text-xl font-semibold text-white group-hover:text-amber-400 transition-colors duration-300"
                         style={{ fontFamily: "'Outfit', 'Sora', sans-serif" }}
                       >
                         {project.title}
@@ -122,8 +123,8 @@ const ProjectsSection = () => {
                           key={idx} 
                           className="text-xs px-3 py-1.5 rounded-full text-white/80 transition-all duration-300 hover:text-white"
                           style={{
-                            background: "linear-gradient(135deg, rgba(0, 180, 255, 0.15) 0%, rgba(0, 120, 200, 0.1) 100%)",
-                            border: "1px solid rgba(0, 200, 255, 0.2)",
+                            background: "linear-gradient(135deg, rgba(255, 170, 80, 0.12) 0%, rgba(200, 100, 50, 0.08) 100%)",
+                            border: "1px solid rgba(255, 170, 80, 0.2)",
                             fontFamily: "'Outfit', sans-serif",
                             letterSpacing: "0.02em",
                           }}
@@ -138,13 +139,13 @@ const ProjectsSection = () => {
                       <motion.button
                         className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium text-white/90 transition-all duration-300"
                         style={{
-                          background: "linear-gradient(135deg, rgba(0, 180, 255, 0.2) 0%, rgba(0, 140, 220, 0.15) 100%)",
-                          border: "1px solid rgba(0, 200, 255, 0.25)",
+                          background: "linear-gradient(135deg, rgba(255, 170, 80, 0.2) 0%, rgba(200, 120, 50, 0.15) 100%)",
+                          border: "1px solid rgba(255, 170, 80, 0.3)",
                           fontFamily: "'Outfit', sans-serif",
                         }}
                         whileHover={{ 
                           scale: 1.03,
-                          boxShadow: "0 4px 16px rgba(0, 200, 255, 0.25)",
+                          boxShadow: "0 4px 16px rgba(255, 150, 50, 0.25)",
                         }}
                         whileTap={{ scale: 0.98 }}
                       >
