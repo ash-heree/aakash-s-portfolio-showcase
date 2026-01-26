@@ -91,9 +91,10 @@ const Navigation = () => {
                   <a
                     href={link.href}
                     onClick={(e) => scrollToSection(e, link.href)}
-                    className="text-sm font-medium text-white/75 hover:text-cyan-400 transition-colors duration-300"
+                    className="relative text-sm font-medium text-white/75 hover:text-amber-400 transition-all duration-300 hover:-translate-y-0.5 hover:drop-shadow-[0_0_8px_rgba(255,170,80,0.4)] group"
                   >
                     {link.label}
+                    <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-gradient-to-r from-amber-400 to-orange-400 transition-all duration-300 ease-out group-hover:w-full" />
                   </a>
                 </li>
               ))}
@@ -122,7 +123,7 @@ const Navigation = () => {
                     key={link.href}
                     href={link.href}
                     onClick={(e) => scrollToSection(e, link.href)}
-                    className="block px-2 py-3 text-sm text-white/80 hover:text-cyan-400 transition-colors duration-300"
+                    className="block px-2 py-3 text-sm text-white/80 hover:text-amber-400 transition-all duration-300 hover:translate-x-1"
                   >
                     {link.label}
                   </a>
