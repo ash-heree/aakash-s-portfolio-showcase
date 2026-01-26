@@ -6,18 +6,18 @@ import projectsBackground from "@/assets/projects-tech-bg.jpg";
 const ProjectsSection = () => {
   const projects = [
     {
-      icon: <Hand className="h-6 w-6" />,
-      title: "AI Virtual Mouse",
-      description:
-        "Developed an innovative computer interaction system using Python and hand-sign recognition technology, enabling touchless mouse control through gesture detection.",
-      technologies: ["Python", "Computer Vision", "OpenCV", "Hand Tracking"],
-    },
-    {
       icon: <ShoppingCart className="h-6 w-6" />,
       title: "E-commerce Website for Games",
       description:
         "Built a full-featured e-commerce platform during ICT Virtual Internship, leveraging data science techniques for user recommendations and inventory management.",
       technologies: ["Data Science", "Web Development", "E-commerce", "Analytics"],
+    },
+    {
+      icon: <Hand className="h-6 w-6" />,
+      title: "AI Virtual Mouse",
+      description:
+        "Developed an innovative computer interaction system using Python and hand-sign recognition technology, enabling touchless mouse control through gesture detection.",
+      technologies: ["Python", "Computer Vision", "OpenCV", "Hand Tracking"],
     },
     {
       icon: <BarChart3 className="h-6 w-6" />,
