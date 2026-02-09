@@ -35,10 +35,10 @@ const ProjectsSection = () => {
     },
     {
       icon: <Brain className="h-6 w-6" />,
-      title: "Hybrid Neuro-Symbolic Machine Learning for Logical Reasoning Tasks",
+      title: "Hybrid Neuro-Symbolic Sudoku Solver",
       description:
-        "Developed a hybrid AI system combining neural networks with symbolic reasoning to solve logical reasoning tasks more accurately. The model integrates data-driven learning with rule-based inference to improve interpretability and reasoning performance.",
-      technologies: ["Python", "Machine Learning", "Neural Networks", "Symbolic Logic"],
+        "Built a neuro-symbolic AI system that solves Sudoku puzzles by combining neural-guided heuristics with symbolic, rule-based constraint propagation. Demonstrates logical reasoning, constraint satisfaction, and the synergy between data-driven learning and formal inference.",
+      technologies: ["Neuro-Symbolic AI", "Logical Reasoning", "Constraint Satisfaction", "Python", "Sudoku Solver"],
     },
   ];
 
