@@ -1,12 +1,12 @@
 import { Card } from "@/components/ui/card";
-import { Briefcase, GraduationCap } from "lucide-react";
+import { Laptop, BarChart3, Brain, GraduationCap } from "lucide-react";
 import { motion } from "framer-motion";
 import experienceBackground from "@/assets/experience-tech-bg.jpg";
 
 const ExperienceSection = () => {
   const experiences = [
     {
-      icon: <Briefcase className="h-6 w-6" />,
+      icon: <Brain className="h-6 w-6" />,
       role: "Machine Learning Internship",
       organization: "Vcodez Company (Online)",
       location: "",
@@ -14,7 +14,7 @@ const ExperienceSection = () => {
         "Completed hands-on training in machine learning concepts including data preprocessing, model building, and evaluation using Python and scikit-learn.",
     },
     {
-      icon: <Briefcase className="h-6 w-6" />,
+      icon: <BarChart3 className="h-6 w-6" />,
       role: "ICT Virtual Internship – Data Science",
       organization: "ICT Academy",
       location: "Online / Virtual • Completed",
@@ -22,7 +22,7 @@ const ExperienceSection = () => {
         "Completed a virtual internship program focused on Data Science and Information Technology, gaining practical skills in data analysis, digital tools, and IT fundamentals.",
     },
     {
-      icon: <Briefcase className="h-6 w-6" />,
+      icon: <Laptop className="h-6 w-6" />,
       role: "Program Participant",
       organization: "Jal Shakthi Abhiyan - Water Budget",
       location: "Tiruvallur Collector Office",
@@ -42,14 +42,16 @@ const ExperienceSection = () => {
   return (
     <section 
       id="experience" 
-      className="relative py-32 bg-gradient-to-b from-[#0a0f1f]/40 to-[#0a0f1f]/20 backdrop-blur-xl overflow-hidden"
+      className="relative py-32 overflow-hidden"
       style={{
-        backgroundImage: `url(${experienceBackground})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundAttachment: 'fixed',
+        background: 'linear-gradient(160deg, hsl(220 20% 10%) 0%, hsl(215 30% 14%) 40%, hsl(210 25% 11%) 70%, hsl(220 20% 8%) 100%)',
       }}
     >
+      {/* Subtle grid pattern overlay */}
+      <div className="absolute inset-0 opacity-[0.04]" style={{
+        backgroundImage: 'linear-gradient(hsl(210 30% 60%) 1px, transparent 1px), linear-gradient(90deg, hsl(210 30% 60%) 1px, transparent 1px)',
+        backgroundSize: '40px 40px',
+      }} />
       
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-4xl mx-auto">
