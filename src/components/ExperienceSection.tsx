@@ -44,13 +44,18 @@ const ExperienceSection = () => {
       id="experience" 
       className="relative py-32 overflow-hidden"
       style={{
-        background: 'linear-gradient(160deg, hsl(220 20% 10%) 0%, hsl(215 30% 14%) 40%, hsl(210 25% 11%) 70%, hsl(220 20% 8%) 100%)',
+        background: 'hsl(0 0% 12%)',
       }}
     >
-      {/* Subtle grid pattern overlay */}
-      <div className="absolute inset-0 opacity-[0.04]" style={{
-        backgroundImage: 'linear-gradient(hsl(210 30% 60%) 1px, transparent 1px), linear-gradient(90deg, hsl(210 30% 60%) 1px, transparent 1px)',
-        backgroundSize: '40px 40px',
+      {/* Blueprint grid pattern */}
+      <div className="absolute inset-0 opacity-[0.06]" style={{
+        backgroundImage: `
+          linear-gradient(hsl(210 5% 40%) 1px, transparent 1px),
+          linear-gradient(90deg, hsl(210 5% 40%) 1px, transparent 1px),
+          linear-gradient(hsl(210 5% 35%) 0.5px, transparent 0.5px),
+          linear-gradient(90deg, hsl(210 5% 35%) 0.5px, transparent 0.5px)
+        `,
+        backgroundSize: '60px 60px, 60px 60px, 12px 12px, 12px 12px',
       }} />
       
       <div className="container mx-auto px-4 relative z-10">
