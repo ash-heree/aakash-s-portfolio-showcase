@@ -44,18 +44,26 @@ const ExperienceSection = () => {
       id="experience" 
       className="relative py-32 overflow-hidden"
       style={{
-        background: 'hsl(0 0% 12%)',
+        backgroundImage: `url(${experienceBackground})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundAttachment: 'fixed',
       }}
     >
-      {/* Blueprint grid pattern */}
-      <div className="absolute inset-0 opacity-[0.06]" style={{
-        backgroundImage: `
-          linear-gradient(hsl(210 5% 40%) 1px, transparent 1px),
-          linear-gradient(90deg, hsl(210 5% 40%) 1px, transparent 1px),
-          linear-gradient(hsl(210 5% 35%) 0.5px, transparent 0.5px),
-          linear-gradient(90deg, hsl(210 5% 35%) 0.5px, transparent 0.5px)
-        `,
-        backgroundSize: '60px 60px, 60px 60px, 12px 12px, 12px 12px',
+      {/* Dark overlay for readability */}
+      <div className="absolute inset-0" style={{
+        background: 'linear-gradient(160deg, rgba(10, 15, 35, 0.88) 0%, rgba(20, 10, 40, 0.85) 50%, rgba(10, 15, 30, 0.9) 100%)',
+      }} />
+
+      {/* Subtle radial glow - top left */}
+      <div className="absolute top-0 left-0 w-[600px] h-[600px] opacity-[0.12]" style={{
+        background: 'radial-gradient(circle, rgba(120, 80, 220, 0.5) 0%, transparent 70%)',
+      }} />
+
+      {/* Dotted grid pattern */}
+      <div className="absolute inset-0 opacity-[0.04]" style={{
+        backgroundImage: 'radial-gradient(circle, rgba(255, 255, 255, 0.8) 1px, transparent 1px)',
+        backgroundSize: '24px 24px',
       }} />
       
       <div className="container mx-auto px-4 relative z-10">
