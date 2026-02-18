@@ -1,9 +1,12 @@
-import { Hand, ShoppingCart, BarChart3, CloudSun, ExternalLink, Github, Brain } from "lucide-react";
-import { motion } from "framer-motion";
+import { Hand, ShoppingCart, BarChart3, CloudSun, ExternalLink, Github, Brain, Car, ChevronDown, ChevronUp } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import projectsBackground from "@/assets/projects-tech-bg.jpg";
 
 const ProjectsSection = () => {
+  const [expandedProject, setExpandedProject] = useState<number | null>(null);
+
   const projects = [
     {
       icon: <ShoppingCart className="h-6 w-6" />,
@@ -39,6 +42,29 @@ const ProjectsSection = () => {
       description:
         "Built a neuro-symbolic AI system that solves Sudoku puzzles by combining neural-guided heuristics with symbolic, rule-based constraint propagation. Demonstrates logical reasoning, constraint satisfaction, and the synergy between data-driven learning and formal inference.",
       technologies: ["Neuro-Symbolic AI", "Logical Reasoning", "Constraint Satisfaction", "Python", "Sudoku Solver"],
+    },
+    {
+      icon: <Car className="h-6 w-6" />,
+      title: "Smart Mobility Rental Platform",
+      description:
+        "A fully offline desktop-based rental application designed for small businesses, operating smoothly on older PCs without internet. Automates customer records, vehicle tracking, booking, billing, and return management using a lightweight local database.",
+      technologies: ["Offline Application", "Desktop Software", "Database Project", "Lightweight Architecture"],
+      techStack: ["Python / VB.NET", "SQLite / MS Access", "ADO.NET / SQLite3", "Desktop Forms UI"],
+      modules: [
+        "Customer Management Module",
+        "Vehicle Management Module",
+        "Booking & Rental Processing Module",
+        "Payment & Billing Generation Module",
+        "Return & Vehicle Condition Update Module",
+        "Data Storage & Database Management Module",
+      ],
+      features: [
+        "Fully Offline System",
+        "Runs on Low-Spec Computers",
+        "Automatic Billing & Late Fee Calculation",
+        "Real-Time Vehicle Status Updates",
+        "Secure Data Storage & Logging",
+      ],
     },
   ];
 
@@ -115,6 +141,70 @@ const ProjectsSection = () => {
                     >
                       {project.description}
                     </p>
+
+                    {/* Expandable Modules & Features (for projects that have them) */}
+                    {'modules' in project && project.modules && (
+                      <div className="mb-4">
+                        <motion.button
+                          onClick={() => setExpandedProject(expandedProject === index ? null : index)}
+                          className="flex items-center gap-2 text-xs font-medium text-amber-400/80 hover:text-amber-400 transition-colors duration-300 mb-2"
+                          style={{ fontFamily: "'Outfit', sans-serif" }}
+                          whileTap={{ scale: 0.97 }}
+                        >
+                          {expandedProject === index ? <ChevronUp className="h-3.5 w-3.5" /> : <ChevronDown className="h-3.5 w-3.5" />}
+                          {expandedProject === index ? "Hide Details" : "View Modules & Features"}
+                        </motion.button>
+                        <AnimatePresence>
+                          {expandedProject === index && (
+                            <motion.div
+                              initial={{ height: 0, opacity: 0 }}
+                              animate={{ height: "auto", opacity: 1 }}
+                              exit={{ height: 0, opacity: 0 }}
+                              transition={{ duration: 0.3, ease: "easeInOut" }}
+                              className="overflow-hidden"
+                            >
+                              <div className="space-y-3 pt-2 pb-3 pl-1">
+                                <div>
+                                  <p className="text-xs font-semibold text-white/60 uppercase tracking-wider mb-1.5" style={{ fontFamily: "'Outfit', sans-serif" }}>Modules</p>
+                                  <ul className="space-y-1">
+                                    {project.modules.map((mod, i) => (
+                                      <li key={i} className="text-xs text-white/70 flex items-start gap-2" style={{ fontFamily: "'Inter', sans-serif" }}>
+                                        <span className="text-amber-400/60 mt-0.5">▸</span> {mod}
+                                      </li>
+                                    ))}
+                                  </ul>
+                                </div>
+                                {'features' in project && project.features && (
+                                  <div>
+                                    <p className="text-xs font-semibold text-white/60 uppercase tracking-wider mb-1.5" style={{ fontFamily: "'Outfit', sans-serif" }}>Key Features</p>
+                                    <ul className="space-y-1">
+                                      {project.features.map((feat, i) => (
+                                        <li key={i} className="text-xs text-white/70 flex items-start gap-2" style={{ fontFamily: "'Inter', sans-serif" }}>
+                                          <span className="text-amber-400/60 mt-0.5">✦</span> {feat}
+                                        </li>
+                                      ))}
+                                    </ul>
+                                  </div>
+                                )}
+                                {'techStack' in project && project.techStack && (
+                                  <div className="flex flex-wrap gap-1.5 pt-1">
+                                    {project.techStack.map((t, i) => (
+                                      <span key={i} className="text-[10px] px-2 py-1 rounded-md text-white/60" style={{
+                                        background: "rgba(255, 255, 255, 0.05)",
+                                        border: "1px solid rgba(255, 255, 255, 0.08)",
+                                        fontFamily: "'Outfit', sans-serif",
+                                      }}>
+                                        {t}
+                                      </span>
+                                    ))}
+                                  </div>
+                                )}
+                              </div>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </div>
+                    )}
 
                     {/* Tech Stack Badges */}
                     <div className="flex flex-wrap gap-2 mb-5">
