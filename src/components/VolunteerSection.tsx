@@ -28,7 +28,7 @@ const VolunteerSection = () => {
   return (
     <section 
       id="volunteer" 
-      className="relative py-32 bg-gradient-to-b from-[#0a0f1f]/40 to-[#0a0f1f]/20 backdrop-blur-xl overflow-hidden"
+      className="relative py-32 overflow-hidden"
       style={{
         backgroundImage: `url(${aboutBackground})`,
         backgroundSize: 'cover',
@@ -36,6 +36,26 @@ const VolunteerSection = () => {
         backgroundAttachment: 'fixed',
       }}
     >
+      {/* Dark gradient overlay */}
+      <div className="absolute inset-0" style={{
+        background: 'linear-gradient(160deg, rgba(10, 15, 35, 0.88) 0%, rgba(25, 12, 50, 0.85) 50%, rgba(10, 15, 30, 0.9) 100%)',
+      }} />
+
+      {/* Radial glow - top left */}
+      <div className="absolute top-0 left-0 w-[500px] h-[500px] opacity-[0.15]" style={{
+        background: 'radial-gradient(circle, rgba(80, 180, 255, 0.4) 0%, transparent 70%)',
+      }} />
+
+      {/* Radial glow - bottom right */}
+      <div className="absolute bottom-0 right-0 w-[400px] h-[400px] opacity-[0.1]" style={{
+        background: 'radial-gradient(circle, rgba(140, 80, 255, 0.5) 0%, transparent 70%)',
+      }} />
+
+      {/* Dotted grid pattern */}
+      <div className="absolute inset-0 opacity-[0.04]" style={{
+        backgroundImage: 'radial-gradient(circle, rgba(255, 255, 255, 0.8) 1px, transparent 1px)',
+        backgroundSize: '24px 24px',
+      }} />
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-5xl mx-auto">
           <motion.div
@@ -57,8 +77,17 @@ const VolunteerSection = () => {
                 viewport={{ once: true, margin: "-30px" }}
                 transition={{ duration: 0.5, delay: index * 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
               >
-                <Card className="p-6 h-full">
-                  <div className="w-12 h-12 rounded-full bg-accent/20 flex items-center justify-center text-accent mb-4 icon-hover">
+                <Card className="p-6 h-full" style={{
+                      background: 'rgba(255, 255, 255, 0.06)',
+                      border: '1px solid rgba(100, 180, 255, 0.15)',
+                      boxShadow: '0 4px 24px rgba(0, 0, 0, 0.3), 0 0 30px rgba(80, 160, 255, 0.06)',
+                      backdropFilter: 'blur(16px)',
+                    }}>
+                  <div className="w-12 h-12 rounded-full flex items-center justify-center mb-4 icon-hover" style={{
+                    background: 'linear-gradient(135deg, rgba(80, 180, 255, 0.2), rgba(140, 80, 255, 0.15))',
+                    border: '1px solid rgba(100, 180, 255, 0.25)',
+                    color: '#60b8ff',
+                  }}>
                     {activity.icon}
                   </div>
                   <h3 className="text-xl font-bold mb-3 text-white">
