@@ -1,4 +1,4 @@
-import { Hand, ShoppingCart, BarChart3, CloudSun, ExternalLink, Github, Brain, Car, ChevronDown, ChevronUp } from "lucide-react";
+import { Hand, ShoppingCart, BarChart3, CloudSun, ExternalLink, Github, Brain, Car, ChevronDown, ChevronUp, Shield } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { Card } from "@/components/ui/card";
@@ -8,6 +8,14 @@ const ProjectsSection = () => {
   const [expandedProject, setExpandedProject] = useState<number | null>(null);
 
   const projects = [
+    {
+      icon: <Shield className="h-6 w-6" />,
+      title: "Machine Learning Based Transaction Risk Analysis",
+      description:
+        "Developed an intelligent fraud detection system that leverages Machine Learning, Data Mining, and Big Data Analytics to identify suspicious transactions in banking, insurance, e-commerce, and digital payment systems. The system analyzes large-scale transaction data using classification, clustering, and anomaly detection techniques to detect fraudulent patterns with high accuracy. By utilizing historical transaction data and predictive analytics, the solution continuously adapts to emerging fraud trends, helping organizations reduce financial losses, improve security, and enhance transaction monitoring efficiency.",
+      technologies: ["Machine Learning", "Python", "Data Mining", "Big Data Analytics", "Fraud Detection", "Predictive Analytics"],
+      featured: true,
+    },
     {
       icon: <ShoppingCart className="h-6 w-6" />,
       title: "E-commerce Website for Games",
@@ -106,13 +114,18 @@ const ProjectsSection = () => {
                   transition={{ duration: 0.3, ease: "easeOut" }}
                 >
                   <Card 
-                    className="p-6 sm:p-8 h-full flex flex-col group cursor-pointer"
+                    className="p-6 sm:p-8 h-full flex flex-col group cursor-pointer relative"
                     style={{
                       background: "linear-gradient(135deg, rgba(45, 20, 60, 0.45) 0%, rgba(30, 15, 45, 0.5) 50%, rgba(50, 25, 70, 0.4) 100%)",
-                      border: "1px solid rgba(255, 170, 80, 0.15)",
-                      boxShadow: "0 4px 24px rgba(0, 0, 0, 0.25), 0 0 40px rgba(255, 150, 50, 0.05)",
+                      border: project.featured ? "1px solid rgba(255, 170, 80, 0.35)" : "1px solid rgba(255, 170, 80, 0.15)",
+                      boxShadow: project.featured ? "0 4px 24px rgba(0, 0, 0, 0.25), 0 0 60px rgba(255, 150, 50, 0.12)" : "0 4px 24px rgba(0, 0, 0, 0.25), 0 0 40px rgba(255, 150, 50, 0.05)",
                     }}
                   >
+                    {project.featured && (
+                      <span className="absolute top-4 right-4 text-[10px] px-2.5 py-1 rounded-full font-medium text-amber-300 border border-amber-400/30 bg-amber-400/10" style={{ fontFamily: "'Outfit', sans-serif" }}>
+                        Featured
+                      </span>
+                    )}
                     {/* Icon and Title */}
                     <div className="flex items-start gap-4 mb-4">
                       <div 
