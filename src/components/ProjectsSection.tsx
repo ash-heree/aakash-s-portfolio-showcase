@@ -12,9 +12,10 @@ const ProjectsSection = () => {
       icon: <Shield className="h-6 w-6" />,
       title: "Machine Learning Based Transaction Risk Analysis",
       description:
-        "Developed an intelligent fraud detection system that leverages Machine Learning, Data Mining, and Big Data Analytics to identify suspicious transactions in banking, insurance, e-commerce, and digital payment systems. The system analyzes large-scale transaction data using classification, clustering, and anomaly detection techniques to detect fraudulent patterns with high accuracy. By utilizing historical transaction data and predictive analytics, the solution continuously adapts to emerging fraud trends, helping organizations reduce financial losses, improve security, and enhance transaction monitoring efficiency.",
+        "Currently developing an intelligent fraud detection system using Machine Learning, Data Mining, and Big Data Analytics. The project analyzes transaction patterns to identify suspicious activities, improve fraud detection accuracy, and enhance security through predictive analytics and anomaly detection.",
       technologies: ["Machine Learning", "Python", "Data Mining", "Big Data Analytics", "Fraud Detection", "Predictive Analytics"],
       featured: true,
+      inProgress: true,
     },
     {
       icon: <ShoppingCart className="h-6 w-6" />,
