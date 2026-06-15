@@ -1,4 +1,4 @@
-import { Hand, ShoppingCart, BarChart3, CloudSun, ExternalLink, Github, Brain, Car, ChevronDown, ChevronUp } from "lucide-react";
+import { Hand, ShoppingCart, BarChart3, CloudSun, ExternalLink, Github, Brain, Car, ChevronDown, ChevronUp, Shield } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { Card } from "@/components/ui/card";
