@@ -60,8 +60,7 @@ const HeroSection = () => {
               }}
             >
               <p className="text-base sm:text-lg text-white/75 leading-relaxed">
-                Passionate about technology, programming, and problem-solving. 
-                Driven to create innovative solutions and continuously expand my technical expertise.
+                Building modern web applications and exploring Machine Learning, Data Analytics, and intelligent systems through real-world projects.
               </p>
             </Card>
           </motion.div>
