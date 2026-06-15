@@ -40,9 +40,9 @@ const HeroSection = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
-            className="text-lg sm:text-xl md:text-2xl mb-10 text-white/70 font-medium tracking-wide"
+            className="text-base sm:text-lg md:text-2xl mb-10 text-white/80 font-semibold tracking-wide"
           >
-            Entry-Level IT Professional
+            MCA Student | Full Stack Developer | Python Enthusiast
           </motion.h2>
 
           {/* Description Card */}
