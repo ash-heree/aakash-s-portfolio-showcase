@@ -12,9 +12,10 @@ const ProjectsSection = () => {
       icon: <Shield className="h-6 w-6" />,
       title: "Machine Learning Based Transaction Risk Analysis",
       description:
-        "Developed an intelligent fraud detection system that leverages Machine Learning, Data Mining, and Big Data Analytics to identify suspicious transactions in banking, insurance, e-commerce, and digital payment systems. The system analyzes large-scale transaction data using classification, clustering, and anomaly detection techniques to detect fraudulent patterns with high accuracy. By utilizing historical transaction data and predictive analytics, the solution continuously adapts to emerging fraud trends, helping organizations reduce financial losses, improve security, and enhance transaction monitoring efficiency.",
+        "Currently developing an intelligent fraud detection system using Machine Learning, Data Mining, and Big Data Analytics. The project analyzes transaction patterns to identify suspicious activities, improve fraud detection accuracy, and enhance security through predictive analytics and anomaly detection.",
       technologies: ["Machine Learning", "Python", "Data Mining", "Big Data Analytics", "Fraud Detection", "Predictive Analytics"],
       featured: true,
+      inProgress: true,
     },
     {
       icon: <ShoppingCart className="h-6 w-6" />,
@@ -121,10 +122,19 @@ const ProjectsSection = () => {
                       boxShadow: project.featured ? "0 4px 24px rgba(0, 0, 0, 0.25), 0 0 60px rgba(255, 150, 50, 0.12)" : "0 4px 24px rgba(0, 0, 0, 0.25), 0 0 40px rgba(255, 150, 50, 0.05)",
                     }}
                   >
-                    {project.featured && (
-                      <span className="absolute top-4 right-4 text-[10px] px-2.5 py-1 rounded-full font-medium text-amber-300 border border-amber-400/30 bg-amber-400/10" style={{ fontFamily: "'Outfit', sans-serif" }}>
-                        Featured
-                      </span>
+                    {(project.featured || project.inProgress) && (
+                      <div className="absolute top-4 right-4 flex items-center gap-2">
+                        {project.featured && (
+                          <span className="text-[10px] px-2.5 py-1 rounded-full font-medium text-amber-300 border border-amber-400/30 bg-amber-400/10" style={{ fontFamily: "'Outfit', sans-serif" }}>
+                            Featured
+                          </span>
+                        )}
+                        {project.inProgress && (
+                          <span className="text-[10px] px-2.5 py-1 rounded-full font-medium text-amber-200 border border-amber-400/40 bg-amber-400/15" style={{ fontFamily: "'Outfit', sans-serif" }}>
+                            🚧 In Progress
+                          </span>
+                        )}
+                      </div>
                     )}
                     {/* Icon and Title */}
                     <div className="flex items-start gap-4 mb-4">
