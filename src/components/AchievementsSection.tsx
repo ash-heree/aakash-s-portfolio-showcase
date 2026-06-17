@@ -1,4 +1,3 @@
-import { Card } from "@/components/ui/card";
 import { Award, GraduationCap, Briefcase, Pencil, X } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
@@ -7,7 +6,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { useState, useRef } from "react";
 import { motion } from "framer-motion";
-import achievementsBackground from "@/assets/achievements-tech-bg.jpg";
 
 interface Achievement {
   title: string;
