@@ -1,45 +1,13 @@
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 
-// Custom minimal tech logo - abstract hexagon with circuit nodes
+// Developer-style name logo
 const TechLogo = () => (
-  <svg
-    width="32"
-    height="32"
-    viewBox="0 0 32 32"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    className="drop-shadow-[0_0_8px_rgba(103,232,249,0.4)]"
-  >
-    {/* Outer hexagon */}
-    <path
-      d="M16 2L28 9V23L16 30L4 23V9L16 2Z"
-      stroke="url(#hexGradient)"
-      strokeWidth="1.5"
-      fill="rgba(103, 232, 249, 0.08)"
-    />
-    {/* Inner triangle */}
-    <path
-      d="M16 8L23 20H9L16 8Z"
-      stroke="url(#hexGradient)"
-      strokeWidth="1"
-      fill="none"
-    />
-    {/* Center node */}
-    <circle cx="16" cy="16" r="2" fill="url(#hexGradient)" />
-    {/* Corner nodes */}
-    <circle cx="16" cy="8" r="1.5" fill="#67e8f9" />
-    <circle cx="23" cy="20" r="1.5" fill="#38bdf8" />
-    <circle cx="9" cy="20" r="1.5" fill="#818cf8" />
-    {/* Gradient definition */}
-    <defs>
-      <linearGradient id="hexGradient" x1="4" y1="2" x2="28" y2="30" gradientUnits="userSpaceOnUse">
-        <stop stopColor="#67e8f9" />
-        <stop offset="0.5" stopColor="#38bdf8" />
-        <stop offset="1" stopColor="#818cf8" />
-      </linearGradient>
-    </defs>
-  </svg>
+  <span className="font-mono text-lg sm:text-xl font-semibold tracking-tight select-none">
+    <span className="text-[#00F5D4] drop-shadow-[0_0_8px_rgba(0,245,212,0.7)]">&lt;/</span>
+    <span className="text-white">Aakash</span>
+    <span className="text-[#00F5D4] drop-shadow-[0_0_8px_rgba(0,245,212,0.7)]">&gt;</span>
+  </span>
 );
 
 const Navigation = () => {
