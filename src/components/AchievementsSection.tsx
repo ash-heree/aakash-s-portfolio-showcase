@@ -1,4 +1,3 @@
-import { Card } from "@/components/ui/card";
 import { Award, GraduationCap, Briefcase, Pencil, X } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
@@ -7,7 +6,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { useState, useRef } from "react";
 import { motion } from "framer-motion";
-import achievementsBackground from "@/assets/achievements-tech-bg.jpg";
 
 interface Achievement {
   title: string;
@@ -145,150 +143,104 @@ const AchievementsSection = () => {
     setEditedData(null);
   };
 
-  return (
-    <section 
-      id="achievements" 
-      className="relative py-20 bg-gradient-to-b from-[#0a0f1f]/40 to-[#0a0f1f]/20 backdrop-blur-xl overflow-hidden"
+  const FinderCard = ({ item, icon, onClick }: { item: Achievement; icon: JSX.Element; onClick: () => void }) => (
+    <motion.div
+      whileHover={{ y: -6, scale: 1.02 }}
+      transition={{ duration: 0.25 }}
+      onClick={onClick}
+      className="group cursor-pointer rounded-2xl overflow-hidden backdrop-blur-xl transition-all duration-300 hover:border-[#00F5D4]/50"
       style={{
-        backgroundImage: `url(${achievementsBackground})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundAttachment: 'fixed',
+        background: "rgba(11,17,32,0.75)",
+        border: "1px solid rgba(56,189,248,0.18)",
+        boxShadow: "0 8px 24px rgba(0,0,0,0.4)",
       }}
     >
-      
+      {/* Finder-style header */}
+      <div className="flex items-center gap-1.5 px-3 py-2 bg-[#050816]/80 border-b border-white/5">
+        <span className="w-2.5 h-2.5 rounded-full bg-[#ff5f57]" />
+        <span className="w-2.5 h-2.5 rounded-full bg-[#febc2e]" />
+        <span className="w-2.5 h-2.5 rounded-full bg-[#28c840]" />
+        <span className="ml-2 text-[10px] font-mono text-white/40 truncate">{item.title.toLowerCase().replace(/[^a-z0-9]/g, "-").slice(0, 30)}.cert</span>
+      </div>
+      <div className="p-6">
+        <motion.div
+          className="w-12 h-12 rounded-xl flex items-center justify-center text-[#00F5D4] mb-4"
+          style={{ background: "rgba(0,245,212,0.1)", border: "1px solid rgba(0,245,212,0.3)", boxShadow: "0 0 18px rgba(0,245,212,0.2)" }}
+          whileHover={{ rotate: -6, scale: 1.1 }}
+        >
+          {icon}
+        </motion.div>
+        <h4 className="text-base font-semibold text-white mb-1.5 leading-tight group-hover:text-[#00F5D4] transition-colors">
+          {item.title}
+        </h4>
+        <p className="text-xs font-mono text-[#38BDF8] mb-3">{item.institution}</p>
+        <p className="text-[11px] font-mono text-white/40">↗ open details</p>
+      </div>
+    </motion.div>
+  );
+
+  return (
+    <section
+      id="achievements"
+      className="relative py-32 overflow-hidden"
+      style={{ background: "linear-gradient(180deg, #050816 0%, #0B1120 100%)" }}
+    >
+      {/* floating particles */}
+      {[...Array(22)].map((_, i) => (
+        <motion.span
+          key={i}
+          className="absolute w-1 h-1 rounded-full bg-[#00F5D4]/60"
+          style={{ left: `${(i * 47) % 100}%`, top: `${(i * 29) % 100}%` }}
+          animate={{ y: [0, -30, 0], opacity: [0.2, 0.8, 0.2] }}
+          transition={{ duration: 5 + (i % 5), repeat: Infinity, delay: i * 0.25 }}
+        />
+      ))}
+
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-6xl mx-auto">
-          {/* Main Section Title */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-16"
           >
-            <h2 className="section-title">Achievements</h2>
-            <div className="section-divider mb-16" />
+            <p className="font-mono text-xs text-[#00F5D4] mb-3 tracking-widest">// ACHIEVEMENTS.LS</p>
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">Achievements</h2>
+            <div className="w-20 h-[2px] bg-gradient-to-r from-transparent via-[#00F5D4] to-transparent mx-auto" />
           </motion.div>
 
-          {/* Certifications Subsection */}
-          <div className="mb-16">
-            <motion.h3 
-              className="text-3xl font-bold text-center mb-8 text-white"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-            >
-              Certifications
-            </motion.h3>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {certifications.map((cert, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-30px" }}
-                  transition={{ duration: 0.5, delay: index * 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
-                >
-                  <Card
-                    className="p-6 cursor-pointer group h-full"
-                    onClick={() => setSelectedItem({ type: "certification", index })}
+          {[
+            { label: "Certifications", items: certifications, type: "certification", icon: <Award className="h-6 w-6" /> },
+            { label: "Workshops", items: workshops, type: "workshop", icon: <GraduationCap className="h-6 w-6" /> },
+            { label: "Internships", items: internships, type: "internship", icon: <Briefcase className="h-6 w-6" /> },
+          ].map((group) => (
+            <div key={group.label} className="mb-14 last:mb-0">
+              <motion.h3
+                className="text-2xl font-bold text-white mb-6 font-mono"
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
+              >
+                <span className="text-[#00F5D4]">›</span> {group.label}
+              </motion.h3>
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+                {group.items.map((it, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-30px" }}
+                    transition={{ duration: 0.5, delay: index * 0.08 }}
                   >
-                    <Award className="h-10 w-10 text-accent mb-4 group-hover:scale-110 transition-transform duration-300" />
-                    <h4 className="text-lg font-bold text-white mb-2 leading-tight">
-                      {cert.title}
-                    </h4>
-                    <p className="text-sm text-white/80 font-medium">
-                      {cert.institution}
-                    </p>
-                    <p className="text-xs text-white/60 mt-3">
-                      Click to view details
-                    </p>
-                  </Card>
-                </motion.div>
-              ))}
+                    <FinderCard item={it} icon={group.icon} onClick={() => setSelectedItem({ type: group.type, index })} />
+                  </motion.div>
+                ))}
+              </div>
             </div>
-          </div>
+          ))}
 
-          {/* Workshops Subsection */}
-          <div className="mb-16">
-            <motion.h3 
-              className="text-3xl font-bold text-center mb-8 text-white"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-            >
-              Workshops
-            </motion.h3>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {workshops.map((workshop, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-30px" }}
-                  transition={{ duration: 0.5, delay: index * 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
-                >
-                  <Card
-                    className="p-6 cursor-pointer group h-full"
-                    onClick={() => setSelectedItem({ type: "workshop", index })}
-                  >
-                    <GraduationCap className="h-10 w-10 text-accent mb-4 group-hover:scale-110 transition-transform duration-300" />
-                    <h4 className="text-lg font-bold text-white mb-2 leading-tight">
-                      {workshop.title}
-                    </h4>
-                    <p className="text-sm text-white/80 font-medium">
-                      {workshop.institution}
-                    </p>
-                    <p className="text-xs text-white/60 mt-3">
-                      Click to view details
-                    </p>
-                  </Card>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-
-          {/* Internships Subsection */}
-          <div>
-            <motion.h3 
-              className="text-3xl font-bold text-center mb-8 text-white"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-            >
-              Internships
-            </motion.h3>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {internships.map((internship, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-30px" }}
-                  transition={{ duration: 0.5, delay: index * 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
-                >
-                  <Card
-                    className="p-6 cursor-pointer group h-full"
-                    onClick={() => setSelectedItem({ type: "internship", index })}
-                  >
-                    <Briefcase className="h-10 w-10 text-accent mb-4 group-hover:scale-110 transition-transform duration-300" />
-                    <h4 className="text-lg font-bold text-white mb-2 leading-tight">
-                      {internship.title}
-                    </h4>
-                    <p className="text-sm text-white/80 font-medium">
-                      {internship.institution}
-                    </p>
-                    <p className="text-xs text-white/60 mt-3">
-                      Click to view details
-                    </p>
-                  </Card>
-                </motion.div>
-              ))}
-            </div>
-          </div>
 
           {/* Achievement Modal */}
           <Dialog open={selectedItem !== null} onOpenChange={handleCloseModal}>

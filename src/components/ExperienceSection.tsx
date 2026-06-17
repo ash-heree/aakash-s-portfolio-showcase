@@ -1,112 +1,118 @@
-import { Card } from "@/components/ui/card";
 import { Laptop, BarChart3, Brain, GraduationCap } from "lucide-react";
 import { motion } from "framer-motion";
-import experienceBackground from "@/assets/experience-tech-bg.jpg";
 
 const ExperienceSection = () => {
   const experiences = [
     {
-      icon: <Brain className="h-6 w-6" />,
+      icon: <Brain className="h-5 w-5" />,
       role: "Machine Learning Internship",
       organization: "Vcodez Company (Online)",
-      location: "",
-      description:
-        "Completed hands-on training in machine learning concepts including data preprocessing, model building, and evaluation using Python and scikit-learn.",
+      description: "Hands-on training in machine learning, data preprocessing, model building, and evaluation using Python and scikit-learn.",
     },
     {
-      icon: <BarChart3 className="h-6 w-6" />,
+      icon: <BarChart3 className="h-5 w-5" />,
       role: "ICT Virtual Internship – Data Science",
-      organization: "ICT Academy",
-      location: "Online / Virtual • Completed",
-      description:
-        "Completed a virtual internship program focused on Data Science and Information Technology, gaining practical skills in data analysis, digital tools, and IT fundamentals.",
+      organization: "ICT Academy • Completed",
+      description: "Virtual internship focused on Data Science and IT, with practical skills in data analysis, digital tools, and IT fundamentals.",
     },
     {
-      icon: <Laptop className="h-6 w-6" />,
+      icon: <Laptop className="h-5 w-5" />,
       role: "Program Participant",
-      organization: "Jal Shakthi Abhiyan - Water Budget",
-      location: "Tiruvallur Collector Office",
-      description:
-        "Collaborated with Government Engineers on water resource management and data collection for regional water budget planning.",
+      organization: "Jal Shakthi Abhiyan • Tiruvallur Collector Office",
+      description: "Collaborated with Government Engineers on water resource management and regional water budget data collection.",
     },
     {
-      icon: <GraduationCap className="h-6 w-6" />,
+      icon: <GraduationCap className="h-5 w-5" />,
       role: "Computer Applications Trainer",
       organization: "Dasar Matriculation School",
-      location: "Teaching Position",
-      description:
-        "Delivered computer applications training to 11th standard students, covering essential software skills and programming fundamentals.",
+      description: "Delivered computer applications training to 11th std students covering essential software and programming fundamentals.",
     },
   ];
 
   return (
-    <section 
-      id="experience" 
+    <section
+      id="experience"
       className="relative py-32 overflow-hidden"
-      style={{
-        backgroundImage: `url(${experienceBackground})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundAttachment: 'fixed',
-      }}
+      style={{ background: "linear-gradient(180deg, #050816 0%, #0B1120 100%)" }}
     >
-      {/* Dark overlay for readability */}
-      <div className="absolute inset-0" style={{
-        background: 'linear-gradient(160deg, rgba(10, 15, 35, 0.88) 0%, rgba(20, 10, 40, 0.85) 50%, rgba(10, 15, 30, 0.9) 100%)',
-      }} />
+      {/* gradient mesh */}
+      <motion.div
+        className="absolute -top-40 -left-40 w-[600px] h-[600px] rounded-full blur-3xl opacity-25"
+        style={{ background: "radial-gradient(circle, #00F5D4, transparent 70%)" }}
+        animate={{ x: [0, 80, 0], y: [0, 40, 0] }}
+        transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <motion.div
+        className="absolute -bottom-40 -right-40 w-[600px] h-[600px] rounded-full blur-3xl opacity-20"
+        style={{ background: "radial-gradient(circle, #38BDF8, transparent 70%)" }}
+        animate={{ x: [0, -60, 0], y: [0, -30, 0] }}
+        transition={{ duration: 25, repeat: Infinity, ease: "easeInOut" }}
+      />
 
-      {/* Subtle radial glow - top left */}
-      <div className="absolute top-0 left-0 w-[600px] h-[600px] opacity-[0.12]" style={{
-        background: 'radial-gradient(circle, rgba(120, 80, 220, 0.5) 0%, transparent 70%)',
-      }} />
-
-      {/* Dotted grid pattern */}
-      <div className="absolute inset-0 opacity-[0.04]" style={{
-        backgroundImage: 'radial-gradient(circle, rgba(255, 255, 255, 0.8) 1px, transparent 1px)',
-        backgroundSize: '24px 24px',
-      }} />
-      
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-4xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-16"
           >
-            <h2 className="section-title">Experience</h2>
-            <div className="section-divider" />
+            <p className="font-mono text-xs text-[#00F5D4] mb-3 tracking-widest">// EXPERIENCE.LOG</p>
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">Experience</h2>
+            <div className="w-20 h-[2px] bg-gradient-to-r from-transparent via-[#00F5D4] to-transparent mx-auto" />
           </motion.div>
 
-          <div className="space-y-6">
-            {experiences.map((exp, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-30px" }}
-                transition={{ duration: 0.5, delay: index * 0.15, ease: [0.25, 0.46, 0.45, 0.94] }}
-              >
-                <Card className="p-6">
-                  <div className="flex gap-4">
-                    <div className="flex-shrink-0 w-12 h-12 rounded-full bg-accent/20 flex items-center justify-center text-accent icon-hover">
-                      {exp.icon}
-                    </div>
-                    <div className="flex-1">
-                      <h3 className="text-xl font-bold text-white mb-1">
-                        {exp.role}
-                      </h3>
-                      <p className="text-white/90 font-medium mb-2">
-                        {exp.organization}{exp.location ? ` • ${exp.location}` : ''}
-                      </p>
-                      <p className="text-white/80 leading-relaxed">
-                        {exp.description}
-                      </p>
-                    </div>
+          <div className="relative">
+            {/* timeline line */}
+            <motion.div
+              className="absolute left-[22px] sm:left-6 top-0 w-[2px] origin-top"
+              style={{ background: "linear-gradient(180deg, #00F5D4 0%, #38BDF8 50%, transparent 100%)" }}
+              initial={{ scaleY: 0, height: "100%" }}
+              whileInView={{ scaleY: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1.2, ease: "easeOut" }}
+            />
+
+            <div className="space-y-6">
+              {experiences.map((exp, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, margin: "-30px" }}
+                  transition={{ duration: 0.5, delay: i * 0.1 }}
+                  className="relative pl-16 sm:pl-20"
+                >
+                  {/* node */}
+                  <motion.div
+                    className="absolute left-0 top-4 w-[46px] h-[46px] rounded-xl flex items-center justify-center text-[#00F5D4] z-10"
+                    style={{
+                      background: "rgba(11,17,32,0.95)",
+                      border: "1px solid rgba(0,245,212,0.5)",
+                      boxShadow: "0 0 20px rgba(0,245,212,0.3)",
+                    }}
+                    animate={{ y: [0, -3, 0] }}
+                    transition={{ duration: 3 + i * 0.3, repeat: Infinity, ease: "easeInOut" }}
+                  >
+                    {exp.icon}
+                  </motion.div>
+
+                  <div
+                    className="rounded-2xl p-6 backdrop-blur-xl group transition-all duration-300 hover:-translate-y-1"
+                    style={{
+                      background: "linear-gradient(135deg, rgba(0,245,212,0.05) 0%, rgba(11,17,32,0.6) 100%)",
+                      border: "1px solid rgba(56,189,248,0.15)",
+                      boxShadow: "0 8px 24px rgba(0,0,0,0.3)",
+                    }}
+                  >
+                    <h3 className="text-lg font-semibold text-white mb-1 group-hover:text-[#00F5D4] transition-colors">{exp.role}</h3>
+                    <p className="text-sm font-mono text-[#38BDF8] mb-3">{exp.organization}</p>
+                    <p className="text-white/70 text-sm leading-relaxed">{exp.description}</p>
                   </div>
-                </Card>
-              </motion.div>
-            ))}
+                </motion.div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
