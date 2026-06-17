@@ -77,7 +77,7 @@ const TypingRoles = () => {
   }, [charIdx, del, roleIdx]);
   return (
     <span className="font-mono text-base sm:text-lg md:text-xl">
-      <span className="text-[#00F5D4] font-bold mr-2 drop-shadow-[0_0_8px_rgba(0,245,212,0.6)]">{">>>>>>"}</span>
+      <span className="text-[#00F5D4] font-bold mr-2 drop-shadow-[0_0_8px_rgba(0,245,212,0.6)]">{">>"}</span>
       <span className="text-[#38BDF8]">{text}</span>
       <span className="inline-block w-[2px] h-5 bg-[#00F5D4] ml-1 align-middle animate-[blink_1s_steps(2)_infinite]" />
     </span>
