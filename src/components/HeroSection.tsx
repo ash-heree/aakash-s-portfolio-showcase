@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { Github, Linkedin, Mail, ChevronDown } from "lucide-react";
 
-const ROLES = "MCA Student | Full Stack Developer | Python Enthusiast";
+const ROLES = ["MCA Student", "Full Stack Developer", "Python Enthusiast"];
 
 const MatrixRain = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
