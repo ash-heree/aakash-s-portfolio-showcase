@@ -50,31 +50,35 @@ const MatrixRain = () => {
 
 const TypingRoles = () => {
   const [text, setText] = useState("");
-  const [i, setI] = useState(0);
+  const [roleIdx, setRoleIdx] = useState(0);
+  const [charIdx, setCharIdx] = useState(0);
   const [del, setDel] = useState(false);
   useEffect(() => {
+    const current = ROLES[roleIdx];
     const t = setTimeout(() => {
       if (!del) {
-        if (i < ROLES.length) {
-          setText(ROLES.slice(0, i + 1));
-          setI(i + 1);
+        if (charIdx < current.length) {
+          setText(current.slice(0, charIdx + 1));
+          setCharIdx(charIdx + 1);
         } else {
-          setTimeout(() => setDel(true), 2200);
+          setTimeout(() => setDel(true), 1400);
         }
       } else {
-        if (i > 0) {
-          setText(ROLES.slice(0, i - 1));
-          setI(i - 1);
+        if (charIdx > 0) {
+          setText(current.slice(0, charIdx - 1));
+          setCharIdx(charIdx - 1);
         } else {
           setDel(false);
+          setRoleIdx((roleIdx + 1) % ROLES.length);
         }
       }
-    }, del ? 30 : 65);
+    }, del ? 35 : 75);
     return () => clearTimeout(t);
-  }, [i, del]);
+  }, [charIdx, del, roleIdx]);
   return (
-    <span className="font-mono text-base sm:text-lg md:text-xl text-[#00F5D4]">
-      {text}
+    <span className="font-mono text-base sm:text-lg md:text-xl">
+      <span className="text-[#00F5D4] font-bold mr-2 drop-shadow-[0_0_8px_rgba(0,245,212,0.6)]">{">>>>>>"}</span>
+      <span className="text-[#38BDF8]">{text}</span>
       <span className="inline-block w-[2px] h-5 bg-[#00F5D4] ml-1 align-middle animate-[blink_1s_steps(2)_infinite]" />
     </span>
   );
