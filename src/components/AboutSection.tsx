@@ -63,12 +63,7 @@ const Terminal = () => {
             </div>
           );
         })}
-        {step >= TERMINAL_LINES.length && (
-          <div className="text-white/90 mt-1">
-            <span className="text-[#00FF88]">$</span>{" "}
-            <span className="inline-block w-2.5 h-4 bg-[#00F5D4] align-middle animate-[blink_1s_steps(2)_infinite]" />
-          </div>
-        )}
+        {step >= TERMINAL_LINES.length && <ProcessingPrompt />}
       </div>
     </motion.div>
   );

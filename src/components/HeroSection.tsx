@@ -102,15 +102,17 @@ const CodeEditor = () => (
         <span className="w-3 h-3 rounded-full bg-[#28c840]" />
         <span className="ml-3 text-xs font-mono text-white/40">developer.py</span>
       </div>
-      <pre className="p-5 sm:p-6 text-[13px] sm:text-sm font-mono leading-relaxed overflow-x-auto">
+      <pre className="p-5 sm:p-6 text-[13px] sm:text-sm font-mono leading-relaxed overflow-x-auto min-h-[440px]">
 <code>
 <span className="text-[#ff79c6]">class</span> <span className="text-[#00F5D4]">Developer</span>:
 {"\n  "}<span className="text-[#38BDF8]">name</span> = <span className="text-[#00FF88]">"Aakash S"</span>
 {"\n  "}<span className="text-[#38BDF8]">role</span> = <span className="text-[#00FF88]">"MCA Student"</span>
+{"\n  "}<span className="text-[#38BDF8]">location</span> = <span className="text-[#00FF88]">"Chennai, India"</span>
 {"\n  "}<span className="text-[#38BDF8]">skills</span> = [
 {"\n    "}<span className="text-[#00FF88]">"Python"</span>,
 {"\n    "}<span className="text-[#00FF88]">"JavaScript"</span>,
 {"\n    "}<span className="text-[#00FF88]">"React"</span>,
+{"\n    "}<span className="text-[#00FF88]">"Node.js"</span>,
 {"\n    "}<span className="text-[#00FF88]">"MySQL"</span>
 {"\n  "}]
 {"\n  "}<span className="text-[#38BDF8]">interests</span> = [
@@ -118,6 +120,8 @@ const CodeEditor = () => (
 {"\n    "}<span className="text-[#00FF88]">"Machine Learning"</span>,
 {"\n    "}<span className="text-[#00FF88]">"Data Analytics"</span>
 {"\n  "}]
+{"\n\n  "}<span className="text-[#ff79c6]">def</span> <span className="text-[#00F5D4]">current_focus</span>(self):
+{"\n    "}<span className="text-[#ff79c6]">return</span> <span className="text-[#00FF88]">"Building intelligent systems"</span>
 </code>
       </pre>
     </motion.div>
