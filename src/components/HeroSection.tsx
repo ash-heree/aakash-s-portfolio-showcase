@@ -61,7 +61,7 @@ const TypingRoles = () => {
           setText(current.slice(0, charIdx + 1));
           setCharIdx(charIdx + 1);
         } else {
-          setTimeout(() => setDel(true), 1400);
+          setTimeout(() => setDel(true), 900);
         }
       } else {
         if (charIdx > 0) {
@@ -72,7 +72,7 @@ const TypingRoles = () => {
           setRoleIdx((roleIdx + 1) % ROLES.length);
         }
       }
-    }, del ? 35 : 75);
+    }, del ? 30 : 55);
     return () => clearTimeout(t);
   }, [charIdx, del, roleIdx]);
   return (

@@ -58,8 +58,8 @@ const ExperienceSection = () => {
             transition={{ duration: 0.6 }}
             className="text-center mb-16"
           >
-            <p className="font-mono text-xs text-[#00F5D4] mb-3 tracking-widest">// EXPERIENCE.LOG</p>
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">Experience</h2>
+            <p className="font-mono text-xs text-[#00F5D4] mb-3 tracking-widest">// INTERNSHIPS.LOG</p>
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">Internships & Training</h2>
             <div className="w-20 h-[2px] bg-gradient-to-r from-transparent via-[#00F5D4] to-transparent mx-auto" />
           </motion.div>
 
