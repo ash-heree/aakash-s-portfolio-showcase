@@ -19,6 +19,42 @@ const TERMINAL_LINES: Array<
   { type: "out", text: "Open to opportunities ✓", color: "text-[#00FF88]" },
 ];
 
+const PROCESSING = "Processing...";
+
+const ProcessingPrompt = () => {
+  const [text, setText] = useState("");
+  const [phase, setPhase] = useState<"typing" | "pausing" | "deleting" | "idle">("typing");
+
+  useEffect(() => {
+    let t: ReturnType<typeof setTimeout>;
+    if (phase === "typing") {
+      if (text.length < PROCESSING.length) {
+        t = setTimeout(() => setText(PROCESSING.slice(0, text.length + 1)), 90);
+      } else {
+        t = setTimeout(() => setPhase("pausing"), 1500);
+      }
+    } else if (phase === "pausing") {
+      t = setTimeout(() => setPhase("deleting"), 200);
+    } else if (phase === "deleting") {
+      if (text.length > 0) {
+        t = setTimeout(() => setText(text.slice(0, -1)), 45);
+      } else {
+        t = setTimeout(() => setPhase("idle"), 1800);
+      }
+    } else {
+      t = setTimeout(() => setPhase("typing"), 600);
+    }
+    return () => clearTimeout(t);
+  }, [text, phase]);
+
+  return (
+    <div className="text-white/90 mt-1">
+      <span className="text-[#00FF88]">$</span> <span className="text-white/90">{text}</span>
+      <span className="inline-block w-2.5 h-4 bg-[#00F5D4] align-middle ml-0.5 animate-[blink_1s_steps(2)_infinite]" />
+    </div>
+  );
+};
+
 const Terminal = () => {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
