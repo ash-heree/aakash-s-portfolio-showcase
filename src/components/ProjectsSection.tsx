@@ -8,7 +8,7 @@ type Project = {
   description: string;
   technologies: string[];
   featured?: boolean;
-  inProgress?: boolean;
+  completed?: boolean;
 };
 
 const TiltCard = ({ children, className = "", style = {} }: { children: React.ReactNode; className?: string; style?: React.CSSProperties }) => {
