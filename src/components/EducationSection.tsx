@@ -13,15 +13,23 @@ const EducationSection = () => {
     <section
       id="education"
       className="relative py-32 overflow-hidden"
-      style={{ background: "linear-gradient(180deg, #0B1120 0%, #050816 100%)" }}
+      style={{ background: "radial-gradient(ellipse at top left, rgba(167,139,250,0.10) 0%, transparent 55%), radial-gradient(ellipse at bottom right, rgba(56,189,248,0.08) 0%, transparent 55%), linear-gradient(180deg, #0B1120 0%, #0A0B24 100%)" }}
     >
+      {/* paper texture overlay */}
+      <div className="absolute inset-0 opacity-[0.04] pointer-events-none"
+           style={{
+             backgroundImage: "repeating-linear-gradient(0deg, rgba(255,255,255,0.5) 0px, rgba(255,255,255,0.5) 1px, transparent 1px, transparent 40px)",
+           }} />
       {/* animated dot grid */}
       <div className="absolute inset-0 opacity-[0.18]"
            style={{
-             backgroundImage: "radial-gradient(circle, rgba(0,245,212,0.6) 1px, transparent 1px)",
+             backgroundImage: "radial-gradient(circle, rgba(167,139,250,0.5) 1px, transparent 1px)",
              backgroundSize: "28px 28px",
              maskImage: "radial-gradient(ellipse at center, black 30%, transparent 80%)",
            }} />
+      {/* subtle floating book icons */}
+      <div className="absolute top-[15%] right-[10%] text-[80px] opacity-[0.04] select-none">📚</div>
+      <div className="absolute bottom-[18%] left-[8%] text-[80px] opacity-[0.04] select-none">🎓</div>
 
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-4xl mx-auto">
