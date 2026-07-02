@@ -61,19 +61,37 @@ const ProjectsSection = () => {
     <section
       id="projects"
       className="relative py-32 overflow-hidden"
-      style={{ background: "linear-gradient(180deg, #0B1120 0%, #050816 100%)" }}
+      style={{ background: "radial-gradient(ellipse at top, rgba(56,189,248,0.08) 0%, transparent 60%), linear-gradient(180deg, #0B1120 0%, #0A0F2E 50%, #050816 100%)" }}
     >
-      {/* animated geometric grid */}
-      <div className="absolute inset-0 opacity-[0.12]"
+      {/* blueprint grid */}
+      <div className="absolute inset-0 opacity-[0.14]"
            style={{
-             backgroundImage: "linear-gradient(rgba(0,245,212,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(0,245,212,0.5) 1px, transparent 1px)",
+             backgroundImage: "linear-gradient(rgba(56,189,248,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(56,189,248,0.6) 1px, transparent 1px)",
              backgroundSize: "60px 60px",
              maskImage: "radial-gradient(ellipse at center, black 30%, transparent 75%)",
            }} />
+      {/* fine blueprint sub-grid */}
+      <div className="absolute inset-0 opacity-[0.05] pointer-events-none"
+           style={{
+             backgroundImage: "linear-gradient(rgba(56,189,248,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(56,189,248,0.4) 1px, transparent 1px)",
+             backgroundSize: "12px 12px",
+           }} />
       <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] rounded-full blur-3xl opacity-20"
-           style={{ background: "radial-gradient(circle, #00F5D4, transparent)" }} />
-      <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] rounded-full blur-3xl opacity-15"
            style={{ background: "radial-gradient(circle, #38BDF8, transparent)" }} />
+      <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] rounded-full blur-3xl opacity-15"
+           style={{ background: "radial-gradient(circle, #7C3AED, transparent)" }} />
+      {/* floating geometric shapes */}
+      <motion.div
+        className="absolute top-[15%] right-[8%] w-16 h-16 border border-[#38BDF8]/25 rounded-lg"
+        animate={{ rotate: [0, 360] }}
+        transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+      />
+      <motion.div
+        className="absolute bottom-[20%] left-[6%] w-10 h-10 border border-[#00F5D4]/30"
+        style={{ borderRadius: "30%" }}
+        animate={{ rotate: [0, -360], y: [0, -20, 0] }}
+        transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
+      />
 
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-7xl mx-auto">
