@@ -1,4 +1,4 @@
-import { Hand, ShoppingCart, BarChart3, CloudSun, ExternalLink, Github, Brain, Car, Shield, Sparkles } from "lucide-react";
+import { Hand, ShoppingCart, BarChart3, CloudSun, ExternalLink, Github, Brain, Car, Shield, Sparkles, CheckCircle2 } from "lucide-react";
 import { motion } from "framer-motion";
 import { useState, useRef } from "react";
 
