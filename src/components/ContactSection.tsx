@@ -27,22 +27,39 @@ const ContactSection = () => {
     <section
       id="contact"
       className="relative py-32 overflow-hidden"
-      style={{ background: "linear-gradient(180deg, #050816 0%, #0B1120 100%)" }}
+      style={{ background: "radial-gradient(ellipse at top, rgba(124,58,237,0.15) 0%, transparent 60%), radial-gradient(ellipse at bottom, rgba(56,189,248,0.10) 0%, transparent 60%), linear-gradient(180deg, #0A0616 0%, #05010F 50%, #000000 100%)" }}
     >
-      {/* aurora */}
+      {/* cosmic stars */}
+      {[...Array(60)].map((_, i) => {
+        const size = (i % 5 === 0) ? 2 : 1;
+        return (
+          <span
+            key={`s${i}`}
+            className="absolute rounded-full bg-white pointer-events-none"
+            style={{
+              width: size, height: size,
+              left: `${(i * 37) % 100}%`,
+              top: `${(i * 53) % 100}%`,
+              opacity: 0.15 + ((i % 7) / 10),
+              animation: `starTwinkle ${3 + (i % 5)}s ease-in-out ${i * 0.1}s infinite`,
+            }}
+          />
+        );
+      })}
+      {/* nebula */}
       <motion.div
-        className="absolute -top-20 left-1/4 w-[700px] h-[400px] rounded-full blur-3xl opacity-25"
-        style={{ background: "radial-gradient(ellipse, #00F5D4, transparent 70%)" }}
-        animate={{ x: [0, 60, 0], opacity: [0.2, 0.35, 0.2] }}
+        className="absolute -top-20 left-1/4 w-[700px] h-[400px] rounded-full blur-3xl opacity-30"
+        style={{ background: "radial-gradient(ellipse, #7C3AED, transparent 70%)" }}
+        animate={{ x: [0, 60, 0], opacity: [0.2, 0.4, 0.2] }}
         transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
       />
       <motion.div
-        className="absolute -bottom-20 right-1/4 w-[700px] h-[400px] rounded-full blur-3xl opacity-20"
+        className="absolute -bottom-20 right-1/4 w-[700px] h-[400px] rounded-full blur-3xl opacity-25"
         style={{ background: "radial-gradient(ellipse, #38BDF8, transparent 70%)" }}
-        animate={{ x: [0, -60, 0], opacity: [0.15, 0.3, 0.15] }}
+        animate={{ x: [0, -60, 0], opacity: [0.15, 0.35, 0.15] }}
         transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
       />
-      {/* particles */}
+      {/* small particles */}
       {[...Array(18)].map((_, i) => (
         <motion.span
           key={i}
