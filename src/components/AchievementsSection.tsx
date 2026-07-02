@@ -183,15 +183,23 @@ const AchievementsSection = () => {
     <section
       id="achievements"
       className="relative py-32 overflow-hidden"
-      style={{ background: "linear-gradient(180deg, #050816 0%, #0B1120 100%)" }}
+      style={{ background: "radial-gradient(ellipse at top, rgba(251,191,36,0.08) 0%, transparent 55%), radial-gradient(ellipse at bottom, rgba(0,245,212,0.06) 0%, transparent 55%), linear-gradient(180deg, #0A0B24 0%, #12100A 50%, #050816 100%)" }}
     >
-      {/* floating particles */}
+      {/* golden spotlight */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] rounded-full blur-3xl opacity-25 pointer-events-none"
+           style={{ background: "radial-gradient(ellipse, #FBBF24, transparent 70%)" }} />
+      {/* golden floating particles */}
       {[...Array(22)].map((_, i) => (
         <motion.span
           key={i}
-          className="absolute w-1 h-1 rounded-full bg-[#00F5D4]/60"
-          style={{ left: `${(i * 47) % 100}%`, top: `${(i * 29) % 100}%` }}
-          animate={{ y: [0, -30, 0], opacity: [0.2, 0.8, 0.2] }}
+          className="absolute w-1 h-1 rounded-full"
+          style={{
+            left: `${(i * 47) % 100}%`,
+            top: `${(i * 29) % 100}%`,
+            background: i % 3 === 0 ? "#FBBF24" : i % 3 === 1 ? "#00F5D4" : "#38BDF8",
+            boxShadow: i % 3 === 0 ? "0 0 8px #FBBF24" : undefined,
+          }}
+          animate={{ y: [0, -30, 0], opacity: [0.2, 0.9, 0.2] }}
           transition={{ duration: 5 + (i % 5), repeat: Infinity, delay: i * 0.25 }}
         />
       ))}

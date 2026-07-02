@@ -142,9 +142,22 @@ const AboutSection = () => {
       className="relative py-24 overflow-hidden"
       style={{
         background:
-          "radial-gradient(ellipse at top right, rgba(56,189,248,0.10) 0%, transparent 55%), linear-gradient(180deg, #0B1120 0%, #050816 100%)",
+          "radial-gradient(ellipse at top right, rgba(124,58,237,0.14) 0%, transparent 55%), radial-gradient(ellipse at bottom left, rgba(56,189,248,0.10) 0%, transparent 55%), linear-gradient(180deg, #0A0B24 0%, #050816 100%)",
       }}
     >
+      {/* animated blurred blobs */}
+      <motion.div
+        className="absolute -top-32 -right-32 w-[500px] h-[500px] rounded-full blur-3xl opacity-30 pointer-events-none"
+        style={{ background: "radial-gradient(circle, #7C3AED, transparent 70%)" }}
+        animate={{ x: [0, 40, 0], y: [0, 30, 0] }}
+        transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <motion.div
+        className="absolute -bottom-32 -left-32 w-[500px] h-[500px] rounded-full blur-3xl opacity-25 pointer-events-none"
+        style={{ background: "radial-gradient(circle, #38BDF8, transparent 70%)" }}
+        animate={{ x: [0, -30, 0], y: [0, -20, 0] }}
+        transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
+      />
       {/* grid pattern */}
       <div
         className="absolute inset-0 opacity-[0.07]"

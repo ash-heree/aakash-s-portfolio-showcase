@@ -33,17 +33,30 @@ const ExperienceSection = () => {
     <section
       id="experience"
       className="relative py-32 overflow-hidden"
-      style={{ background: "linear-gradient(180deg, #050816 0%, #0B1120 100%)" }}
+      style={{ background: "radial-gradient(ellipse at center, rgba(124,58,237,0.10) 0%, transparent 60%), linear-gradient(180deg, #050816 0%, #0F0A2E 60%, #0B1120 100%)" }}
     >
+      {/* vertical light trail */}
+      <div className="absolute inset-y-0 left-1/2 -translate-x-1/2 w-px opacity-40 pointer-events-none"
+           style={{ background: "linear-gradient(180deg, transparent, #00F5D4 20%, #7C3AED 50%, #38BDF8 80%, transparent)" }} />
+      {/* floating dots along timeline */}
+      {[...Array(10)].map((_, i) => (
+        <motion.span
+          key={i}
+          className="absolute left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-[#00F5D4]/70"
+          style={{ top: `${8 + i * 9}%` }}
+          animate={{ opacity: [0.2, 1, 0.2], scale: [0.8, 1.4, 0.8] }}
+          transition={{ duration: 3, repeat: Infinity, delay: i * 0.3 }}
+        />
+      ))}
       {/* gradient mesh */}
       <motion.div
-        className="absolute -top-40 -left-40 w-[600px] h-[600px] rounded-full blur-3xl opacity-25"
-        style={{ background: "radial-gradient(circle, #00F5D4, transparent 70%)" }}
+        className="absolute -top-40 -left-40 w-[600px] h-[600px] rounded-full blur-3xl opacity-20"
+        style={{ background: "radial-gradient(circle, #7C3AED, transparent 70%)" }}
         animate={{ x: [0, 80, 0], y: [0, 40, 0] }}
         transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
       />
       <motion.div
-        className="absolute -bottom-40 -right-40 w-[600px] h-[600px] rounded-full blur-3xl opacity-20"
+        className="absolute -bottom-40 -right-40 w-[600px] h-[600px] rounded-full blur-3xl opacity-15"
         style={{ background: "radial-gradient(circle, #38BDF8, transparent 70%)" }}
         animate={{ x: [0, -60, 0], y: [0, -30, 0] }}
         transition={{ duration: 25, repeat: Infinity, ease: "easeInOut" }}

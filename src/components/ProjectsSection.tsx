@@ -1,4 +1,4 @@
-import { Hand, ShoppingCart, BarChart3, CloudSun, ExternalLink, Github, Brain, Car, Shield, Sparkles } from "lucide-react";
+import { Hand, ShoppingCart, BarChart3, CloudSun, ExternalLink, Github, Brain, Car, Shield, Sparkles, CheckCircle2 } from "lucide-react";
 import { motion } from "framer-motion";
 import { useState, useRef } from "react";
 
@@ -8,7 +8,7 @@ type Project = {
   description: string;
   technologies: string[];
   featured?: boolean;
-  inProgress?: boolean;
+  completed?: boolean;
 };
 
 const TiltCard = ({ children, className = "", style = {} }: { children: React.ReactNode; className?: string; style?: React.CSSProperties }) => {
@@ -42,10 +42,10 @@ const ProjectsSection = () => {
     icon: <Shield className="h-7 w-7" />,
     title: "Machine Learning Based Transaction Risk Analysis",
     description:
-      "Currently developing an intelligent fraud detection system using Machine Learning, Data Mining, and Big Data Analytics. The project analyzes transaction patterns to identify suspicious activities, improve fraud detection accuracy, and enhance security through predictive analytics and anomaly detection.",
+      "An intelligent fraud detection system built using Machine Learning, Data Mining, and Big Data Analytics. The project analyzes transaction patterns to identify suspicious activities, improve fraud detection accuracy, and enhance security through predictive analytics and anomaly detection.",
     technologies: ["Machine Learning", "Python", "Data Mining", "Big Data Analytics", "Fraud Detection", "Predictive Analytics"],
     featured: true,
-    inProgress: true,
+    completed: true,
   };
 
   const others: Project[] = [
@@ -61,19 +61,37 @@ const ProjectsSection = () => {
     <section
       id="projects"
       className="relative py-32 overflow-hidden"
-      style={{ background: "linear-gradient(180deg, #0B1120 0%, #050816 100%)" }}
+      style={{ background: "radial-gradient(ellipse at top, rgba(56,189,248,0.08) 0%, transparent 60%), linear-gradient(180deg, #0B1120 0%, #0A0F2E 50%, #050816 100%)" }}
     >
-      {/* animated geometric grid */}
-      <div className="absolute inset-0 opacity-[0.12]"
+      {/* blueprint grid */}
+      <div className="absolute inset-0 opacity-[0.14]"
            style={{
-             backgroundImage: "linear-gradient(rgba(0,245,212,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(0,245,212,0.5) 1px, transparent 1px)",
+             backgroundImage: "linear-gradient(rgba(56,189,248,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(56,189,248,0.6) 1px, transparent 1px)",
              backgroundSize: "60px 60px",
              maskImage: "radial-gradient(ellipse at center, black 30%, transparent 75%)",
            }} />
+      {/* fine blueprint sub-grid */}
+      <div className="absolute inset-0 opacity-[0.05] pointer-events-none"
+           style={{
+             backgroundImage: "linear-gradient(rgba(56,189,248,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(56,189,248,0.4) 1px, transparent 1px)",
+             backgroundSize: "12px 12px",
+           }} />
       <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] rounded-full blur-3xl opacity-20"
-           style={{ background: "radial-gradient(circle, #00F5D4, transparent)" }} />
-      <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] rounded-full blur-3xl opacity-15"
            style={{ background: "radial-gradient(circle, #38BDF8, transparent)" }} />
+      <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] rounded-full blur-3xl opacity-15"
+           style={{ background: "radial-gradient(circle, #7C3AED, transparent)" }} />
+      {/* floating geometric shapes */}
+      <motion.div
+        className="absolute top-[15%] right-[8%] w-16 h-16 border border-[#38BDF8]/25 rounded-lg"
+        animate={{ rotate: [0, 360] }}
+        transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+      />
+      <motion.div
+        className="absolute bottom-[20%] left-[6%] w-10 h-10 border border-[#00F5D4]/30"
+        style={{ borderRadius: "30%" }}
+        animate={{ rotate: [0, -360], y: [0, -20, 0] }}
+        transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
+      />
 
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-7xl mx-auto">
@@ -124,8 +142,8 @@ const ProjectsSection = () => {
                       <span className="flex items-center gap-1 text-[11px] px-3 py-1.5 rounded-full font-mono font-medium text-[#00F5D4] border border-[#00F5D4]/40 bg-[#00F5D4]/10">
                         <Sparkles className="h-3 w-3" /> FEATURED
                       </span>
-                      <span className="text-[11px] px-3 py-1.5 rounded-full font-mono font-medium text-amber-300 border border-amber-400/40 bg-amber-400/10">
-                        🚧 IN PROGRESS
+                      <span className="flex items-center gap-1 text-[11px] px-3 py-1.5 rounded-full font-mono font-medium text-[#00FF88] border border-[#00FF88]/40 bg-[#00FF88]/10 shadow-[0_0_15px_rgba(0,255,136,0.25)]">
+                        <CheckCircle2 className="h-3 w-3" /> COMPLETED
                       </span>
                     </div>
                   </div>
