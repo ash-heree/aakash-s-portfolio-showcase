@@ -42,10 +42,10 @@ const ProjectsSection = () => {
     icon: <Shield className="h-7 w-7" />,
     title: "Machine Learning Based Transaction Risk Analysis",
     description:
-      "Currently developing an intelligent fraud detection system using Machine Learning, Data Mining, and Big Data Analytics. The project analyzes transaction patterns to identify suspicious activities, improve fraud detection accuracy, and enhance security through predictive analytics and anomaly detection.",
+      "An intelligent fraud detection system built using Machine Learning, Data Mining, and Big Data Analytics. The project analyzes transaction patterns to identify suspicious activities, improve fraud detection accuracy, and enhance security through predictive analytics and anomaly detection.",
     technologies: ["Machine Learning", "Python", "Data Mining", "Big Data Analytics", "Fraud Detection", "Predictive Analytics"],
     featured: true,
-    inProgress: true,
+    completed: true,
   };
 
   const others: Project[] = [
