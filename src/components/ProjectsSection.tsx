@@ -124,8 +124,8 @@ const ProjectsSection = () => {
                       <span className="flex items-center gap-1 text-[11px] px-3 py-1.5 rounded-full font-mono font-medium text-[#00F5D4] border border-[#00F5D4]/40 bg-[#00F5D4]/10">
                         <Sparkles className="h-3 w-3" /> FEATURED
                       </span>
-                      <span className="text-[11px] px-3 py-1.5 rounded-full font-mono font-medium text-amber-300 border border-amber-400/40 bg-amber-400/10">
-                        🚧 IN PROGRESS
+                      <span className="flex items-center gap-1 text-[11px] px-3 py-1.5 rounded-full font-mono font-medium text-[#00FF88] border border-[#00FF88]/40 bg-[#00FF88]/10 shadow-[0_0_15px_rgba(0,255,136,0.25)]">
+                        <CheckCircle2 className="h-3 w-3" /> COMPLETED
                       </span>
                     </div>
                   </div>
