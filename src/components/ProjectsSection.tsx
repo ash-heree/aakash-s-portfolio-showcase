@@ -42,20 +42,21 @@ const ProjectsSection = () => {
     icon: <Shield className="h-7 w-7" />,
     title: "Machine Learning Based Transaction Risk Analysis",
     description:
-      "An intelligent fraud detection system built using Machine Learning, Data Mining, and Big Data Analytics. The project analyzes transaction patterns to identify suspicious activities, improve fraud detection accuracy, and enhance security through predictive analytics and anomaly detection.",
-    technologies: ["Machine Learning", "Python", "Data Mining", "Big Data Analytics", "Fraud Detection", "Predictive Analytics"],
+      "Built an intelligent fraud detection platform using Machine Learning, Python, Flask, SQL and Data Analytics. The system predicts transaction risk levels in real time using behavioral analysis and classification models, while providing an interactive dashboard for monitoring suspicious activities.",
+    technologies: ["Python", "Flask", "SQL", "Scikit-Learn", "Pandas", "Predictive Analytics"],
     featured: true,
     completed: true,
   };
 
   const others: Project[] = [
-    { icon: <ShoppingCart className="h-5 w-5" />, title: "E-commerce Website for Games", description: "Full-featured e-commerce platform built during ICT Virtual Internship with data-driven recommendations.", technologies: ["Data Science", "Web Dev", "Analytics"] },
-    { icon: <Hand className="h-5 w-5" />, title: "AI Virtual Mouse", description: "Touchless mouse control via hand gesture detection using Python & OpenCV.", technologies: ["Python", "OpenCV", "Computer Vision"] },
-    { icon: <BarChart3 className="h-5 w-5" />, title: "Mini Data Analyst", description: "Survey & insights project analyzing consumer food preferences with data visualization.", technologies: ["Pandas", "Matplotlib", "Colab"] },
-    { icon: <CloudSun className="h-5 w-5" />, title: "Weather Suit", description: "A clean, premium real-time weather UI built with Streamlit and the OpenWeather API.", technologies: ["Python", "Streamlit", "API"] },
-    { icon: <Brain className="h-5 w-5" />, title: "Neuro-Symbolic Sudoku Solver", description: "Hybrid AI combining neural heuristics with symbolic constraint propagation.", technologies: ["Neuro-Symbolic AI", "Python"] },
-    { icon: <Car className="h-5 w-5" />, title: "Smart Mobility Rental Platform", description: "Offline desktop rental app for small businesses with full automation on low-spec hardware.", technologies: ["Desktop", "SQLite", "VB.NET"] },
+    { icon: <Hand className="h-5 w-5" />, title: "AI Virtual Mouse", description: "A computer-vision based virtual mouse using OpenCV, MediaPipe and Python. Users control cursor movement and click operations through hand gestures — no physical mouse required.", technologies: ["Python", "OpenCV", "MediaPipe", "Computer Vision"], featured: true },
+    { icon: <Brain className="h-5 w-5" />, title: "Neuro-Symbolic Sudoku Solver", description: "A hybrid AI solver combining neural heuristics with symbolic constraint propagation to efficiently crack Sudoku puzzles while demonstrating explainable AI concepts.", technologies: ["Neuro-Symbolic AI", "Python", "Constraint Satisfaction"], featured: true },
+    { icon: <ShoppingCart className="h-5 w-5" />, title: "E-Commerce Website for Games", description: "A responsive e-commerce platform for digital game sales with secure authentication, product management, shopping cart and an intuitive user experience.", technologies: ["Web Dev", "Auth", "Analytics"] },
+    { icon: <BarChart3 className="h-5 w-5" />, title: "Mini Data Analyst", description: "Analyzed consumer food-preference datasets using Python, Pandas and Matplotlib. Performed data cleaning, visualization and statistical analysis to derive business insights.", technologies: ["Pandas", "Matplotlib", "Colab"] },
+    { icon: <CloudSun className="h-5 w-5" />, title: "Weather Suit", description: "A premium weather dashboard built with Streamlit and the OpenWeather API — real-time forecasting, animated UI components and location-based analytics.", technologies: ["Python", "Streamlit", "API"] },
+    { icon: <Car className="h-5 w-5" />, title: "Smart Mobility Rental Platform", description: "A desktop rental management app for small businesses featuring customer management, vehicle tracking, booking automation and a SQLite database.", technologies: ["VB.NET", "SQLite", "Desktop"] },
   ];
+
 
   return (
     <section
