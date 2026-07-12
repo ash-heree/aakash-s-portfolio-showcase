@@ -190,13 +190,21 @@ const ProjectsSection = () => {
                       minHeight: "260px",
                     }}
                   >
-                    <div className="flex items-center gap-3 mb-3">
-                      <div className="w-10 h-10 rounded-lg flex items-center justify-center text-[#38BDF8]"
-                           style={{ background: "rgba(56,189,248,0.1)", border: "1px solid rgba(56,189,248,0.25)" }}>
-                        {p.icon}
+                    <div className="flex items-start justify-between gap-3 mb-3">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 rounded-lg flex items-center justify-center text-[#38BDF8]"
+                             style={{ background: "rgba(56,189,248,0.1)", border: "1px solid rgba(56,189,248,0.25)" }}>
+                          {p.icon}
+                        </div>
+                        <h3 className="text-base font-semibold text-white leading-tight">{p.title}</h3>
                       </div>
-                      <h3 className="text-base font-semibold text-white leading-tight">{p.title}</h3>
+                      {p.featured && (
+                        <span className="flex-shrink-0 flex items-center gap-1 text-[10px] px-2 py-1 rounded-full font-mono font-medium text-[#00F5D4] border border-[#00F5D4]/40 bg-[#00F5D4]/10 shadow-[0_0_12px_rgba(0,245,212,0.3)]">
+                          <Sparkles className="h-2.5 w-2.5" /> FEATURED
+                        </span>
+                      )}
                     </div>
+
                     <p className="text-sm text-white/70 leading-relaxed mb-4 flex-grow">{p.description}</p>
                     <div className="flex flex-wrap gap-1.5 mb-4">
                       {p.technologies.map((t) => (
