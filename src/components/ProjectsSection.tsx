@@ -1,4 +1,4 @@
-import { Hand, ShoppingCart, BarChart3, CloudSun, ExternalLink, Github, Brain, Car, Shield, Sparkles, CheckCircle2 } from "lucide-react";
+import { Hand, ShoppingCart, BarChart3, CloudSun, ExternalLink, Github, Brain, Car, Shield, Sparkles, CheckCircle2, Calendar, UserCircle2, Target, Wrench, FileText, Rocket } from "lucide-react";
 import { motion } from "framer-motion";
 import { useState, useRef } from "react";
 
@@ -7,8 +7,12 @@ type Project = {
   title: string;
   description: string;
   technologies: string[];
+  duration: string;
+  role: string;
+  status?: "Completed" | "In Progress";
   featured?: boolean;
   completed?: boolean;
+  caseStudy?: boolean;
 };
 
 const TiltCard = ({ children, className = "", style = {} }: { children: React.ReactNode; className?: string; style?: React.CSSProperties }) => {
@@ -27,7 +31,7 @@ const TiltCard = ({ children, className = "", style = {} }: { children: React.Re
       ref={ref}
       onMouseMove={onMove}
       onMouseLeave={reset}
-      className={`relative group transition-transform duration-300 ease-out ${className}`}
+      className={`relative group transition-transform duration-300 ease-out h-full ${className}`}
       style={{ transform: `perspective(900px) rotateX(${tilt.rx}deg) rotateY(${tilt.ry}deg)`, ...style }}
     >
       <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
@@ -37,6 +41,43 @@ const TiltCard = ({ children, className = "", style = {} }: { children: React.Re
   );
 };
 
+const MetricTile = ({ icon, label, value, accent = false, pulse = false }: { icon: React.ReactNode; label: string; value: React.ReactNode; accent?: boolean; pulse?: boolean }) => (
+  <div className="relative rounded-xl p-3 bg-white/[0.03] border border-white/10 hover:border-[#00F5D4]/30 hover:bg-white/[0.06] transition-all duration-300">
+    <div className="flex items-center gap-1.5 text-[10px] font-mono uppercase tracking-wider text-white/50 mb-1.5">
+      <span className={accent ? "text-[#00F5D4]" : "text-[#38BDF8]"}>{icon}</span>
+      {label}
+    </div>
+    <div className="flex items-center gap-1.5 text-[13px] font-semibold text-white leading-tight">
+      {pulse && <span className="relative flex h-2 w-2"><span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00FF88] opacity-75" /><span className="relative inline-flex rounded-full h-2 w-2 bg-[#00FF88]" /></span>}
+      {value}
+    </div>
+  </div>
+);
+
+const ProjectInfo = ({ p, compact = false }: { p: Project; compact?: boolean }) => (
+  <motion.div
+    initial={{ opacity: 0, y: 12 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true }}
+    transition={{ duration: 0.5, delay: 0.1 }}
+    className="relative rounded-2xl p-3 sm:p-4 mb-4 backdrop-blur-xl overflow-hidden group/info transition-all duration-300 hover:shadow-[0_0_25px_rgba(0,245,212,0.2)]"
+    style={{
+      background: "linear-gradient(135deg, rgba(0,245,212,0.04) 0%, rgba(124,58,237,0.05) 100%)",
+      border: "1px solid rgba(0,245,212,0.18)",
+      boxShadow: "0 0 15px rgba(0,245,212,0.08)",
+    }}
+  >
+    <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#00F5D4]/50 to-transparent" />
+    <p className="text-[9px] font-mono uppercase tracking-widest text-[#00F5D4] mb-2.5 opacity-70">// PROJECT.INFO</p>
+    <div className={`grid grid-cols-2 gap-2 ${compact ? "" : "sm:gap-3"}`}>
+      <MetricTile icon={<Calendar className="h-3 w-3" />} label="Duration" value={p.duration} />
+      <MetricTile icon={<UserCircle2 className="h-3 w-3" />} label="Role" value={<span className="truncate">{p.role}</span>} />
+      <MetricTile icon={<Target className="h-3 w-3" />} label="Status" value={p.status ?? "Completed"} accent pulse={(p.status ?? "Completed") === "Completed"} />
+      <MetricTile icon={<Wrench className="h-3 w-3" />} label="Stack" value={`${p.technologies.length} Technologies`} />
+    </div>
+  </motion.div>
+);
+
 const ProjectsSection = () => {
   const featured: Project = {
     icon: <Shield className="h-7 w-7" />,
@@ -44,17 +85,21 @@ const ProjectsSection = () => {
     description:
       "Built an intelligent fraud detection platform using Machine Learning, Python, Flask, SQL and Data Analytics. The system predicts transaction risk levels in real time using behavioral analysis and classification models, while providing an interactive dashboard for monitoring suspicious activities.",
     technologies: ["Python", "Flask", "SQL", "Scikit-Learn", "Pandas", "Predictive Analytics"],
+    duration: "3 Months",
+    role: "Machine Learning Developer",
+    status: "Completed",
     featured: true,
     completed: true,
+    caseStudy: true,
   };
 
   const others: Project[] = [
-    { icon: <Hand className="h-5 w-5" />, title: "AI Virtual Mouse", description: "A computer-vision based virtual mouse using OpenCV, MediaPipe and Python. Users control cursor movement and click operations through hand gestures — no physical mouse required.", technologies: ["Python", "OpenCV", "MediaPipe", "Computer Vision"], featured: true },
-    { icon: <Brain className="h-5 w-5" />, title: "Neuro-Symbolic Sudoku Solver", description: "A hybrid AI solver combining neural heuristics with symbolic constraint propagation to efficiently crack Sudoku puzzles while demonstrating explainable AI concepts.", technologies: ["Neuro-Symbolic AI", "Python", "Constraint Satisfaction"], featured: true },
-    { icon: <ShoppingCart className="h-5 w-5" />, title: "E-Commerce Website for Games", description: "A responsive e-commerce platform for digital game sales with secure authentication, product management, shopping cart and an intuitive user experience.", technologies: ["Web Dev", "Auth", "Analytics"] },
-    { icon: <BarChart3 className="h-5 w-5" />, title: "Mini Data Analyst", description: "Analyzed consumer food-preference datasets using Python, Pandas and Matplotlib. Performed data cleaning, visualization and statistical analysis to derive business insights.", technologies: ["Pandas", "Matplotlib", "Colab"] },
-    { icon: <CloudSun className="h-5 w-5" />, title: "Weather Suit", description: "A premium weather dashboard built with Streamlit and the OpenWeather API — real-time forecasting, animated UI components and location-based analytics.", technologies: ["Python", "Streamlit", "API"] },
-    { icon: <Car className="h-5 w-5" />, title: "Smart Mobility Rental Platform", description: "A desktop rental management app for small businesses featuring customer management, vehicle tracking, booking automation and a SQLite database.", technologies: ["VB.NET", "SQLite", "Desktop"] },
+    { icon: <Hand className="h-5 w-5" />, title: "AI Virtual Mouse", description: "A computer-vision based virtual mouse using OpenCV, MediaPipe and Python. Users control cursor movement and click operations through hand gestures — no physical mouse required.", technologies: ["Python", "OpenCV", "MediaPipe", "Computer Vision"], duration: "2 Months", role: "Computer Vision Developer", featured: true },
+    { icon: <Brain className="h-5 w-5" />, title: "Neuro-Symbolic Sudoku Solver", description: "A hybrid AI solver combining neural heuristics with symbolic constraint propagation to efficiently crack Sudoku puzzles while demonstrating explainable AI concepts.", technologies: ["Neuro-Symbolic AI", "Python", "Constraint Satisfaction"], duration: "1 Month", role: "AI Developer", featured: true },
+    { icon: <ShoppingCart className="h-5 w-5" />, title: "E-Commerce Website for Games", description: "A responsive e-commerce platform for digital game sales with secure authentication, product management, shopping cart and an intuitive user experience.", technologies: ["HTML", "CSS", "JavaScript", "PHP", "MySQL"], duration: "3 Months", role: "Full Stack Developer" },
+    { icon: <BarChart3 className="h-5 w-5" />, title: "Mini Data Analyst", description: "Analyzed consumer food-preference datasets using Python, Pandas and Matplotlib. Performed data cleaning, visualization and statistical analysis to derive business insights.", technologies: ["Python", "Pandas", "Matplotlib", "Colab"], duration: "1 Month", role: "Data Analyst" },
+    { icon: <CloudSun className="h-5 w-5" />, title: "Weather Suit", description: "A premium weather dashboard built with Streamlit and the OpenWeather API — real-time forecasting, animated UI components and location-based analytics.", technologies: ["Python", "Streamlit", "OpenWeather API"], duration: "3 Weeks", role: "Python Developer" },
+    { icon: <Car className="h-5 w-5" />, title: "Smart Mobility Rental Platform", description: "A desktop rental management app for small businesses featuring customer management, vehicle tracking, booking automation and a SQLite database.", technologies: ["VB.NET", "SQLite", "Desktop", ".NET"], duration: "2 Months", role: "Desktop Application Developer" },
   ];
 
 
@@ -71,7 +116,6 @@ const ProjectsSection = () => {
              backgroundSize: "60px 60px",
              maskImage: "radial-gradient(ellipse at center, black 30%, transparent 75%)",
            }} />
-      {/* fine blueprint sub-grid */}
       <div className="absolute inset-0 opacity-[0.05] pointer-events-none"
            style={{
              backgroundImage: "linear-gradient(rgba(56,189,248,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(56,189,248,0.4) 1px, transparent 1px)",
@@ -81,7 +125,6 @@ const ProjectsSection = () => {
            style={{ background: "radial-gradient(circle, #38BDF8, transparent)" }} />
       <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] rounded-full blur-3xl opacity-15"
            style={{ background: "radial-gradient(circle, #7C3AED, transparent)" }} />
-      {/* floating geometric shapes */}
       <motion.div
         className="absolute top-[15%] right-[8%] w-16 h-16 border border-[#38BDF8]/25 rounded-lg"
         animate={{ rotate: [0, 360] }}
@@ -108,15 +151,13 @@ const ProjectsSection = () => {
             <div className="w-20 h-[2px] bg-gradient-to-r from-transparent via-[#00F5D4] to-transparent mx-auto" />
           </motion.div>
 
-          {/* Bento Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 auto-rows-fr">
-            {/* Featured card spans full width on lg */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="md:col-span-2 lg:col-span-3 lg:row-span-1"
+              className="md:col-span-2 lg:col-span-3"
             >
               <TiltCard>
                 <div
@@ -127,7 +168,6 @@ const ProjectsSection = () => {
                     boxShadow: "0 0 60px rgba(0,245,212,0.2), inset 0 0 30px rgba(0,245,212,0.05)",
                   }}
                 >
-                  {/* animated border pulse */}
                   <div className="absolute inset-0 rounded-2xl pointer-events-none"
                        style={{ boxShadow: "0 0 0 1px rgba(0,245,212,0.4)", animation: "pulse 3s ease-in-out infinite" }} />
 
@@ -153,20 +193,29 @@ const ProjectsSection = () => {
 
                   <div className="flex flex-wrap gap-2 mb-6">
                     {featured.technologies.map((t) => (
-                      <span key={t} className="text-xs font-mono px-3 py-1.5 rounded-md text-[#38BDF8]"
+                      <span key={t} className="text-xs font-mono px-3 py-1.5 rounded-md text-[#38BDF8] hover:text-white hover:shadow-[0_0_12px_rgba(56,189,248,0.5)] transition-all"
                             style={{ background: "rgba(11,17,32,0.7)", border: "1px solid rgba(56,189,248,0.25)" }}>
                         {t}
                       </span>
                     ))}
                   </div>
 
-                  <div className="flex gap-3">
-                    <button className="flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-semibold text-[#050816] bg-gradient-to-r from-[#00F5D4] to-[#38BDF8] hover:shadow-[0_0_25px_rgba(0,245,212,0.5)] transition-all duration-300 hover:-translate-y-0.5">
-                      <ExternalLink className="h-4 w-4" /> View Project
+                  <ProjectInfo p={featured} />
+
+                  <div className="h-px bg-gradient-to-r from-transparent via-[#00F5D4]/30 to-transparent mb-5" />
+
+                  <div className="flex flex-wrap gap-3">
+                    <button className="group/btn flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-semibold text-[#050816] bg-gradient-to-r from-[#00F5D4] to-[#38BDF8] hover:shadow-[0_0_25px_rgba(0,245,212,0.5)] transition-all duration-300 hover:-translate-y-0.5 hover:scale-[1.03]">
+                      <Rocket className="h-4 w-4 group-hover/btn:rotate-12 transition-transform" /> View Project
                     </button>
-                    <button className="flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-medium text-white border border-white/15 bg-white/5 hover:border-[#00F5D4]/60 hover:bg-[#00F5D4]/10 transition-all duration-300">
-                      <Github className="h-4 w-4" /> GitHub
+                    <button className="group/btn flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-medium text-white border border-white/15 bg-white/5 hover:border-[#00F5D4]/60 hover:bg-[#00F5D4]/10 hover:shadow-[0_0_15px_rgba(0,245,212,0.3)] transition-all duration-300 hover:-translate-y-0.5">
+                      <Github className="h-4 w-4 group-hover/btn:rotate-12 transition-transform" /> GitHub
                     </button>
+                    {featured.caseStudy && (
+                      <button className="group/btn flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-medium text-white border border-[#7C3AED]/40 bg-[#7C3AED]/10 hover:bg-[#7C3AED]/20 hover:shadow-[0_0_15px_rgba(124,58,237,0.4)] transition-all duration-300 hover:-translate-y-0.5">
+                        <FileText className="h-4 w-4 group-hover/btn:rotate-12 transition-transform" /> Case Study
+                      </button>
+                    )}
                   </div>
                 </div>
               </TiltCard>
@@ -179,6 +228,7 @@ const ProjectsSection = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-30px" }}
                 transition={{ duration: 0.5, delay: i * 0.08 }}
+                className="h-full"
               >
                 <TiltCard>
                   <div
@@ -187,12 +237,12 @@ const ProjectsSection = () => {
                       background: "linear-gradient(135deg, rgba(11,17,32,0.7) 0%, rgba(5,8,22,0.7) 100%)",
                       border: "1px solid rgba(56,189,248,0.15)",
                       boxShadow: "0 8px 24px rgba(0,0,0,0.4)",
-                      minHeight: "260px",
+                      minHeight: "520px",
                     }}
                   >
                     <div className="flex items-start justify-between gap-3 mb-3">
                       <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-lg flex items-center justify-center text-[#38BDF8]"
+                        <div className="w-10 h-10 rounded-lg flex items-center justify-center text-[#38BDF8] flex-shrink-0"
                              style={{ background: "rgba(56,189,248,0.1)", border: "1px solid rgba(56,189,248,0.25)" }}>
                           {p.icon}
                         </div>
@@ -205,22 +255,28 @@ const ProjectsSection = () => {
                       )}
                     </div>
 
-                    <p className="text-sm text-white/70 leading-relaxed mb-4 flex-grow">{p.description}</p>
+                    <p className="text-sm text-white/70 leading-relaxed mb-4">{p.description}</p>
+
                     <div className="flex flex-wrap gap-1.5 mb-4">
                       {p.technologies.map((t) => (
-                        <span key={t} className="text-[10px] font-mono px-2 py-1 rounded text-[#00F5D4]/80"
+                        <span key={t} className="text-[10px] font-mono px-2 py-1 rounded text-[#00F5D4]/80 hover:text-[#00F5D4] hover:shadow-[0_0_10px_rgba(0,245,212,0.4)] transition-all"
                               style={{ background: "rgba(0,245,212,0.06)", border: "1px solid rgba(0,245,212,0.15)" }}>
                           {t}
                         </span>
                       ))}
                     </div>
-                    <div className="flex gap-2 mt-auto">
-                      <button className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-md text-xs font-medium text-white/90 border border-[#00F5D4]/30 bg-[#00F5D4]/5 hover:bg-[#00F5D4]/15 transition-all">
-                        <ExternalLink className="h-3.5 w-3.5" /> View
-                      </button>
-                      <button className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-md text-xs font-medium text-white/70 border border-white/10 bg-white/5 hover:bg-white/10 transition-all">
-                        <Github className="h-3.5 w-3.5" /> Code
-                      </button>
+
+                    <div className="mt-auto">
+                      <ProjectInfo p={p} compact />
+                      <div className="h-px bg-gradient-to-r from-transparent via-[#00F5D4]/25 to-transparent mb-3" />
+                      <div className="flex gap-2">
+                        <button className="group/btn flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-md text-xs font-medium text-white/90 border border-[#00F5D4]/30 bg-[#00F5D4]/5 hover:bg-[#00F5D4]/15 hover:shadow-[0_0_12px_rgba(0,245,212,0.4)] hover:-translate-y-0.5 transition-all">
+                          <Rocket className="h-3.5 w-3.5 group-hover/btn:rotate-12 transition-transform" /> View
+                        </button>
+                        <button className="group/btn flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-md text-xs font-medium text-white/70 border border-white/10 bg-white/5 hover:bg-white/10 hover:-translate-y-0.5 transition-all">
+                          <Github className="h-3.5 w-3.5 group-hover/btn:rotate-12 transition-transform" /> Code
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </TiltCard>
