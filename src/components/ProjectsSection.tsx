@@ -92,6 +92,7 @@ const ProjectsSection = () => {
     featured: true,
     completed: true,
     caseStudy: true,
+    githubUrl: "https://github.com/ash-heree/Project-ML.git",
   };
 
   const others: Project[] = [
