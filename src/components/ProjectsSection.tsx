@@ -13,6 +13,7 @@ type Project = {
   featured?: boolean;
   completed?: boolean;
   caseStudy?: boolean;
+  githubUrl?: string;
 };
 
 const TiltCard = ({ children, className = "", style = {} }: { children: React.ReactNode; className?: string; style?: React.CSSProperties }) => {
@@ -91,6 +92,7 @@ const ProjectsSection = () => {
     featured: true,
     completed: true,
     caseStudy: true,
+    githubUrl: "https://github.com/ash-heree/Project-ML.git",
   };
 
   const others: Project[] = [
@@ -208,9 +210,14 @@ const ProjectsSection = () => {
                     <button className="group/btn flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-semibold text-[#050816] bg-gradient-to-r from-[#00F5D4] to-[#38BDF8] hover:shadow-[0_0_25px_rgba(0,245,212,0.5)] transition-all duration-300 hover:-translate-y-0.5 hover:scale-[1.03]">
                       <Rocket className="h-4 w-4 group-hover/btn:rotate-12 transition-transform" /> View Project
                     </button>
-                    <button className="group/btn flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-medium text-white border border-white/15 bg-white/5 hover:border-[#00F5D4]/60 hover:bg-[#00F5D4]/10 hover:shadow-[0_0_15px_rgba(0,245,212,0.3)] transition-all duration-300 hover:-translate-y-0.5">
+                    <a
+                      href={featured.githubUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group/btn inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-medium text-white border border-white/15 bg-white/5 hover:border-[#00F5D4]/60 hover:bg-[#00F5D4]/10 hover:shadow-[0_0_15px_rgba(0,245,212,0.3)] transition-all duration-300 hover:-translate-y-0.5"
+                    >
                       <Github className="h-4 w-4 group-hover/btn:rotate-12 transition-transform" /> GitHub
-                    </button>
+                    </a>
                     {featured.caseStudy && (
                       <button className="group/btn flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-medium text-white border border-[#7C3AED]/40 bg-[#7C3AED]/10 hover:bg-[#7C3AED]/20 hover:shadow-[0_0_15px_rgba(124,58,237,0.4)] transition-all duration-300 hover:-translate-y-0.5">
                         <FileText className="h-4 w-4 group-hover/btn:rotate-12 transition-transform" /> Case Study
