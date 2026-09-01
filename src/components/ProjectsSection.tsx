@@ -13,6 +13,7 @@ type Project = {
   featured?: boolean;
   completed?: boolean;
   caseStudy?: boolean;
+  githubUrl?: string;
 };
 
 const TiltCard = ({ children, className = "", style = {} }: { children: React.ReactNode; className?: string; style?: React.CSSProperties }) => {
