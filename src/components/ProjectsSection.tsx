@@ -96,7 +96,7 @@ const ProjectsSection = () => {
   };
 
   const others: Project[] = [
-    { icon: <Hand className="h-5 w-5" />, title: "AI Virtual Mouse", description: "A computer-vision based virtual mouse using OpenCV, MediaPipe and Python. Users control cursor movement and click operations through hand gestures — no physical mouse required.", technologies: ["Python", "OpenCV", "MediaPipe", "Computer Vision"], duration: "2 Months", role: "Computer Vision Developer", featured: true },
+    { icon: <Hand className="h-5 w-5" />, title: "AI Virtual Mouse", description: "A computer-vision based virtual mouse using OpenCV, MediaPipe and Python. Users control cursor movement and click operations through hand gestures — no physical mouse required.", technologies: ["Python", "OpenCV", "MediaPipe", "Computer Vision"], duration: "2 Months", role: "Computer Vision Developer", featured: true, githubUrl: "https://github.com/ash-heree/Virtual-Mouse.git" },
     { icon: <Brain className="h-5 w-5" />, title: "Neuro-Symbolic Sudoku Solver", description: "A hybrid AI solver combining neural heuristics with symbolic constraint propagation to efficiently crack Sudoku puzzles while demonstrating explainable AI concepts.", technologies: ["Neuro-Symbolic AI", "Python", "Constraint Satisfaction"], duration: "1 Month", role: "AI Developer", featured: true },
     { icon: <ShoppingCart className="h-5 w-5" />, title: "E-Commerce Website for Games", description: "A responsive e-commerce platform for digital game sales with secure authentication, product management, shopping cart and an intuitive user experience.", technologies: ["HTML", "CSS", "JavaScript", "PHP", "MySQL"], duration: "3 Months", role: "Full Stack Developer" },
     { icon: <BarChart3 className="h-5 w-5" />, title: "Mini Data Analyst", description: "Analyzed consumer food-preference datasets using Python, Pandas and Matplotlib. Performed data cleaning, visualization and statistical analysis to derive business insights.", technologies: ["Python", "Pandas", "Matplotlib", "Colab"], duration: "1 Month", role: "Data Analyst" },
@@ -280,9 +280,20 @@ const ProjectsSection = () => {
                         <button className="group/btn flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-md text-xs font-medium text-white/90 border border-[#00F5D4]/30 bg-[#00F5D4]/5 hover:bg-[#00F5D4]/15 hover:shadow-[0_0_12px_rgba(0,245,212,0.4)] hover:-translate-y-0.5 transition-all">
                           <Rocket className="h-3.5 w-3.5 group-hover/btn:rotate-12 transition-transform" /> View
                         </button>
-                        <button className="group/btn flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-md text-xs font-medium text-white/70 border border-white/10 bg-white/5 hover:bg-white/10 hover:-translate-y-0.5 transition-all">
-                          <Github className="h-3.5 w-3.5 group-hover/btn:rotate-12 transition-transform" /> Code
-                        </button>
+                        {p.githubUrl ? (
+                          <a
+                            href={p.githubUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="group/btn flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-md text-xs font-medium text-white/70 border border-white/10 bg-white/5 hover:bg-white/10 hover:-translate-y-0.5 transition-all"
+                          >
+                            <Github className="h-3.5 w-3.5 group-hover/btn:rotate-12 transition-transform" /> Code
+                          </a>
+                        ) : (
+                          <button className="group/btn flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-md text-xs font-medium text-white/70 border border-white/10 bg-white/5 hover:bg-white/10 hover:-translate-y-0.5 transition-all">
+                            <Github className="h-3.5 w-3.5 group-hover/btn:rotate-12 transition-transform" /> Code
+                          </button>
+                        )}
                       </div>
                     </div>
                   </div>
