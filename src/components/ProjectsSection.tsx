@@ -280,9 +280,20 @@ const ProjectsSection = () => {
                         <button className="group/btn flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-md text-xs font-medium text-white/90 border border-[#00F5D4]/30 bg-[#00F5D4]/5 hover:bg-[#00F5D4]/15 hover:shadow-[0_0_12px_rgba(0,245,212,0.4)] hover:-translate-y-0.5 transition-all">
                           <Rocket className="h-3.5 w-3.5 group-hover/btn:rotate-12 transition-transform" /> View
                         </button>
-                        <button className="group/btn flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-md text-xs font-medium text-white/70 border border-white/10 bg-white/5 hover:bg-white/10 hover:-translate-y-0.5 transition-all">
-                          <Github className="h-3.5 w-3.5 group-hover/btn:rotate-12 transition-transform" /> Code
-                        </button>
+                        {p.githubUrl ? (
+                          <a
+                            href={p.githubUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="group/btn flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-md text-xs font-medium text-white/70 border border-white/10 bg-white/5 hover:bg-white/10 hover:-translate-y-0.5 transition-all"
+                          >
+                            <Github className="h-3.5 w-3.5 group-hover/btn:rotate-12 transition-transform" /> Code
+                          </a>
+                        ) : (
+                          <button className="group/btn flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-md text-xs font-medium text-white/70 border border-white/10 bg-white/5 hover:bg-white/10 hover:-translate-y-0.5 transition-all">
+                            <Github className="h-3.5 w-3.5 group-hover/btn:rotate-12 transition-transform" /> Code
+                          </button>
+                        )}
                       </div>
                     </div>
                   </div>
