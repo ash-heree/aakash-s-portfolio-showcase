@@ -1,10 +1,14 @@
 import { useState } from "react";
-import { motion } from "framer-motion";
-import { Mail, Phone, MapPin, Linkedin, Github, Send } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Mail, Phone, MapPin, Linkedin, Github, Send, CheckCircle2, AlertCircle, Loader2 } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const ContactSection = () => {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
-  const [sent, setSent] = useState(false);
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
 
   const contactInfo = [
     { icon: <Mail className="h-4 w-4" />, label: "Email", value: "aakashsrinivasan092@gmail.com", href: "mailto:aakashsrinivasan092@gmail.com" },
@@ -14,13 +18,31 @@ const ContactSection = () => {
     { icon: <Github className="h-4 w-4" />, label: "GitHub", value: "Aakassh03", href: "https://github.com/Aakassh03" },
   ];
 
-  const submit = (e: React.FormEvent) => {
+  const validate = () => {
+    const e: Record<string, string> = {};
+    if (!form.name.trim() || form.name.trim().length > 100) e.name = "Please enter your name (max 100 characters)";
+    if (!form.email.trim() || !EMAIL_RE.test(form.email.trim())) e.email = "Please enter a valid email address";
+    if (!form.message.trim() || form.message.trim().length > 2000) e.message = "Please enter a message (max 2000 characters)";
+    setErrors(e);
+    return Object.keys(e).length === 0;
+  };
+
+  const submit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const subject = encodeURIComponent(`Portfolio contact from ${form.name}`);
-    const body = encodeURIComponent(`${form.message}\n\n— ${form.name} (${form.email})`);
-    window.location.href = `mailto:aakashsrinivasan092@gmail.com?subject=${subject}&body=${body}`;
-    setSent(true);
-    setTimeout(() => setSent(false), 2500);
+    if (!validate()) return;
+    setStatus("sending");
+    try {
+      const { data, error } = await supabase.functions.invoke("send-contact-email", {
+        body: { name: form.name.trim(), email: form.email.trim(), message: form.message.trim() },
+      });
+      if (error || !data?.success) throw new Error("send failed");
+      setStatus("sent");
+      setForm({ name: "", email: "", message: "" });
+      setTimeout(() => setStatus("idle"), 5000);
+    } catch {
+      setStatus("error");
+      setTimeout(() => setStatus("idle"), 5000);
+    }
   };
 
   return (
@@ -112,44 +134,72 @@ const ContactSection = () => {
                 <div>
                   <label className="text-[#00FF88] block mb-1.5">$ name</label>
                   <input
-                    required
                     value={form.name}
-                    onChange={(e) => setForm({ ...form, name: e.target.value })}
-                    className="w-full bg-[#050816]/60 border border-white/10 focus:border-[#00F5D4] outline-none rounded-md px-3 py-2.5 text-white transition-all focus:shadow-[0_0_15px_rgba(0,245,212,0.25)]"
+                    maxLength={100}
+                    onChange={(e) => { setForm({ ...form, name: e.target.value }); setErrors({ ...errors, name: "" }); }}
+                    className={`w-full bg-[#050816]/60 border outline-none rounded-md px-3 py-2.5 text-white transition-all focus:shadow-[0_0_15px_rgba(0,245,212,0.25)] ${errors.name ? "border-red-400/70" : "border-white/10 focus:border-[#00F5D4]"}`}
                     placeholder="Your name"
                   />
+                  {errors.name && <p className="text-red-400 text-xs mt-1.5">! {errors.name}</p>}
                 </div>
                 <div>
                   <label className="text-[#00FF88] block mb-1.5">$ email</label>
                   <input
-                    required
                     type="email"
                     value={form.email}
-                    onChange={(e) => setForm({ ...form, email: e.target.value })}
-                    className="w-full bg-[#050816]/60 border border-white/10 focus:border-[#00F5D4] outline-none rounded-md px-3 py-2.5 text-white transition-all focus:shadow-[0_0_15px_rgba(0,245,212,0.25)]"
+                    maxLength={255}
+                    onChange={(e) => { setForm({ ...form, email: e.target.value }); setErrors({ ...errors, email: "" }); }}
+                    className={`w-full bg-[#050816]/60 border outline-none rounded-md px-3 py-2.5 text-white transition-all focus:shadow-[0_0_15px_rgba(0,245,212,0.25)] ${errors.email ? "border-red-400/70" : "border-white/10 focus:border-[#00F5D4]"}`}
                     placeholder="you@example.com"
                   />
+                  {errors.email && <p className="text-red-400 text-xs mt-1.5">! {errors.email}</p>}
                 </div>
                 <div>
                   <label className="text-[#00FF88] block mb-1.5">$ message</label>
                   <textarea
-                    required
                     rows={5}
                     value={form.message}
-                    onChange={(e) => setForm({ ...form, message: e.target.value })}
-                    className="w-full bg-[#050816]/60 border border-white/10 focus:border-[#00F5D4] outline-none rounded-md px-3 py-2.5 text-white transition-all focus:shadow-[0_0_15px_rgba(0,245,212,0.25)] resize-none"
+                    maxLength={2000}
+                    onChange={(e) => { setForm({ ...form, message: e.target.value }); setErrors({ ...errors, message: "" }); }}
+                    className={`w-full bg-[#050816]/60 border outline-none rounded-md px-3 py-2.5 text-white transition-all focus:shadow-[0_0_15px_rgba(0,245,212,0.25)] resize-none ${errors.message ? "border-red-400/70" : "border-white/10 focus:border-[#00F5D4]"}`}
                     placeholder="Tell me about your project or idea..."
                   />
+                  {errors.message && <p className="text-red-400 text-xs mt-1.5">! {errors.message}</p>}
                 </div>
                 <motion.button
                   type="submit"
-                  whileHover={{ scale: 1.02, y: -2 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="w-full flex items-center justify-center gap-2 px-5 py-3 rounded-lg font-semibold text-[#050816] bg-gradient-to-r from-[#00F5D4] to-[#38BDF8] hover:shadow-[0_0_30px_rgba(0,245,212,0.55)] transition-all duration-300"
+                  disabled={status === "sending"}
+                  whileHover={status === "sending" ? undefined : { scale: 1.02, y: -2 }}
+                  whileTap={status === "sending" ? undefined : { scale: 0.98 }}
+                  className="w-full flex items-center justify-center gap-2 px-5 py-3 rounded-lg font-semibold text-[#050816] bg-gradient-to-r from-[#00F5D4] to-[#38BDF8] hover:shadow-[0_0_30px_rgba(0,245,212,0.55)] transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed"
                 >
-                  <Send className="h-4 w-4" />
-                  {sent ? "Opening mail client..." : "Send Message"}
+                  {status === "sending" ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
+                  {status === "sending" ? "Sending..." : "Send Message"}
                 </motion.button>
+                <AnimatePresence>
+                  {status === "sent" && (
+                    <motion.p
+                      initial={{ opacity: 0, y: 6 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0 }}
+                      className="flex items-center gap-2 text-[#00FF88] text-xs bg-[#00FF88]/10 border border-[#00FF88]/30 rounded-md px-3 py-2.5"
+                    >
+                      <CheckCircle2 className="h-4 w-4 flex-shrink-0" />
+                      Message sent successfully! I'll get back to you soon.
+                    </motion.p>
+                  )}
+                  {status === "error" && (
+                    <motion.p
+                      initial={{ opacity: 0, y: 6 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0 }}
+                      className="flex items-center gap-2 text-red-400 text-xs bg-red-400/10 border border-red-400/30 rounded-md px-3 py-2.5"
+                    >
+                      <AlertCircle className="h-4 w-4 flex-shrink-0" />
+                      Failed to send. Please try again or email me directly.
+                    </motion.p>
+                  )}
+                </AnimatePresence>
               </div>
             </motion.form>
 
