@@ -134,44 +134,72 @@ const ContactSection = () => {
                 <div>
                   <label className="text-[#00FF88] block mb-1.5">$ name</label>
                   <input
-                    required
                     value={form.name}
-                    onChange={(e) => setForm({ ...form, name: e.target.value })}
-                    className="w-full bg-[#050816]/60 border border-white/10 focus:border-[#00F5D4] outline-none rounded-md px-3 py-2.5 text-white transition-all focus:shadow-[0_0_15px_rgba(0,245,212,0.25)]"
+                    maxLength={100}
+                    onChange={(e) => { setForm({ ...form, name: e.target.value }); setErrors({ ...errors, name: "" }); }}
+                    className={`w-full bg-[#050816]/60 border outline-none rounded-md px-3 py-2.5 text-white transition-all focus:shadow-[0_0_15px_rgba(0,245,212,0.25)] ${errors.name ? "border-red-400/70" : "border-white/10 focus:border-[#00F5D4]"}`}
                     placeholder="Your name"
                   />
+                  {errors.name && <p className="text-red-400 text-xs mt-1.5">! {errors.name}</p>}
                 </div>
                 <div>
                   <label className="text-[#00FF88] block mb-1.5">$ email</label>
                   <input
-                    required
                     type="email"
                     value={form.email}
-                    onChange={(e) => setForm({ ...form, email: e.target.value })}
-                    className="w-full bg-[#050816]/60 border border-white/10 focus:border-[#00F5D4] outline-none rounded-md px-3 py-2.5 text-white transition-all focus:shadow-[0_0_15px_rgba(0,245,212,0.25)]"
+                    maxLength={255}
+                    onChange={(e) => { setForm({ ...form, email: e.target.value }); setErrors({ ...errors, email: "" }); }}
+                    className={`w-full bg-[#050816]/60 border outline-none rounded-md px-3 py-2.5 text-white transition-all focus:shadow-[0_0_15px_rgba(0,245,212,0.25)] ${errors.email ? "border-red-400/70" : "border-white/10 focus:border-[#00F5D4]"}`}
                     placeholder="you@example.com"
                   />
+                  {errors.email && <p className="text-red-400 text-xs mt-1.5">! {errors.email}</p>}
                 </div>
                 <div>
                   <label className="text-[#00FF88] block mb-1.5">$ message</label>
                   <textarea
-                    required
                     rows={5}
                     value={form.message}
-                    onChange={(e) => setForm({ ...form, message: e.target.value })}
-                    className="w-full bg-[#050816]/60 border border-white/10 focus:border-[#00F5D4] outline-none rounded-md px-3 py-2.5 text-white transition-all focus:shadow-[0_0_15px_rgba(0,245,212,0.25)] resize-none"
+                    maxLength={2000}
+                    onChange={(e) => { setForm({ ...form, message: e.target.value }); setErrors({ ...errors, message: "" }); }}
+                    className={`w-full bg-[#050816]/60 border outline-none rounded-md px-3 py-2.5 text-white transition-all focus:shadow-[0_0_15px_rgba(0,245,212,0.25)] resize-none ${errors.message ? "border-red-400/70" : "border-white/10 focus:border-[#00F5D4]"}`}
                     placeholder="Tell me about your project or idea..."
                   />
+                  {errors.message && <p className="text-red-400 text-xs mt-1.5">! {errors.message}</p>}
                 </div>
                 <motion.button
                   type="submit"
-                  whileHover={{ scale: 1.02, y: -2 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="w-full flex items-center justify-center gap-2 px-5 py-3 rounded-lg font-semibold text-[#050816] bg-gradient-to-r from-[#00F5D4] to-[#38BDF8] hover:shadow-[0_0_30px_rgba(0,245,212,0.55)] transition-all duration-300"
+                  disabled={status === "sending"}
+                  whileHover={status === "sending" ? undefined : { scale: 1.02, y: -2 }}
+                  whileTap={status === "sending" ? undefined : { scale: 0.98 }}
+                  className="w-full flex items-center justify-center gap-2 px-5 py-3 rounded-lg font-semibold text-[#050816] bg-gradient-to-r from-[#00F5D4] to-[#38BDF8] hover:shadow-[0_0_30px_rgba(0,245,212,0.55)] transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed"
                 >
-                  <Send className="h-4 w-4" />
-                  {sent ? "Opening mail client..." : "Send Message"}
+                  {status === "sending" ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
+                  {status === "sending" ? "Sending..." : "Send Message"}
                 </motion.button>
+                <AnimatePresence>
+                  {status === "sent" && (
+                    <motion.p
+                      initial={{ opacity: 0, y: 6 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0 }}
+                      className="flex items-center gap-2 text-[#00FF88] text-xs bg-[#00FF88]/10 border border-[#00FF88]/30 rounded-md px-3 py-2.5"
+                    >
+                      <CheckCircle2 className="h-4 w-4 flex-shrink-0" />
+                      Message sent successfully! I'll get back to you soon.
+                    </motion.p>
+                  )}
+                  {status === "error" && (
+                    <motion.p
+                      initial={{ opacity: 0, y: 6 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0 }}
+                      className="flex items-center gap-2 text-red-400 text-xs bg-red-400/10 border border-red-400/30 rounded-md px-3 py-2.5"
+                    >
+                      <AlertCircle className="h-4 w-4 flex-shrink-0" />
+                      Failed to send. Please try again or email me directly.
+                    </motion.p>
+                  )}
+                </AnimatePresence>
               </div>
             </motion.form>
 
