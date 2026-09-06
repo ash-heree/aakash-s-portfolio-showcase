@@ -225,7 +225,7 @@ const HeroSection = () => {
               className="flex gap-3"
             >
               {[
-                { icon: Github, href: "https://github.com", label: "GitHub" },
+                { icon: Github, href: "https://github.com/ash-heree", label: "GitHub" },
                 { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
                 { icon: Mail, href: "mailto:aakash@example.com", label: "Email" },
               ].map(({ icon: Icon, href, label }) => (
