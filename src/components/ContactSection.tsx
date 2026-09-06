@@ -1,10 +1,14 @@
 import { useState } from "react";
-import { motion } from "framer-motion";
-import { Mail, Phone, MapPin, Linkedin, Github, Send } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Mail, Phone, MapPin, Linkedin, Github, Send, CheckCircle2, AlertCircle, Loader2 } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const ContactSection = () => {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
-  const [sent, setSent] = useState(false);
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
 
   const contactInfo = [
     { icon: <Mail className="h-4 w-4" />, label: "Email", value: "aakashsrinivasan092@gmail.com", href: "mailto:aakashsrinivasan092@gmail.com" },
@@ -14,13 +18,31 @@ const ContactSection = () => {
     { icon: <Github className="h-4 w-4" />, label: "GitHub", value: "Aakassh03", href: "https://github.com/Aakassh03" },
   ];
 
-  const submit = (e: React.FormEvent) => {
+  const validate = () => {
+    const e: Record<string, string> = {};
+    if (!form.name.trim() || form.name.trim().length > 100) e.name = "Please enter your name (max 100 characters)";
+    if (!form.email.trim() || !EMAIL_RE.test(form.email.trim())) e.email = "Please enter a valid email address";
+    if (!form.message.trim() || form.message.trim().length > 2000) e.message = "Please enter a message (max 2000 characters)";
+    setErrors(e);
+    return Object.keys(e).length === 0;
+  };
+
+  const submit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const subject = encodeURIComponent(`Portfolio contact from ${form.name}`);
-    const body = encodeURIComponent(`${form.message}\n\n— ${form.name} (${form.email})`);
-    window.location.href = `mailto:aakashsrinivasan092@gmail.com?subject=${subject}&body=${body}`;
-    setSent(true);
-    setTimeout(() => setSent(false), 2500);
+    if (!validate()) return;
+    setStatus("sending");
+    try {
+      const { data, error } = await supabase.functions.invoke("send-contact-email", {
+        body: { name: form.name.trim(), email: form.email.trim(), message: form.message.trim() },
+      });
+      if (error || !data?.success) throw new Error("send failed");
+      setStatus("sent");
+      setForm({ name: "", email: "", message: "" });
+      setTimeout(() => setStatus("idle"), 5000);
+    } catch {
+      setStatus("error");
+      setTimeout(() => setStatus("idle"), 5000);
+    }
   };
 
   return (
