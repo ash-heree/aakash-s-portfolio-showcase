@@ -14,8 +14,8 @@ const ContactSection = () => {
     { icon: <Mail className="h-4 w-4" />, label: "Email", value: "aakashsrinivasan092@gmail.com", href: "mailto:aakashsrinivasan092@gmail.com" },
     { icon: <Phone className="h-4 w-4" />, label: "Phone", value: "8838008020", href: "tel:8838008020" },
     { icon: <MapPin className="h-4 w-4" />, label: "Location", value: "Thirumullaivoyal, Chennai", href: null as string | null },
-    { icon: <Linkedin className="h-4 w-4" />, label: "LinkedIn", value: "aakash-s-3710572b0", href: "https://www.linkedin.com/in/aakash-s-3710572b0" },
-    { icon: <Github className="h-4 w-4" />, label: "GitHub", value: "Aakassh03", href: "https://github.com/Aakassh03" },
+    { icon: <Linkedin className="h-4 w-4" />, label: "LinkedIn", value: "Aakash S", href: "https://www.linkedin.com/in/aakash-s-3710572b0" },
+    { icon: <Github className="h-4 w-4" />, label: "GitHub", value: "ash-heree", href: "https://github.com/ash-heree" },
   ];
 
   const validate = () => {
