@@ -1,6 +1,13 @@
 import { motion } from "framer-motion";
 import { useEffect, useRef } from "react";
-import { Code2, Layout, Server, Database, Wrench } from "lucide-react";
+import { Code2, Layout, Server, Database, Wrench, Brain, Network, LineChart, Waves, Package, Table } from "lucide-react";
+import {
+  SiPython, SiCplusplus, SiC, SiHtml5, SiCss, SiJavascript, SiReact,
+  SiFastapi, SiFlask, SiNodedotjs, SiScikitlearn, SiPandas, SiNumpy,
+  SiMysql, SiSqlite, SiGit, SiGithub, SiDocker, SiStreamlit,
+  SiTailwindcss, SiGooglecolab, SiCanva,
+} from "react-icons/si";
+import { VscCode } from "react-icons/vsc";
 
 const NeuralBackground = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -59,7 +66,7 @@ const NeuralBackground = () => {
   return <canvas ref={canvasRef} className="absolute inset-0 w-full h-full opacity-70" />;
 };
 
-type Skill = { name: string; icon?: string };
+type Skill = { name: string; Icon: React.ComponentType<{ size?: number; color?: string; className?: string }>; color: string };
 type Category = {
   icon: JSX.Element;
   title: string;
@@ -101,39 +108,80 @@ const CATEGORIES: Category[] = [
     icon: <Code2 className="h-6 w-6" />,
     title: "Programming Languages",
     gradient: "from-[#00F5D4] to-[#38BDF8]",
-    skills: [{ name: "Python", icon: "🐍" }, { name: "C" }, { name: "C++" }, { name: "JavaScript", icon: "🟨" }],
+    skills: [
+      { name: "Python", Icon: SiPython, color: "#3776AB" },
+      { name: "C++", Icon: SiCplusplus, color: "#00599C" },
+      { name: "C", Icon: SiC, color: "#A8B9CC" },
+    ],
   },
   {
     icon: <Layout className="h-6 w-6" />,
     title: "Frontend",
     gradient: "from-[#38BDF8] to-[#7C3AED]",
-    skills: [{ name: "HTML", icon: "🟧" }, { name: "CSS", icon: "🟦" }, { name: "React", icon: "⚛" }, { name: "Tailwind" }],
+    skills: [
+      { name: "HTML", Icon: SiHtml5, color: "#E34F26" },
+      { name: "CSS", Icon: SiCss, color: "#1572B6" },
+      { name: "JavaScript", Icon: SiJavascript, color: "#F7DF1E" },
+      { name: "React.js", Icon: SiReact, color: "#61DAFB" },
+      { name: "Tailwind", Icon: SiTailwindcss, color: "#06B6D4" },
+    ],
   },
   {
     icon: <Server className="h-6 w-6" />,
     title: "Backend",
     gradient: "from-[#00FF88] to-[#00F5D4]",
-    skills: [{ name: "Node.js", icon: "🟩" }, { name: "Flask", icon: "🧪" }, { name: "REST APIs" }],
+    skills: [
+      { name: "FastAPI", Icon: SiFastapi, color: "#009688" },
+      { name: "Flask", Icon: SiFlask, color: "#FFFFFF" },
+      { name: "REST APIs", Icon: Network, color: "#38BDF8" },
+      { name: "Node.js", Icon: SiNodedotjs, color: "#5FA04E" },
+    ],
+  },
+  {
+    icon: <Brain className="h-6 w-6" />,
+    title: "Machine Learning",
+    gradient: "from-[#7C3AED] to-[#00F5D4]",
+    skills: [
+      { name: "Scikit-learn", Icon: SiScikitlearn, color: "#F7931E" },
+      { name: "Pandas", Icon: SiPandas, color: "#E70488" },
+      { name: "NumPy", Icon: SiNumpy, color: "#4DABCF" },
+      { name: "Matplotlib", Icon: LineChart, color: "#38BDF8" },
+      { name: "Seaborn", Icon: Waves, color: "#7C3AED" },
+      { name: "Joblib", Icon: Package, color: "#00F5D4" },
+    ],
   },
   {
     icon: <Database className="h-6 w-6" />,
     title: "Database",
     gradient: "from-[#7C3AED] to-[#38BDF8]",
-    skills: [{ name: "MySQL", icon: "🐬" }, { name: "SQLite" }, { name: "MS Access" }],
+    skills: [
+      { name: "SQL", Icon: Database, color: "#00F5D4" },
+      { name: "MySQL", Icon: SiMysql, color: "#4479A1" },
+      { name: "SQLite", Icon: SiSqlite, color: "#0F80CC" },
+      { name: "MS Access", Icon: Table, color: "#A4373A" },
+    ],
   },
   {
     icon: <Wrench className="h-6 w-6" />,
     title: "Tools & Technologies",
     gradient: "from-[#00F5D4] to-[#00FF88]",
-    skills: [{ name: "Git" }, { name: "GitHub" }, { name: "VS Code" }, { name: "Colab" }, { name: "Canva" }],
+    skills: [
+      { name: "Git", Icon: SiGit, color: "#F05032" },
+      { name: "GitHub", Icon: SiGithub, color: "#FFFFFF" },
+      { name: "Docker", Icon: SiDocker, color: "#2496ED" },
+      { name: "Streamlit", Icon: SiStreamlit, color: "#FF4B4B" },
+      { name: "VS Code", Icon: VscCode, color: "#007ACC" },
+      { name: "Colab", Icon: SiGooglecolab, color: "#F9AB00" },
+      { name: "Canva", Icon: SiCanva, color: "#00C4CC" },
+    ],
   },
 ];
 
 const SkillPill = ({ s }: { s: Skill }) => (
   <span
-    className="gradient-border group inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded-full text-[#38BDF8] bg-[#050816]/70 backdrop-blur transition-all duration-300 hover:scale-105 hover:text-white hover:shadow-[0_0_18px_rgba(0,245,212,0.4)]"
+    className="gradient-border group inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded-full text-white/85 bg-[#050816]/70 backdrop-blur transition-all duration-300 hover:scale-105 hover:text-white hover:shadow-[0_0_18px_rgba(0,245,212,0.4)]"
   >
-    {s.icon && <span className="text-sm leading-none">{s.icon}</span>}
+    <s.Icon size={14} color={s.color} className="shrink-0 leading-none" />
     {s.name}
   </span>
 );
