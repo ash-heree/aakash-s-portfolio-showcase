@@ -66,7 +66,7 @@ const NeuralBackground = () => {
   return <canvas ref={canvasRef} className="absolute inset-0 w-full h-full opacity-70" />;
 };
 
-type Skill = { name: string; Icon: React.ComponentType<{ size?: number; color?: string; className?: string }>; color: string };
+type Skill = { name: string; Icon: React.ComponentType<{ size?: number | string; color?: string; className?: string }>; color: string };
 type Category = {
   icon: JSX.Element;
   title: string;
