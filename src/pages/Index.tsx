@@ -8,10 +8,12 @@ import EducationSection from "@/components/EducationSection";
 import AchievementsSection from "@/components/AchievementsSection";
 import VolunteerSection from "@/components/VolunteerSection";
 import ContactSection from "@/components/ContactSection";
+import CustomCursor from "@/components/CustomCursor";
 
 const Index = () => {
   return (
     <div className="min-h-screen bg-background relative">
+      <CustomCursor />
       <Navigation />
       <HeroSection />
       <AboutSection />

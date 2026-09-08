@@ -66,6 +66,12 @@
   50% { box-shadow: 0 0 18px rgba(0,245,212,0.35); }
 }
 
+/* Custom cursor: hide native cursor on precise pointers */
+.custom-cursor-active,
+.custom-cursor-active * {
+  cursor: none !important;
+}
+
 /* Reduced motion: disable heavy loops */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
