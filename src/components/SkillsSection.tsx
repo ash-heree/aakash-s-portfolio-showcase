@@ -1,11 +1,11 @@
 import { motion } from "framer-motion";
 import { useEffect, useRef } from "react";
-import { Code2, Layout, Server, Database, Wrench, Brain, Network, LineChart, Waves, Package, Table } from "lucide-react";
+import { Code2, Layout, Server, Database, Wrench, Brain, Network, LineChart, Waves, Package, Table, Palette } from "lucide-react";
 import {
   SiPython, SiCplusplus, SiC, SiHtml5, SiCss, SiJavascript, SiReact,
   SiFastapi, SiFlask, SiNodedotjs, SiScikitlearn, SiPandas, SiNumpy,
   SiMysql, SiSqlite, SiGit, SiGithub, SiDocker, SiStreamlit,
-  SiTailwindcss, SiGooglecolab, SiCanva,
+  SiTailwindcss, SiGooglecolab,
 } from "react-icons/si";
 import { VscCode } from "react-icons/vsc";
 
@@ -172,7 +172,7 @@ const CATEGORIES: Category[] = [
       { name: "Streamlit", Icon: SiStreamlit, color: "#FF4B4B" },
       { name: "VS Code", Icon: VscCode, color: "#007ACC" },
       { name: "Colab", Icon: SiGooglecolab, color: "#F9AB00" },
-      { name: "Canva", Icon: SiCanva, color: "#00C4CC" },
+      { name: "Canva", Icon: Palette, color: "#00C4CC" },
     ],
   },
 ];
