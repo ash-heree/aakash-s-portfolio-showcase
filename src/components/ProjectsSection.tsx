@@ -33,7 +33,7 @@ const techIconMap: Record<string, { Icon: IconComponent; color: string }> = {
   "Neuro-Symbolic AI": { Icon: Brain, color: "#A855F7" },
   "Constraint Satisfaction": { Icon: Puzzle, color: "#F472B6" },
   HTML: { Icon: SiHtml5, color: "#E34F26" },
-  CSS: { Icon: SiCss3, color: "#1572B6" },
+  CSS: { Icon: SiCss, color: "#1572B6" },
   JavaScript: { Icon: SiJavascript, color: "#F7DF1E" },
   PHP: { Icon: SiPhp, color: "#777BB4" },
   MySQL: { Icon: SiMysql, color: "#00758F" },
