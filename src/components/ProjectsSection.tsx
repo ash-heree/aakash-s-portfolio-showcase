@@ -168,7 +168,6 @@ const ProjectInfo = ({ p, compact = false, onStackEnter, onStackLeave }: { p: Pr
             if (stackRef.current) onStackEnter?.(p.technologies, stackRef.current.getBoundingClientRect());
           }}
           onMouseLeave={() => onStackLeave?.()}
-          className="contents"
         >
           <MetricTile icon={<Wrench className="h-3 w-3" />} label="Stack" value={`${p.technologies.length} Technologies`} />
         </div>
