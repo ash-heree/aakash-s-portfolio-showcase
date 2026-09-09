@@ -1,7 +1,8 @@
-import { Hand, ShoppingCart, BarChart3, CloudSun, ExternalLink, Github, Brain, Car, Shield, Sparkles, CheckCircle2, Calendar, UserCircle2, Target, Wrench, FileText, Rocket } from "lucide-react";
-import { SiMysql } from "react-icons/si";
+import { Hand, ShoppingCart, BarChart3, CloudSun, ExternalLink, Github, Brain, Car, Shield, Sparkles, CheckCircle2, Calendar, UserCircle2, Target, Wrench, FileText, Rocket, Database, LineChart, Eye, Puzzle, Video, Code2, Monitor } from "lucide-react";
+import { SiPython, SiFlask, SiPandas, SiHtml5, SiCss, SiJavascript, SiPhp, SiMysql, SiStreamlit, SiDotnet } from "react-icons/si";
 import { motion } from "framer-motion";
-import { useState, useRef } from "react";
+import { useState, useRef, useLayoutEffect, useEffect } from "react";
+import { createPortal } from "react-dom";
 
 type Project = {
   icon: JSX.Element;
@@ -15,6 +16,90 @@ type Project = {
   completed?: boolean;
   caseStudy?: boolean;
   githubUrl?: string;
+};
+
+type IconComponent = React.ComponentType<{ className?: string; style?: React.CSSProperties }>;
+
+const techIconMap: Record<string, { Icon: IconComponent; color: string }> = {
+  Python: { Icon: SiPython, color: "#3776AB" },
+  Flask: { Icon: SiFlask, color: "#FFFFFF" },
+  SQL: { Icon: Database, color: "#38BDF8" },
+  "Scikit-Learn": { Icon: Sparkles, color: "#FACC15" },
+  Pandas: { Icon: SiPandas, color: "#E70488" },
+  "Predictive Analytics": { Icon: LineChart, color: "#00F5D4" },
+  OpenCV: { Icon: Eye, color: "#5C3EE8" },
+  MediaPipe: { Icon: Video, color: "#00FF88" },
+  "Computer Vision": { Icon: Eye, color: "#38BDF8" },
+  "Neuro-Symbolic AI": { Icon: Brain, color: "#A855F7" },
+  "Constraint Satisfaction": { Icon: Puzzle, color: "#F472B6" },
+  HTML: { Icon: SiHtml5, color: "#E34F26" },
+  CSS: { Icon: SiCss, color: "#1572B6" },
+  JavaScript: { Icon: SiJavascript, color: "#F7DF1E" },
+  PHP: { Icon: SiPhp, color: "#777BB4" },
+  MySQL: { Icon: SiMysql, color: "#00758F" },
+  Matplotlib: { Icon: BarChart3, color: "#1f77b4" },
+  Colab: { Icon: Code2, color: "#F9AB00" },
+  Streamlit: { Icon: SiStreamlit, color: "#FF4B4B" },
+  "OpenWeather API": { Icon: CloudSun, color: "#38BDF8" },
+  "VB.NET": { Icon: SiDotnet, color: "#512BD4" },
+  SQLite: { Icon: Database, color: "#0F80CC" },
+  Desktop: { Icon: Monitor, color: "#A855F7" },
+  ".NET": { Icon: SiDotnet, color: "#512BD4" },
+};
+
+const useHoverCapable = () => {
+  const [capable, setCapable] = useState(false);
+  useEffect(() => {
+    setCapable(window.matchMedia("(hover: hover)").matches);
+  }, []);
+  return capable;
+};
+
+const TechPopup = ({ technologies, rect }: { technologies: string[]; rect: DOMRect }) => {
+  const popupRef = useRef<HTMLDivElement>(null);
+  const [style, setStyle] = useState<React.CSSProperties>({ position: "fixed", top: 0, left: 0, visibility: "hidden", zIndex: 9999 });
+
+  useLayoutEffect(() => {
+    const el = popupRef.current;
+    if (!el) return;
+    const w = el.offsetWidth;
+    const h = el.offsetHeight;
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    let top = rect.top - h - 8;
+    let left = rect.left + rect.width / 2 - w / 2;
+    if (top < 8) top = rect.bottom + 8;
+    if (left < 8) left = 8;
+    else if (left + w > vw - 8) left = vw - w - 8;
+    if (top + h > vh - 8) top = vh - h - 8;
+    setStyle({ top, left, visibility: "visible", zIndex: 9999 });
+  }, [rect]);
+
+  return createPortal(
+    <motion.div
+      ref={popupRef}
+      style={style}
+      initial={{ opacity: 0, scale: 0.95, y: 4 }}
+      animate={{ opacity: 1, scale: 1, y: 0 }}
+      transition={{ duration: 0.15, ease: "easeOut" }}
+      className="pointer-events-none rounded-xl border border-[#00F5D4]/30 bg-[#0B1120]/95 backdrop-blur-xl p-3 shadow-[0_0_25px_rgba(0,245,212,0.15)] min-w-[180px] max-w-[260px]"
+    >
+      <p className="text-[9px] font-mono uppercase tracking-widest text-[#00F5D4]/70 mb-2">// TECH.STACK</p>
+      <ul className="space-y-1.5">
+        {technologies.map((t) => {
+          const mapped = techIconMap[t];
+          const Icon = mapped?.Icon ?? Code2;
+          return (
+            <li key={t} className="flex items-center gap-2 text-xs text-white/90">
+              <Icon className="h-4 w-4 flex-shrink-0" style={{ color: mapped?.color ?? "#00F5D4" }} />
+              <span>{t}</span>
+            </li>
+          );
+        })}
+      </ul>
+    </motion.div>,
+    document.body
+  );
 };
 
 const TiltCard = ({ children, className = "", style = {} }: { children: React.ReactNode; className?: string; style?: React.CSSProperties }) => {
@@ -56,31 +141,50 @@ const MetricTile = ({ icon, label, value, accent = false, pulse = false }: { ico
   </div>
 );
 
-const ProjectInfo = ({ p, compact = false }: { p: Project; compact?: boolean }) => (
-  <motion.div
-    initial={{ opacity: 0, y: 12 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true }}
-    transition={{ duration: 0.5, delay: 0.1 }}
-    className="relative rounded-2xl p-3 sm:p-4 mb-4 backdrop-blur-xl overflow-hidden group/info transition-all duration-300 hover:shadow-[0_0_25px_rgba(0,245,212,0.2)]"
-    style={{
-      background: "linear-gradient(135deg, rgba(0,245,212,0.04) 0%, rgba(124,58,237,0.05) 100%)",
-      border: "1px solid rgba(0,245,212,0.18)",
-      boxShadow: "0 0 15px rgba(0,245,212,0.08)",
-    }}
-  >
-    <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#00F5D4]/50 to-transparent" />
-    <p className="text-[9px] font-mono uppercase tracking-widest text-[#00F5D4] mb-2.5 opacity-70">// PROJECT.INFO</p>
-    <div className={`grid grid-cols-2 gap-2 ${compact ? "" : "sm:gap-3"}`}>
-      <MetricTile icon={<Calendar className="h-3 w-3" />} label="Duration" value={p.duration} />
-      <MetricTile icon={<UserCircle2 className="h-3 w-3" />} label="Role" value={<span className="truncate">{p.role}</span>} />
-      <MetricTile icon={<Target className="h-3 w-3" />} label="Status" value={p.status ?? "Completed"} accent pulse={(p.status ?? "Completed") === "Completed"} />
-      <MetricTile icon={<Wrench className="h-3 w-3" />} label="Stack" value={`${p.technologies.length} Technologies`} />
-    </div>
-  </motion.div>
-);
+const ProjectInfo = ({ p, compact = false, onStackEnter, onStackLeave }: { p: Project; compact?: boolean; onStackEnter?: (technologies: string[], rect: DOMRect) => void; onStackLeave?: () => void }) => {
+  const stackRef = useRef<HTMLDivElement>(null);
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5, delay: 0.1 }}
+      className="relative rounded-2xl p-3 sm:p-4 mb-4 backdrop-blur-xl overflow-hidden group/info transition-all duration-300 hover:shadow-[0_0_25px_rgba(0,245,212,0.2)]"
+      style={{
+        background: "linear-gradient(135deg, rgba(0,245,212,0.04) 0%, rgba(124,58,237,0.05) 100%)",
+        border: "1px solid rgba(0,245,212,0.18)",
+        boxShadow: "0 0 15px rgba(0,245,212,0.08)",
+      }}
+    >
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#00F5D4]/50 to-transparent" />
+      <p className="text-[9px] font-mono uppercase tracking-widest text-[#00F5D4] mb-2.5 opacity-70">// PROJECT.INFO</p>
+      <div className={`grid grid-cols-2 gap-2 ${compact ? "" : "sm:gap-3"}`}>
+        <MetricTile icon={<Calendar className="h-3 w-3" />} label="Duration" value={p.duration} />
+        <MetricTile icon={<UserCircle2 className="h-3 w-3" />} label="Role" value={<span className="truncate">{p.role}</span>} />
+        <MetricTile icon={<Target className="h-3 w-3" />} label="Status" value={p.status ?? "Completed"} accent pulse={(p.status ?? "Completed") === "Completed"} />
+        <div
+          ref={stackRef}
+          onMouseEnter={() => {
+            if (stackRef.current) onStackEnter?.(p.technologies, stackRef.current.getBoundingClientRect());
+          }}
+          onMouseLeave={() => onStackLeave?.()}
+        >
+          <MetricTile icon={<Wrench className="h-3 w-3" />} label="Stack" value={`${p.technologies.length} Technologies`} />
+        </div>
+      </div>
+    </motion.div>
+  );
+};
 
 const ProjectsSection = () => {
+  const hoverCapable = useHoverCapable();
+  const [stackHover, setStackHover] = useState<{ technologies: string[]; rect: DOMRect } | null>(null);
+
+  const handleStackEnter = (technologies: string[], rect: DOMRect) => {
+    if (hoverCapable) setStackHover({ technologies, rect });
+  };
+  const handleStackLeave = () => setStackHover(null);
+
   const featured: Project = {
     icon: <Shield className="h-7 w-7" />,
     title: "Machine Learning Based Transaction Risk Analysis",
@@ -204,7 +308,7 @@ const ProjectsSection = () => {
                     ))}
                   </div>
 
-                  <ProjectInfo p={featured} />
+                  <ProjectInfo p={featured} onStackEnter={handleStackEnter} onStackLeave={handleStackLeave} />
 
                   <div className="h-px bg-gradient-to-r from-transparent via-[#00F5D4]/30 to-transparent mb-5" />
 
@@ -276,7 +380,7 @@ const ProjectsSection = () => {
                     </div>
 
                     <div className="mt-auto">
-                      <ProjectInfo p={p} compact />
+                      <ProjectInfo p={p} compact onStackEnter={handleStackEnter} onStackLeave={handleStackLeave} />
                       <div className="h-px bg-gradient-to-r from-transparent via-[#00F5D4]/25 to-transparent mb-3" />
                       <div className="flex gap-2">
                         <button className="group/btn flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-md text-xs font-medium text-white/90 border border-[#00F5D4]/30 bg-[#00F5D4]/5 hover:bg-[#00F5D4]/15 hover:shadow-[0_0_12px_rgba(0,245,212,0.4)] hover:-translate-y-0.5 transition-all">
@@ -305,6 +409,8 @@ const ProjectsSection = () => {
           </div>
         </div>
       </div>
+
+      {stackHover && <TechPopup technologies={stackHover.technologies} rect={stackHover.rect} />}
     </section>
   );
 };
