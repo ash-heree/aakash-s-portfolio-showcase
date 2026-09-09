@@ -1,5 +1,5 @@
 import { Hand, ShoppingCart, BarChart3, CloudSun, ExternalLink, Github, Brain, Car, Shield, Sparkles, CheckCircle2, Calendar, UserCircle2, Target, Wrench, FileText, Rocket, Database, LineChart, Eye, Puzzle, Video, Code2, Monitor } from "lucide-react";
-import { SiPython, SiFlask, SiPandas, SiHtml5, SiCss3, SiJavascript, SiPhp, SiMysql, SiStreamlit, SiDotnet } from "react-icons/si";
+import { SiPython, SiFlask, SiPandas, SiHtml5, SiCss, SiJavascript, SiPhp, SiMysql, SiStreamlit, SiDotnet } from "react-icons/si";
 import { motion } from "framer-motion";
 import { useState, useRef, useLayoutEffect, useEffect } from "react";
 import { createPortal } from "react-dom";
