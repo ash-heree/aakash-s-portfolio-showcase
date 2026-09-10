@@ -72,7 +72,7 @@ const TechPopup = ({ technologies, rect }: { technologies: string[]; rect: DOMRe
     if (left < 8) left = 8;
     else if (left + w > vw - 8) left = vw - w - 8;
     if (top + h > vh - 8) top = vh - h - 8;
-    setStyle({ top, left, visibility: "visible", zIndex: 9999 });
+    setStyle({ position: "fixed", top, left, visibility: "visible", zIndex: 9999 });
   }, [rect]);
 
   return createPortal(
