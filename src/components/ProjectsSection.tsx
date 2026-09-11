@@ -448,7 +448,14 @@ const ProjectsSection = () => {
         </div>
       </div>
 
-      {stackHover && <TechPopup technologies={stackHover.technologies} rect={stackHover.rect} />}
+      {stackHover && (
+        <TechPopup
+          technologies={stackHover.technologies}
+          rect={stackHover.rect}
+          onMouseEnter={handlePopupEnter}
+          onMouseLeave={handlePopupLeave}
+        />
+      )}
     </section>
   );
 };
