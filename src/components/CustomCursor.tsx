@@ -75,7 +75,7 @@ const CustomCursor = () => {
       <div
         ref={dotRef}
         aria-hidden
-        className="fixed top-0 left-0 z-[9999] pointer-events-none opacity-0 w-1.5 h-1.5 rounded-full bg-[#00F5D4]"
+        className="fixed top-0 left-0 z-[9999] pointer-events-none opacity-0 w-1.5 h-1.5 rounded-full bg-[#00F5D4] will-change-transform"
         style={{ boxShadow: "0 0 10px rgba(0,245,212,0.9)" }}
       />
       <div
