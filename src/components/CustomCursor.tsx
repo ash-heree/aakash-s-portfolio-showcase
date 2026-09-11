@@ -28,10 +28,20 @@ const CustomCursor = () => {
     const onMove = (e: MouseEvent) => {
       x = e.clientX;
       y = e.clientY;
-      dot.style.opacity = "1";
-      ring.style.opacity = "1";
+      dot.style.transform = `translate3d(${x}px, ${y}px, 0) translate(-50%, -50%)`;
+      if (dot.style.opacity !== "1") {
+        dot.style.opacity = "1";
+        ring.style.opacity = "1";
+      }
       const target = e.target as HTMLElement | null;
-      hovering = !!target?.closest("a, button, [role='button'], input, textarea, select, .hover-scale");
+      const isHovering = !!target?.closest("a, button, [role='button'], input, textarea, select, .hover-scale");
+      if (isHovering !== hovering) {
+        hovering = isHovering;
+        ring.style.borderColor = hovering ? "rgba(56,189,248,0.9)" : "rgba(0,245,212,0.55)";
+        ring.style.boxShadow = hovering
+          ? "0 0 22px rgba(56,189,248,0.45), inset 0 0 10px rgba(56,189,248,0.25)"
+          : "0 0 14px rgba(0,245,212,0.35)";
+      }
     };
 
     const onLeave = () => {
@@ -40,14 +50,9 @@ const CustomCursor = () => {
     };
 
     const loop = () => {
-      rx += (x - rx) * 0.18;
-      ry += (y - ry) * 0.18;
-      dot.style.transform = `translate(${x}px, ${y}px) translate(-50%, -50%)`;
-      ring.style.transform = `translate(${rx}px, ${ry}px) translate(-50%, -50%) scale(${hovering ? 1.7 : 1})`;
-      ring.style.borderColor = hovering ? "rgba(56,189,248,0.9)" : "rgba(0,245,212,0.55)";
-      ring.style.boxShadow = hovering
-        ? "0 0 22px rgba(56,189,248,0.45), inset 0 0 10px rgba(56,189,248,0.25)"
-        : "0 0 14px rgba(0,245,212,0.35)";
+      rx += (x - rx) * 0.25;
+      ry += (y - ry) * 0.25;
+      ring.style.transform = `translate3d(${rx}px, ${ry}px, 0) translate(-50%, -50%) scale(${hovering ? 1.7 : 1})`;
       raf = requestAnimationFrame(loop);
     };
     raf = requestAnimationFrame(loop);
