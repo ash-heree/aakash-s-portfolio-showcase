@@ -191,11 +191,37 @@ const ProjectInfo = ({ p, compact = false, onStackEnter, onStackLeave }: { p: Pr
 const ProjectsSection = () => {
   const hoverCapable = useHoverCapable();
   const [stackHover, setStackHover] = useState<{ technologies: string[]; rect: DOMRect } | null>(null);
+  const popupHoverRef = useRef(false);
+  const leaveTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const clearLeaveTimer = () => {
+    if (leaveTimerRef.current) {
+      clearTimeout(leaveTimerRef.current);
+      leaveTimerRef.current = null;
+    }
+  };
 
   const handleStackEnter = (technologies: string[], rect: DOMRect) => {
+    clearLeaveTimer();
     if (hoverCapable) setStackHover({ technologies, rect });
   };
-  const handleStackLeave = () => setStackHover(null);
+
+  const scheduleClose = () => {
+    clearLeaveTimer();
+    leaveTimerRef.current = setTimeout(() => {
+      if (!popupHoverRef.current) setStackHover(null);
+    }, 120);
+  };
+
+  const handleStackLeave = () => scheduleClose();
+  const handlePopupEnter = () => {
+    popupHoverRef.current = true;
+    clearLeaveTimer();
+  };
+  const handlePopupLeave = () => {
+    popupHoverRef.current = false;
+    scheduleClose();
+  };
 
   const featured: Project = {
     icon: <Shield className="h-7 w-7" />,
