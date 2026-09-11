@@ -55,7 +55,17 @@ const useHoverCapable = () => {
   return capable;
 };
 
-const TechPopup = ({ technologies, rect }: { technologies: string[]; rect: DOMRect }) => {
+const TechPopup = ({
+  technologies,
+  rect,
+  onMouseEnter,
+  onMouseLeave,
+}: {
+  technologies: string[];
+  rect: DOMRect;
+  onMouseEnter?: () => void;
+  onMouseLeave?: () => void;
+}) => {
   const popupRef = useRef<HTMLDivElement>(null);
   const [style, setStyle] = useState<React.CSSProperties>({ position: "fixed", top: 0, left: 0, visibility: "hidden", zIndex: 9999 });
 
@@ -66,9 +76,9 @@ const TechPopup = ({ technologies, rect }: { technologies: string[]; rect: DOMRe
     const h = el.offsetHeight;
     const vw = window.innerWidth;
     const vh = window.innerHeight;
-    let top = rect.top - h - 8;
+    let top = rect.top - h - 10;
     let left = rect.left + rect.width / 2 - w / 2;
-    if (top < 8) top = rect.bottom + 8;
+    if (top < 8) top = rect.bottom + 10;
     if (left < 8) left = 8;
     else if (left + w > vw - 8) left = vw - w - 8;
     if (top + h > vh - 8) top = vh - h - 8;
@@ -79,19 +89,21 @@ const TechPopup = ({ technologies, rect }: { technologies: string[]; rect: DOMRe
     <motion.div
       ref={popupRef}
       style={style}
-      initial={{ opacity: 0, scale: 0.95, y: 4 }}
+      initial={{ opacity: 0, scale: 0.92, y: 6 }}
       animate={{ opacity: 1, scale: 1, y: 0 }}
-      transition={{ duration: 0.15, ease: "easeOut" }}
-      className="pointer-events-none rounded-xl border border-[#00F5D4]/30 bg-[#0B1120]/95 backdrop-blur-xl p-3 shadow-[0_0_25px_rgba(0,245,212,0.15)] min-w-[180px] max-w-[260px]"
+      transition={{ duration: 0.18, ease: "easeOut" }}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+      className="rounded-2xl border border-[#00F5D4]/40 bg-[#0B1120]/95 backdrop-blur-2xl p-4 shadow-[0_0_35px_rgba(0,245,212,0.2)] min-w-[260px] max-w-[340px]"
     >
-      <p className="text-[9px] font-mono uppercase tracking-widest text-[#00F5D4]/70 mb-2">// TECH.STACK</p>
-      <ul className="space-y-1.5">
+      <p className="text-[10px] font-mono uppercase tracking-widest text-[#00F5D4]/80 mb-3">// TECH.STACK</p>
+      <ul className="space-y-2.5">
         {technologies.map((t) => {
           const mapped = techIconMap[t];
           const Icon = mapped?.Icon ?? Code2;
           return (
-            <li key={t} className="flex items-center gap-2 text-xs text-white/90">
-              <Icon className="h-4 w-4 flex-shrink-0" style={{ color: mapped?.color ?? "#00F5D4" }} />
+            <li key={t} className="flex items-center gap-3 text-sm text-white/90">
+              <Icon className="h-5 w-5 flex-shrink-0" style={{ color: mapped?.color ?? "#00F5D4" }} />
               <span>{t}</span>
             </li>
           );
@@ -179,11 +191,37 @@ const ProjectInfo = ({ p, compact = false, onStackEnter, onStackLeave }: { p: Pr
 const ProjectsSection = () => {
   const hoverCapable = useHoverCapable();
   const [stackHover, setStackHover] = useState<{ technologies: string[]; rect: DOMRect } | null>(null);
+  const popupHoverRef = useRef(false);
+  const leaveTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const clearLeaveTimer = () => {
+    if (leaveTimerRef.current) {
+      clearTimeout(leaveTimerRef.current);
+      leaveTimerRef.current = null;
+    }
+  };
 
   const handleStackEnter = (technologies: string[], rect: DOMRect) => {
+    clearLeaveTimer();
     if (hoverCapable) setStackHover({ technologies, rect });
   };
-  const handleStackLeave = () => setStackHover(null);
+
+  const scheduleClose = () => {
+    clearLeaveTimer();
+    leaveTimerRef.current = setTimeout(() => {
+      if (!popupHoverRef.current) setStackHover(null);
+    }, 120);
+  };
+
+  const handleStackLeave = () => scheduleClose();
+  const handlePopupEnter = () => {
+    popupHoverRef.current = true;
+    clearLeaveTimer();
+  };
+  const handlePopupLeave = () => {
+    popupHoverRef.current = false;
+    scheduleClose();
+  };
 
   const featured: Project = {
     icon: <Shield className="h-7 w-7" />,
@@ -410,7 +448,14 @@ const ProjectsSection = () => {
         </div>
       </div>
 
-      {stackHover && <TechPopup technologies={stackHover.technologies} rect={stackHover.rect} />}
+      {stackHover && (
+        <TechPopup
+          technologies={stackHover.technologies}
+          rect={stackHover.rect}
+          onMouseEnter={handlePopupEnter}
+          onMouseLeave={handlePopupLeave}
+        />
+      )}
     </section>
   );
 };
