@@ -82,7 +82,7 @@ const SectionIntroAnimation = ({ section, onComplete }: SectionIntroAnimationPro
             className="relative w-[min(84vw,430px)] border border-[#00F5D4]/30 bg-[#0B1120]/80 shadow-[0_0_48px_rgba(0,245,212,0.16)] backdrop-blur-xl"
             initial={{ opacity: 0, scaleX: 0.35, scaleY: 0.82 }}
             animate={{ opacity: [0, 1, 1, 0], scaleX: [0.35, 1, 1, 1.06], scaleY: [0.82, 1, 1, 1.02] }}
-            transition={{ duration: 1.3, times: [0, 0.24, 0.76, 1], delay: 0.18, ease: "easeInOut" }}
+            transition={{ duration: 0.9, times: [0, 0.3, 0.68, 1], delay: 0.16, ease: "easeInOut" }}
           >
             <div className="flex h-8 items-center gap-1.5 border-b border-[#38BDF8]/15 px-3">
               <span className="h-1.5 w-1.5 rounded-full bg-[#00F5D4]/65" />
@@ -93,7 +93,7 @@ const SectionIntroAnimation = ({ section, onComplete }: SectionIntroAnimationPro
               className="space-y-2 px-5 py-4 font-mono text-[10px] text-[#89ddff]/70 sm:px-7 sm:text-xs"
               initial={{ opacity: 0 }}
               animate={{ opacity: [0, 1, 1, 0] }}
-              transition={{ duration: 1.05, delay: 0.36, times: [0, 0.2, 0.74, 1] }}
+              transition={{ duration: 0.62, delay: 0.32, times: [0, 0.22, 0.7, 1] }}
             >
               <p><span className="text-[#00F5D4]">$</span> initializing developer interface...</p>
               <p><span className="text-[#00F5D4]">✓</span> modules synchronized</p>
@@ -102,7 +102,7 @@ const SectionIntroAnimation = ({ section, onComplete }: SectionIntroAnimationPro
           </motion.div>
 
           <motion.div
-            className="absolute inset-0 flex items-center justify-center"
+            className="absolute inset-0 z-10 flex items-center justify-center"
             initial={{ opacity: 0 }}
             animate={{ opacity: [0, 0, 1, 1] }}
             transition={{ duration: 1.3, times: [0, 0.62, 0.76, 1] }}
