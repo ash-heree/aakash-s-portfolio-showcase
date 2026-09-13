@@ -103,14 +103,11 @@ const SectionIntroAnimation = ({ section, onComplete }: SectionIntroAnimationPro
 
           <motion.div
             className="absolute inset-0 z-10 flex items-center justify-center"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: [0, 0, 1, 1] }}
-            transition={{ duration: 1.3, times: [0, 0.62, 0.76, 1] }}
           >
             <motion.div
               initial={{ opacity: 0, scale: 0.86, letterSpacing: "0.42em" }}
               animate={{ opacity: 1, scale: 1, letterSpacing: "0.18em" }}
-              transition={{ duration: 0.34, delay: 1.02, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 0.3, delay: 0.9, ease: [0.16, 1, 0.3, 1] }}
               className="relative pl-[0.18em] font-mono text-4xl font-bold text-[#00F5D4] drop-shadow-[0_0_20px_rgba(0,245,212,0.45)] sm:text-6xl md:text-7xl"
             >
               HOME
