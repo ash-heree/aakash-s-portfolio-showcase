@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import { motion, useInView, useMotionValue, useTransform, animate } from "framer-motion";
+import { motion, useInView, useMotionValue, useTransform, animate, useReducedMotion } from "framer-motion";
+import AboutIntro from "./AboutIntro";
 import { User, Target, Rocket, GitBranch, Cpu, MemoryStick, MapPin, Clock, Activity, FolderGit2, Briefcase, Award, Presentation } from "lucide-react";
 
 /* ---------- Terminal ---------- */
@@ -154,8 +155,15 @@ const Block = ({ icon, title, children }: { icon: React.ReactNode; title: string
 );
 
 const AboutSection = () => {
+  const sectionRef = useRef<HTMLElement>(null);
+  const reduced = useReducedMotion();
+  const entered = useInView(sectionRef, { once: true, amount: 0.25 });
+  const [ready, setReady] = useState(false);
+  const revealed = ready || !!reduced;
+
   return (
     <section
+      ref={sectionRef}
       id="about"
       className="relative py-24 overflow-hidden"
       style={{
@@ -189,7 +197,15 @@ const AboutSection = () => {
       <div className="absolute top-1/3 left-[8%] w-[600px] h-[600px] rounded-full blur-3xl opacity-40 pointer-events-none"
            style={{ background: "radial-gradient(circle, rgba(0,245,212,0.15), transparent 65%)" }} />
 
-      <div className="container mx-auto px-4 sm:px-6 relative z-10">
+      {!reduced && !ready && <AboutIntro active={entered} onComplete={() => setReady(true)} />}
+
+      <motion.div
+        className="container mx-auto px-4 sm:px-6 relative z-10"
+        initial={false}
+        animate={revealed ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
+        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        style={revealed ? undefined : { pointerEvents: "none" }}
+      >
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -244,7 +260,7 @@ const AboutSection = () => {
           {/* RIGHT: terminal */}
           <Terminal />
         </div>
-      </div>
+      </motion.div>
 
       <style>{`@keyframes blink{50%{opacity:0}}`}</style>
     </section>
