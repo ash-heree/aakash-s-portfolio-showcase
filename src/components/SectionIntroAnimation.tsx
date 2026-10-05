@@ -15,6 +15,13 @@ const particles = [
   { left: "91%", top: "42%", delay: 0.26 },
 ];
 
+const executionLines = [
+  { text: "initializing portfolio...", delay: 0.36 },
+  { text: "loading developer profile...", delay: 0.82 },
+  { text: "compiling interface...", delay: 1.28 },
+  { text: "portfolio.system.ready ✓", delay: 1.94 },
+];
+
 const SectionIntroAnimation = ({ section, onComplete }: SectionIntroAnimationProps) => {
   const reducedMotion = useReducedMotion();
   const [visible, setVisible] = useState(!reducedMotion);
@@ -25,7 +32,7 @@ const SectionIntroAnimation = ({ section, onComplete }: SectionIntroAnimationPro
       return;
     }
 
-    const timer = window.setTimeout(() => setVisible(false), 1540);
+    const timer = window.setTimeout(() => setVisible(false), 3520);
     return () => window.clearTimeout(timer);
   }, [onComplete, reducedMotion]);
 
@@ -82,7 +89,7 @@ const SectionIntroAnimation = ({ section, onComplete }: SectionIntroAnimationPro
             className="relative w-[min(84vw,430px)] border border-[#00F5D4]/30 bg-[#0B1120]/80 shadow-[0_0_48px_rgba(0,245,212,0.16)] backdrop-blur-xl"
             initial={{ opacity: 0, scaleX: 0.35, scaleY: 0.82 }}
             animate={{ opacity: [0, 1, 1, 0], scaleX: [0.35, 1, 1, 1.06], scaleY: [0.82, 1, 1, 1.02] }}
-            transition={{ duration: 0.9, times: [0, 0.3, 0.68, 1], delay: 0.16, ease: "easeInOut" }}
+            transition={{ duration: 2.8, times: [0, 0.09, 0.9, 1], delay: 0.16, ease: "easeInOut" }}
           >
             <div className="flex h-8 items-center gap-1.5 border-b border-[#38BDF8]/15 px-3">
               <span className="h-1.5 w-1.5 rounded-full bg-[#00F5D4]/65" />
@@ -92,12 +99,35 @@ const SectionIntroAnimation = ({ section, onComplete }: SectionIntroAnimationPro
             <motion.div
               className="space-y-2 px-5 py-4 font-mono text-[10px] text-[#89ddff]/70 sm:px-7 sm:text-xs"
               initial={{ opacity: 0 }}
-              animate={{ opacity: [0, 1, 1, 0] }}
-              transition={{ duration: 0.62, delay: 0.32, times: [0, 0.22, 0.7, 1] }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.15, delay: 0.32 }}
             >
-              <p><span className="text-[#00F5D4]">$</span> initializing developer interface...</p>
-              <p><span className="text-[#00F5D4]">✓</span> modules synchronized</p>
-              <p><span className="text-[#00F5D4]">✓</span> home.route ready</p>
+              {executionLines.map((line, index) => (
+                <motion.p
+                  key={line.text}
+                  className="flex items-center gap-2"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.08, delay: line.delay }}
+                >
+                  <span className="text-[#00F5D4]">&gt;</span>
+                  <motion.span
+                    className={index === executionLines.length - 1 ? "text-[#00F5D4]" : ""}
+                    initial={{ clipPath: "inset(0 100% 0 0)" }}
+                    animate={{ clipPath: "inset(0 0% 0 0)" }}
+                    transition={{ duration: 0.32, delay: line.delay, ease: "linear" }}
+                  >
+                    {line.text}
+                  </motion.span>
+                  {index === executionLines.length - 1 && (
+                    <motion.span
+                      className="h-3 w-1.5 bg-[#00F5D4]/65"
+                      animate={{ opacity: [0, 0, 1, 1, 0] }}
+                      transition={{ duration: 0.8, delay: line.delay + 0.32, repeat: Infinity }}
+                    />
+                  )}
+                </motion.p>
+              ))}
             </motion.div>
           </motion.div>
 
@@ -107,14 +137,14 @@ const SectionIntroAnimation = ({ section, onComplete }: SectionIntroAnimationPro
             <motion.div
               initial={{ opacity: 0, scale: 0.86, letterSpacing: "0.42em" }}
               animate={{ opacity: 1, scale: 1, letterSpacing: "0.18em" }}
-              transition={{ duration: 0.3, delay: 0.9, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 0.3, delay: 3.05, ease: [0.16, 1, 0.3, 1] }}
               className="relative pl-[0.18em] font-mono text-4xl font-bold text-[#00F5D4] drop-shadow-[0_0_20px_rgba(0,245,212,0.45)] sm:text-6xl md:text-7xl"
             >
               HOME
               <motion.span
                 className="absolute -inset-x-5 top-1/2 h-px bg-[#38BDF8]/80"
                 animate={{ opacity: [0, 0.9, 0], x: [-12, 8, 16] }}
-                transition={{ duration: 0.28, delay: 1.2 }}
+                transition={{ duration: 0.28, delay: 3.3 }}
               />
             </motion.div>
           </motion.div>
