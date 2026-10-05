@@ -154,12 +154,40 @@ const Block = ({ icon, title, children }: { icon: React.ReactNode; title: string
   </div>
 );
 
+const INTRO_TEXT =
+  "Full Stack Python Developer who turns ideas into working products, from ML models to clean web apps.";
+const INTRO_TYPE_MS = 24;
+const INTRO_START_MS = 300;
+
 const AboutSection = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const reduced = useReducedMotion();
   const entered = useInView(sectionRef, { once: true, amount: 0.25 });
   const [ready, setReady] = useState(false);
   const revealed = ready || !!reduced;
+  const [introLen, setIntroLen] = useState(0);
+
+  useEffect(() => {
+    if (!revealed) return;
+    if (reduced) {
+      setIntroLen(INTRO_TEXT.length);
+      return;
+    }
+    let interval: ReturnType<typeof setInterval>;
+    const start = setTimeout(() => {
+      let i = 0;
+      interval = setInterval(() => {
+        i += 1;
+        setIntroLen(i);
+        if (i >= INTRO_TEXT.length) clearInterval(interval);
+      }, INTRO_TYPE_MS);
+    }, INTRO_START_MS);
+    return () => {
+      clearTimeout(start);
+      clearInterval(interval);
+    };
+  }, [revealed, reduced]);
+
 
   return (
     <section
@@ -218,7 +246,20 @@ const AboutSection = () => {
             <span className="inline-block w-3 h-7 sm:h-9 bg-[#00F5D4] ml-2 align-middle animate-[blink_1s_steps(2)_infinite]" />
           </h2>
           <div className="mt-3 h-px w-24 bg-gradient-to-r from-[#00F5D4] to-transparent" />
+          <p className="relative mt-4 sm:mt-5 max-w-3xl font-mono text-[11px] sm:text-[13px] leading-relaxed text-[#94A3B8]">
+            <span className="invisible">
+              <span className="text-[#00F5D4]">//</span> {INTRO_TEXT}
+            </span>
+            <span aria-hidden="true" className="absolute inset-0">
+              <span className="text-[#00F5D4]">//</span>{" "}
+              {INTRO_TEXT.slice(0, introLen)}
+              {introLen < INTRO_TEXT.length && (
+                <span className="ml-0.5 inline-block w-[2px] h-[1.05em] bg-[#00F5D4]/80 align-middle animate-[blink_1s_steps(2)_infinite]" />
+              )}
+            </span>
+          </p>
         </motion.div>
+
 
         <div className="grid lg:grid-cols-2 gap-10 lg:gap-14 items-start">
           {/* LEFT: premium glass card */}
