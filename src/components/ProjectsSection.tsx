@@ -270,6 +270,7 @@ const ProjectInfo = ({ p, compact = false, onStackEnter, onStackLeave }: { p: Pr
 const ProjectsSection = () => {
   const hoverCapable = useHoverCapable();
   const [stackHover, setStackHover] = useState<{ technologies: string[]; rect: DOMRect } | null>(null);
+  const [aerisOpen, setAerisOpen] = useState(false);
   const popupHoverRef = useRef(false);
   const leaveTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -325,6 +326,7 @@ const ProjectsSection = () => {
     { icon: <CloudSun className="h-5 w-5" />, title: "Weather Suit", description: "A premium weather dashboard built with Streamlit and the OpenWeather API — real-time forecasting, animated UI components and location-based analytics.", technologies: ["Python", "Streamlit", "OpenWeather API"], duration: "3 Weeks", role: "Python Developer" },
     { icon: <Car className="h-5 w-5" />, title: "Smart Mobility Rental Platform", description: "A desktop rental management app for small businesses featuring customer management, vehicle tracking, booking automation and a SQLite database.", technologies: ["VB.NET", "SQLite", "Desktop", ".NET"], duration: "2 Months", role: "Desktop Application Developer" },
     { icon: <SiMysql className="h-5 w-5" style={{ color: "#00758F" }} />, title: "Payroll Management System", description: "Developed a relational Payroll Management System using MySQL to manage employee information, departments, attendance, salaries, deductions, and monthly payslips. Designed normalized tables with PK/FK constraints, CHECK and ENUM validations, views for reports, stored functions and procedures for payroll logic, triggers to guard data integrity, transaction-safe salary updates, window-function salary rankings, and performance indexes.", technologies: ["MySQL", "SQL"], duration: "2 Months", role: "Database Developer", githubUrl: "https://github.com/ash-heree/Pay-Roll-Management-System" },
+    { icon: <Bot className="h-5 w-5" />, title: "Aeris — Personal AI Agent", tagline: "An intelligent personal AI agent designed to understand, remember, automate, and assist.", description: "A personal AI agent designed to assist with everyday tasks, understand user requests, manage information, work with files, use external tools, and automate tasks through an intelligent agent-based architecture.", technologies: ["Python", "AI / LLM", "FastAPI", "React", "Vite", "JavaScript / TypeScript", "REST APIs", "SQLite / PostgreSQL", "Git", "GitHub"], duration: "Ongoing", role: "AI Developer", status: "In Development", image: aerisImg, hasDetails: true },
   ];
 
 
@@ -462,7 +464,7 @@ const ProjectsSection = () => {
               >
                 <TiltCard>
                   <div
-                    className="relative rounded-2xl p-6 h-full flex flex-col backdrop-blur-xl transition-all duration-300"
+                    className="group relative rounded-2xl p-6 h-full flex flex-col backdrop-blur-xl transition-all duration-300"
                     style={{
                       background: "linear-gradient(135deg, rgba(11,17,32,0.7) 0%, rgba(5,8,22,0.7) 100%)",
                       border: "1px solid rgba(56,189,248,0.15)",
@@ -470,6 +472,11 @@ const ProjectsSection = () => {
                       minHeight: "520px",
                     }}
                   >
+                    {p.image && (
+                      <div className="-mx-2 -mt-2 mb-4 overflow-hidden rounded-xl border border-[#38BDF8]/15 aspect-video">
+                        <img src={p.image} alt={`${p.title} visual`} loading="lazy" width={1280} height={720} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                      </div>
+                    )}
                     <div className="flex items-start justify-between gap-3 mb-3">
                       <div className="flex items-center gap-3">
                         <div className="w-10 h-10 rounded-lg flex items-center justify-center text-[#38BDF8] flex-shrink-0"
