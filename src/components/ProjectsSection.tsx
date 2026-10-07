@@ -485,6 +485,12 @@ const ProjectsSection = () => {
                       )}
                     </div>
 
+                    {p.status === "In Development" && (
+                      <span className="self-start mb-3 flex items-center gap-1.5 text-[10px] px-2 py-0.5 rounded-full font-mono text-[#FACC15] border border-[#FACC15]/35 bg-[#FACC15]/10">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#FACC15] animate-pulse" /> Status: In Development
+                      </span>
+                    )}
+                    {p.tagline && <p className="text-xs italic text-[#38BDF8]/80 mb-2">"{p.tagline}"</p>}
                     <p className="text-sm text-white/70 leading-relaxed mb-4">{p.description}</p>
 
                     <div className="flex flex-wrap gap-1.5 mb-4">
@@ -500,7 +506,7 @@ const ProjectsSection = () => {
                       <ProjectInfo p={p} compact onStackEnter={handleStackEnter} onStackLeave={handleStackLeave} />
                       <div className="h-px bg-gradient-to-r from-transparent via-[#00F5D4]/25 to-transparent mb-3" />
                       <div className="flex gap-2">
-                        <button className="group/btn flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-md text-xs font-medium text-white/90 border border-[#00F5D4]/30 bg-[#00F5D4]/5 hover:bg-[#00F5D4]/15 hover:shadow-[0_0_12px_rgba(0,245,212,0.4)] hover:-translate-y-0.5 transition-all">
+                        <button onClick={p.hasDetails ? () => setAerisOpen(true) : undefined} className="group/btn flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-md text-xs font-medium text-white/90 border border-[#00F5D4]/30 bg-[#00F5D4]/5 hover:bg-[#00F5D4]/15 hover:shadow-[0_0_12px_rgba(0,245,212,0.4)] hover:-translate-y-0.5 transition-all">
                           <Rocket className="h-3.5 w-3.5 group-hover/btn:rotate-12 transition-transform" /> View
                         </button>
                         {p.githubUrl ? (
@@ -526,6 +532,16 @@ const ProjectsSection = () => {
           </div>
         </div>
       </div>
+
+      <Dialog open={aerisOpen} onOpenChange={setAerisOpen}>
+        <DialogContent className="max-w-2xl max-h-[85vh] overflow-y-auto border-[#38BDF8]/30 bg-[#0b1120]/95 backdrop-blur-xl text-white">
+          <DialogHeader>
+            <DialogTitle className="text-white">Aeris — Personal AI Agent</DialogTitle>
+            <DialogDescription className="text-white/60">Artificial Intelligence / Personal AI / Automation · In Development</DialogDescription>
+          </DialogHeader>
+          <AerisDetails />
+        </DialogContent>
+      </Dialog>
 
       {stackHover && (
         <TechPopup
