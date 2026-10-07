@@ -1,8 +1,10 @@
-import { Hand, ShoppingCart, BarChart3, CloudSun, ExternalLink, Github, Brain, Car, Shield, Sparkles, CheckCircle2, Calendar, UserCircle2, Target, Wrench, FileText, Rocket, Database, LineChart, Eye, Puzzle, Video, Code2, Monitor } from "lucide-react";
-import { SiPython, SiFlask, SiPandas, SiHtml5, SiCss, SiJavascript, SiPhp, SiMysql, SiStreamlit, SiDotnet } from "react-icons/si";
+import { Hand, ShoppingCart, BarChart3, CloudSun, ExternalLink, Github, Brain, Car, Shield, Sparkles, CheckCircle2, Calendar, UserCircle2, Target, Wrench, FileText, Rocket, Database, LineChart, Eye, Puzzle, Video, Code2, Monitor, Bot, Server } from "lucide-react";
+import { SiPython, SiFlask, SiPandas, SiHtml5, SiCss, SiJavascript, SiPhp, SiMysql, SiStreamlit, SiDotnet, SiFastapi, SiReact, SiVite, SiTypescript, SiPostgresql, SiGit, SiGithub } from "react-icons/si";
 import { motion } from "framer-motion";
 import { useState, useRef, useLayoutEffect, useEffect } from "react";
 import { createPortal } from "react-dom";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import aerisImg from "@/assets/aeris-agent.jpg";
 
 type Project = {
   icon: JSX.Element;
@@ -11,11 +13,14 @@ type Project = {
   technologies: string[];
   duration: string;
   role: string;
-  status?: "Completed" | "In Progress";
+  status?: "Completed" | "In Progress" | "In Development";
   featured?: boolean;
   completed?: boolean;
   caseStudy?: boolean;
   githubUrl?: string;
+  image?: string;
+  tagline?: string;
+  hasDetails?: boolean;
 };
 
 type IconComponent = React.ComponentType<{ className?: string; style?: React.CSSProperties }>;
@@ -45,6 +50,80 @@ const techIconMap: Record<string, { Icon: IconComponent; color: string }> = {
   SQLite: { Icon: Database, color: "#0F80CC" },
   Desktop: { Icon: Monitor, color: "#A855F7" },
   ".NET": { Icon: SiDotnet, color: "#512BD4" },
+  "AI / LLM": { Icon: Bot, color: "#A855F7" },
+  FastAPI: { Icon: SiFastapi, color: "#009688" },
+  React: { Icon: SiReact, color: "#61DAFB" },
+  Vite: { Icon: SiVite, color: "#BD34FE" },
+  "JavaScript / TypeScript": { Icon: SiTypescript, color: "#3178C6" },
+  "REST APIs": { Icon: Server, color: "#38BDF8" },
+  "SQLite / PostgreSQL": { Icon: SiPostgresql, color: "#4169E1" },
+  Git: { Icon: SiGit, color: "#F05032" },
+  GitHub: { Icon: SiGithub, color: "#FFFFFF" },
+};
+
+const AerisDetails = () => {
+  const arch = ["User", "Aeris AI Agent", "Intent Understanding", "Planning & Reasoning", "Memory + Tools + Automation", "Action / Response"];
+  const components = [
+    ["AI Brain", "Understands requests and determines what action should be taken."],
+    ["Memory", "Stores useful contextual information and preferences."],
+    ["Tool System", "Allows the agent to interact with external capabilities."],
+    ["Automation", "Handles scheduled and recurring tasks."],
+    ["File Interaction", "Allows the agent to work with approved files and documents."],
+    ["Permission System", "Controls access to sensitive capabilities and requires user approval where necessary."],
+  ];
+  const groups: [string, string, string[]][] = [
+    ["Currently implemented", "#00FF88", ["AI conversational assistant", "Core agent architecture"]],
+    ["In development", "#FACC15", ["Contextual memory", "Tool calling", "File & document interaction", "Task automation", "Web integration", "Permission-based system access", "Personalized AI workflows", "Intelligent task execution"]],
+    ["Planned", "#A855F7", ["Voice interaction", "Local desktop agent", "Computer interaction", "Advanced computer control", "More integrations", "Long-term memory", "Multi-agent workflows", "Offline/local AI support", "Advanced automation", "Mobile companion application"]],
+  ];
+  const H = ({ children }: { children: React.ReactNode }) => (
+    <h4 className="font-mono text-xs uppercase tracking-wider text-[#00F5D4] mb-2">{children}</h4>
+  );
+  return (
+    <div className="space-y-6 text-sm text-white/75 leading-relaxed">
+      <div><H>Overview</H><p>Aeris is a personal AI agent project focused on creating an intelligent assistant capable of understanding natural-language requests, maintaining context, using tools, and automating tasks.</p></div>
+      <div><H>Problem</H><p>Traditional chatbots mainly provide conversational responses but often lack persistent personal context, structured tool execution, automation, and controlled interaction with the user's digital environment.</p></div>
+      <div><H>Solution</H><p>Aeris combines conversational AI with memory, tools, automation, and permission-based system interaction to create a more capable personal AI assistant.</p></div>
+      <div>
+        <H>Architecture</H>
+        <div className="flex flex-col items-center gap-1">
+          {arch.map((a, i) => (
+            <div key={a} className="flex flex-col items-center">
+              <span className="px-3 py-1.5 rounded-md font-mono text-xs text-white/90 border border-[#38BDF8]/30 bg-[#38BDF8]/5">{a}</span>
+              {i < arch.length - 1 && <span className="text-[#38BDF8]/60 text-xs">↓</span>}
+            </div>
+          ))}
+        </div>
+      </div>
+      <div>
+        <H>Core Components</H>
+        <div className="grid sm:grid-cols-2 gap-2">
+          {components.map(([t, d], i) => (
+            <div key={t} className="rounded-lg p-3 border border-white/10 bg-white/5">
+              <p className="text-white font-medium text-sm">{i + 1}. {t}</p>
+              <p className="text-xs text-white/60">{d}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div>
+        <H>Feature Status</H>
+        <div className="space-y-3">
+          {groups.map(([label, color, items]) => (
+            <div key={label}>
+              <p className="text-xs font-mono mb-1.5" style={{ color }}>● {label}</p>
+              <div className="flex flex-wrap gap-1.5">
+                {items.map((it) => (
+                  <span key={it} className="text-[11px] px-2 py-1 rounded border border-white/10 bg-white/5 text-white/75">{it}</span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+      <p className="text-[11px] text-white/45">The technology stack lists technologies used and planned for this project, which is still under active development.</p>
+    </div>
+  );
 };
 
 const useHoverCapable = () => {
