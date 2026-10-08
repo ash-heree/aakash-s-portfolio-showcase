@@ -50,8 +50,8 @@ const CustomCursor = () => {
     };
 
     const loop = () => {
-      rx += (x - rx) * 0.25;
-      ry += (y - ry) * 0.25;
+      rx += (x - rx) * 0.4;
+      ry += (y - ry) * 0.4;
       ring.style.transform = `translate3d(${rx}px, ${ry}px, 0) translate(-50%, -50%) scale(${hovering ? 1.7 : 1})`;
       raf = requestAnimationFrame(loop);
     };
