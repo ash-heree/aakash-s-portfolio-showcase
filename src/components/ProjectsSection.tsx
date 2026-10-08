@@ -21,6 +21,7 @@ type Project = {
   image?: string;
   tagline?: string;
   hasDetails?: boolean;
+  highlights?: string[];
 };
 
 type IconComponent = React.ComponentType<{ className?: string; style?: React.CSSProperties }>;
@@ -156,24 +157,11 @@ const TechPopup = ({
     const h = el.offsetHeight;
     const vw = window.innerWidth;
     const vh = window.innerHeight;
-    const GAP = 16;
+    const GAP = 12;
     const clampTop = (t: number) => Math.max(8, Math.min(t, vh - h - 8));
     const clampLeft = (l: number) => Math.max(8, Math.min(l, vw - w - 8));
-    let top: number;
-    let left: number;
-    if (rect.right + GAP + w <= vw - 8) {
-      left = rect.right + GAP;
-      top = clampTop(rect.bottom - h);
-    } else if (rect.left - GAP - w >= 8) {
-      left = rect.left - GAP - w;
-      top = clampTop(rect.bottom - h);
-    } else if (rect.top - GAP - h >= 8) {
-      top = rect.top - GAP - h;
-      left = clampLeft(rect.left + rect.width / 2 - w / 2);
-    } else {
-      top = clampTop(rect.bottom + GAP);
-      left = clampLeft(rect.left + rect.width / 2 - w / 2);
-    }
+    const left = clampLeft(rect.left + rect.width / 2 - w / 2);
+    const top = rect.top - GAP - h >= 8 ? rect.top - GAP - h : clampTop(rect.bottom + GAP);
     setPos({ top, left });
   }, [rect]);
 
@@ -215,29 +203,56 @@ const TechPopup = ({
 
 const TiltCard = ({ children, className = "", style = {} }: { children: React.ReactNode; className?: string; style?: React.CSSProperties }) => {
   const ref = useRef<HTMLDivElement>(null);
-  const [tilt, setTilt] = useState({ rx: 0, ry: 0, mx: 50, my: 50 });
+  const glowRef = useRef<HTMLDivElement>(null);
+  const rafRef = useRef(0);
+  // Tilt + glow are written straight to the DOM in rAF — no React re-renders on mousemove.
   const onMove = (e: React.MouseEvent) => {
-    const el = ref.current; if (!el) return;
-    const r = el.getBoundingClientRect();
-    const x = (e.clientX - r.left) / r.width;
-    const y = (e.clientY - r.top) / r.height;
-    setTilt({ ry: (x - 0.5) * 8, rx: (0.5 - y) * 8, mx: x * 100, my: y * 100 });
+    const cx = e.clientX, cy = e.clientY;
+    if (rafRef.current) return;
+    rafRef.current = requestAnimationFrame(() => {
+      rafRef.current = 0;
+      const el = ref.current; if (!el) return;
+      const r = el.getBoundingClientRect();
+      const x = (cx - r.left) / r.width;
+      const y = (cy - r.top) / r.height;
+      el.style.transform = `perspective(900px) rotateX(${(0.5 - y) * 8}deg) rotateY(${(x - 0.5) * 8}deg)`;
+      if (glowRef.current) glowRef.current.style.background = `radial-gradient(400px circle at ${x * 100}% ${y * 100}%, rgba(0,245,212,0.15), transparent 60%)`;
+    });
   };
-  const reset = () => setTilt({ rx: 0, ry: 0, mx: 50, my: 50 });
+  const reset = () => {
+    if (rafRef.current) { cancelAnimationFrame(rafRef.current); rafRef.current = 0; }
+    if (ref.current) ref.current.style.transform = "perspective(900px) rotateX(0deg) rotateY(0deg)";
+  };
+  useEffect(() => () => cancelAnimationFrame(rafRef.current), []);
   return (
     <div
       ref={ref}
       onMouseMove={onMove}
       onMouseLeave={reset}
       className={`relative group transition-transform duration-300 ease-out h-full ${className}`}
-      style={{ transform: `perspective(900px) rotateX(${tilt.rx}deg) rotateY(${tilt.ry}deg)`, ...style }}
+      style={{ transform: "perspective(900px) rotateX(0deg) rotateY(0deg)", ...style }}
     >
-      <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-           style={{ background: `radial-gradient(400px circle at ${tilt.mx}% ${tilt.my}%, rgba(0,245,212,0.15), transparent 60%)` }} />
+      <div ref={glowRef} className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+           style={{ background: "radial-gradient(400px circle at 50% 50%, rgba(0,245,212,0.15), transparent 60%)" }} />
       {children}
     </div>
   );
 };
+
+const Highlights = ({ items }: { items?: string[] }) =>
+  items && items.length ? (
+    <div className="mb-4">
+      <p className="text-[9px] font-mono uppercase tracking-widest text-[#00F5D4] mb-2 opacity-70">// KEY HIGHLIGHTS</p>
+      <ul className="space-y-1">
+        {items.map((h) => (
+          <li key={h} className="flex items-center gap-2 text-xs text-white/70">
+            <CheckCircle2 className="h-3 w-3 flex-shrink-0 text-[#00F5D4]/80" />
+            {h}
+          </li>
+        ))}
+      </ul>
+    </div>
+  ) : null;
 
 const MetricTile = ({ icon, label, value, accent = false, pulse = false }: { icon: React.ReactNode; label: string; value: React.ReactNode; accent?: boolean; pulse?: boolean }) => (
   <div className="relative rounded-xl p-3 bg-white/[0.03] border border-white/10 hover:border-[#00F5D4]/30 hover:bg-white/[0.06] transition-all duration-300">
@@ -325,7 +340,7 @@ const ProjectsSection = () => {
 
   const featured: Project = {
     icon: <Shield className="h-7 w-7" />,
-    title: "Machine Learning Based Transaction Risk Analysis",
+    title: "Machine Learning Based Transaction Risk Analysis", highlights: ["Transaction risk prediction", "Data preprocessing & feature analysis", "Real-time fraud monitoring dashboard"],
     description:
       "Built an intelligent fraud detection platform using Machine Learning, Python, Flask, SQL and Data Analytics. The system predicts transaction risk levels in real time using behavioral analysis and classification models, while providing an interactive dashboard for monitoring suspicious activities.",
     technologies: ["Python", "Flask", "SQL", "Scikit-Learn", "Pandas", "Predictive Analytics"],
@@ -339,14 +354,14 @@ const ProjectsSection = () => {
   };
 
   const others: Project[] = [
-    { icon: <Hand className="h-5 w-5" />, title: "AI Virtual Mouse", description: "A computer-vision based virtual mouse using OpenCV, MediaPipe and Python. Users control cursor movement and click operations through hand gestures — no physical mouse required.", technologies: ["Python", "OpenCV", "MediaPipe", "Computer Vision"], duration: "2 Months", role: "Computer Vision Developer", featured: true, githubUrl: "https://github.com/ash-heree/Virtual-Mouse.git" },
-    { icon: <Brain className="h-5 w-5" />, title: "Neuro-Symbolic Sudoku Solver", description: "A hybrid AI solver combining neural heuristics with symbolic constraint propagation to efficiently crack Sudoku puzzles while demonstrating explainable AI concepts.", technologies: ["Neuro-Symbolic AI", "Python", "Constraint Satisfaction"], duration: "1 Month", role: "AI Developer", featured: true },
-    { icon: <ShoppingCart className="h-5 w-5" />, title: "E-Commerce Website for Games", description: "A responsive e-commerce platform for digital game sales with secure authentication, product management, shopping cart and an intuitive user experience.", technologies: ["HTML", "CSS", "JavaScript", "PHP", "MySQL"], duration: "3 Months", role: "Full Stack Developer" },
-    { icon: <BarChart3 className="h-5 w-5" />, title: "Mini Data Analyst", description: "Analyzed consumer food-preference datasets using Python, Pandas and Matplotlib. Performed data cleaning, visualization and statistical analysis to derive business insights.", technologies: ["Python", "Pandas", "Matplotlib", "Colab"], duration: "1 Month", role: "Data Analyst" },
-    { icon: <CloudSun className="h-5 w-5" />, title: "Weather Suit", description: "A premium weather dashboard built with Streamlit and the OpenWeather API — real-time forecasting, animated UI components and location-based analytics.", technologies: ["Python", "Streamlit", "OpenWeather API"], duration: "3 Weeks", role: "Python Developer" },
-    { icon: <Car className="h-5 w-5" />, title: "Smart Mobility Rental Platform", description: "A desktop rental management app for small businesses featuring customer management, vehicle tracking, booking automation and a SQLite database.", technologies: ["VB.NET", "SQLite", "Desktop", ".NET"], duration: "2 Months", role: "Desktop Application Developer" },
-    { icon: <SiMysql className="h-5 w-5" style={{ color: "#00758F" }} />, title: "Payroll Management System", description: "Developed a relational Payroll Management System using MySQL to manage employee information, departments, attendance, salaries, deductions, and monthly payslips. Designed normalized tables with PK/FK constraints, CHECK and ENUM validations, views for reports, stored functions and procedures for payroll logic, triggers to guard data integrity, transaction-safe salary updates, window-function salary rankings, and performance indexes.", technologies: ["MySQL", "SQL"], duration: "2 Months", role: "Database Developer", githubUrl: "https://github.com/ash-heree/Pay-Roll-Management-System" },
-    { icon: <Bot className="h-5 w-5" />, title: "Aeris — Personal AI Agent", tagline: "An intelligent personal AI agent designed to understand, remember, automate, and assist.", description: "A personal AI agent designed to assist with everyday tasks, understand user requests, manage information, work with files, use external tools, and automate tasks through an intelligent agent-based architecture.", technologies: ["Python", "AI / LLM", "FastAPI", "React", "Vite", "JavaScript / TypeScript", "REST APIs", "SQLite / PostgreSQL", "Git", "GitHub"], duration: "Ongoing", role: "AI Developer", status: "In Development", image: aerisImg, hasDetails: true },
+    { icon: <Bot className="h-5 w-5" />, title: "Aeris — Personal AI Agent", highlights: ["Personal task automation", "AI/LLM-powered interaction", "Modular agent architecture"], tagline: "An intelligent personal AI agent designed to understand, remember, automate, and assist.", description: "A personal AI agent designed to assist with everyday tasks, understand user requests, manage information, work with files, use external tools, and automate tasks through an intelligent agent-based architecture.", technologies: ["Python", "AI / LLM", "FastAPI", "React", "Vite", "JavaScript / TypeScript", "REST APIs", "SQLite / PostgreSQL", "Git", "GitHub"], duration: "Ongoing", role: "AI Developer", status: "In Development", image: aerisImg, hasDetails: true },
+    { icon: <Hand className="h-5 w-5" />, title: "AI Virtual Mouse", highlights: ["Real-time hand landmark tracking", "Gesture-based click control", "Touch-free cursor navigation"], description: "A computer-vision based virtual mouse using OpenCV, MediaPipe and Python. Users control cursor movement and click operations through hand gestures — no physical mouse required.", technologies: ["Python", "OpenCV", "MediaPipe", "Computer Vision"], duration: "2 Months", role: "Computer Vision Developer", featured: true, githubUrl: "https://github.com/ash-heree/Virtual-Mouse.git" },
+    { icon: <Brain className="h-5 w-5" />, title: "Neuro-Symbolic Sudoku Solver", highlights: ["Neural heuristics + symbolic logic", "Constraint propagation solving", "Explainable AI reasoning"], description: "A hybrid AI solver combining neural heuristics with symbolic constraint propagation to efficiently crack Sudoku puzzles while demonstrating explainable AI concepts.", technologies: ["Neuro-Symbolic AI", "Python", "Constraint Satisfaction"], duration: "1 Month", role: "AI Developer", featured: true },
+    { icon: <ShoppingCart className="h-5 w-5" />, title: "E-Commerce Website for Games", highlights: ["Secure user authentication", "Product & cart management", "Responsive storefront UI"], description: "A responsive e-commerce platform for digital game sales with secure authentication, product management, shopping cart and an intuitive user experience.", technologies: ["HTML", "CSS", "JavaScript", "PHP", "MySQL"], duration: "3 Months", role: "Full Stack Developer" },
+    { icon: <BarChart3 className="h-5 w-5" />, title: "Mini Data Analyst", highlights: ["Data cleaning & preprocessing", "Visual trend exploration", "Statistical business insights"], description: "Analyzed consumer food-preference datasets using Python, Pandas and Matplotlib. Performed data cleaning, visualization and statistical analysis to derive business insights.", technologies: ["Python", "Pandas", "Matplotlib", "Colab"], duration: "1 Month", role: "Data Analyst" },
+    { icon: <CloudSun className="h-5 w-5" />, title: "Weather Suit", highlights: ["Real-time weather forecasting", "OpenWeather API integration", "Location-based analytics"], description: "A premium weather dashboard built with Streamlit and the OpenWeather API — real-time forecasting, animated UI components and location-based analytics.", technologies: ["Python", "Streamlit", "OpenWeather API"], duration: "3 Weeks", role: "Python Developer" },
+    { icon: <Car className="h-5 w-5" />, title: "Smart Mobility Rental Platform", highlights: ["Vehicle tracking & bookings", "Customer management", "Automated billing records"], description: "A desktop rental management app for small businesses featuring customer management, vehicle tracking, booking automation and a SQLite database.", technologies: ["VB.NET", "SQLite", "Desktop", ".NET"], duration: "2 Months", role: "Desktop Application Developer" },
+    { icon: <SiMysql className="h-5 w-5" style={{ color: "#00758F" }} />, title: "Payroll Management System", highlights: ["Employee salary management", "Automated salary deductions", "Monthly payslip generation"], description: "Developed a relational Payroll Management System using MySQL to manage employee information, departments, attendance, salaries, deductions, and monthly payslips. Designed normalized tables with PK/FK constraints, CHECK and ENUM validations, views for reports, stored functions and procedures for payroll logic, triggers to guard data integrity, transaction-safe salary updates, window-function salary rankings, and performance indexes.", technologies: ["MySQL", "SQL"], duration: "2 Months", role: "Database Developer", githubUrl: "https://github.com/ash-heree/Pay-Roll-Management-System" },
   ];
 
 
@@ -398,13 +413,13 @@ const ProjectsSection = () => {
             <div className="w-20 h-[2px] bg-gradient-to-r from-transparent via-[#00F5D4] to-transparent mx-auto" />
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 auto-rows-fr">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="md:col-span-2 lg:col-span-3"
+              className="md:col-span-2 lg:col-span-3 order-2"
             >
               <TiltCard>
                 <div
@@ -481,6 +496,7 @@ const ProjectsSection = () => {
                 viewport={{ once: true, margin: "-30px" }}
                 transition={{ duration: 0.5, delay: i * 0.08 }}
                 className="h-full"
+                style={{ order: i < 3 ? 1 : 3 }}
               >
                 <TiltCard>
                   <div
@@ -489,7 +505,6 @@ const ProjectsSection = () => {
                       background: "linear-gradient(135deg, rgba(11,17,32,0.7) 0%, rgba(5,8,22,0.7) 100%)",
                       border: "1px solid rgba(56,189,248,0.15)",
                       boxShadow: "0 8px 24px rgba(0,0,0,0.4)",
-                      minHeight: "520px",
                     }}
                   >
                     {p.image && (
@@ -519,6 +534,7 @@ const ProjectsSection = () => {
                     )}
                     {p.tagline && <p className="text-xs italic text-[#38BDF8]/80 mb-2">"{p.tagline}"</p>}
                     <p className="text-sm text-white/70 leading-relaxed mb-4">{p.description}</p>
+                    <Highlights items={p.highlights} />
 
                     <div className="flex flex-wrap gap-1.5 mb-4">
                       {p.technologies.map((t) => (
