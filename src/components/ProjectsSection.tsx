@@ -452,6 +452,7 @@ const ProjectsSection = () => {
                   </div>
 
                   <p className="text-white/75 leading-relaxed mb-6 max-w-4xl">{featured.description}</p>
+                  <Highlights items={featured.highlights} />
 
                   <div className="flex flex-wrap gap-2 mb-6">
                     {featured.technologies.map((t) => (
