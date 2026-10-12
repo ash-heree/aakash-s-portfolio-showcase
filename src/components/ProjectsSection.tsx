@@ -166,6 +166,7 @@ const TechPopup = ({ technologies, anchorRef }: { technologies: string[]; anchor
   return createPortal(
     <div
       ref={popupRef}
+      onMouseMove={(e) => e.stopPropagation()}
       style={{
         position: "absolute",
         top: pos?.top ?? 0,
