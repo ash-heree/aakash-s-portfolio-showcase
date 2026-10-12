@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { useState, useRef, useLayoutEffect, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
-import aerisImg from "@/assets/aeris-agent.jpg";
+import aerisRobot from "@/assets/aeris-robot.png.asset.json";
 
 type Project = {
   icon: JSX.Element;
@@ -338,6 +338,8 @@ const ProjectsSection = () => {
     scheduleClose();
   };
 
+  const aeris: Project = { icon: <Bot className="h-5 w-5" />, title: "Aeris — Personal AI Agent", highlights: ["Personal task automation", "AI/LLM-powered interaction", "Modular agent architecture"], tagline: "An intelligent personal AI agent designed to understand, remember, automate, and assist.", description: "A personal AI agent designed to assist with everyday tasks, understand user requests, manage information, work with files, use external tools, and automate tasks through an intelligent agent-based architecture.", technologies: ["Python", "AI / LLM", "FastAPI", "React", "Vite", "JavaScript / TypeScript", "REST APIs", "SQLite / PostgreSQL", "Git", "GitHub"], duration: "Ongoing", role: "AI Developer", status: "In Development", hasDetails: true };
+
   const featured: Project = {
     icon: <Shield className="h-7 w-7" />,
     title: "Machine Learning Based Transaction Risk Analysis", highlights: ["Transaction risk prediction", "Data preprocessing & feature analysis", "Real-time fraud monitoring dashboard"],
@@ -354,7 +356,7 @@ const ProjectsSection = () => {
   };
 
   const others: Project[] = [
-    { icon: <Bot className="h-5 w-5" />, title: "Aeris — Personal AI Agent", highlights: ["Personal task automation", "AI/LLM-powered interaction", "Modular agent architecture"], tagline: "An intelligent personal AI agent designed to understand, remember, automate, and assist.", description: "A personal AI agent designed to assist with everyday tasks, understand user requests, manage information, work with files, use external tools, and automate tasks through an intelligent agent-based architecture.", technologies: ["Python", "AI / LLM", "FastAPI", "React", "Vite", "JavaScript / TypeScript", "REST APIs", "SQLite / PostgreSQL", "Git", "GitHub"], duration: "Ongoing", role: "AI Developer", status: "In Development", image: aerisImg, hasDetails: true },
+    featured,
     { icon: <Hand className="h-5 w-5" />, title: "AI Virtual Mouse", highlights: ["Real-time hand landmark tracking", "Gesture-based click control", "Touch-free cursor navigation"], description: "A computer-vision based virtual mouse using OpenCV, MediaPipe and Python. Users control cursor movement and click operations through hand gestures — no physical mouse required.", technologies: ["Python", "OpenCV", "MediaPipe", "Computer Vision"], duration: "2 Months", role: "Computer Vision Developer", featured: true, githubUrl: "https://github.com/ash-heree/Virtual-Mouse.git" },
     { icon: <Brain className="h-5 w-5" />, title: "Neuro-Symbolic Sudoku Solver", highlights: ["Neural heuristics + symbolic logic", "Constraint propagation solving", "Explainable AI reasoning"], description: "A hybrid AI solver combining neural heuristics with symbolic constraint propagation to efficiently crack Sudoku puzzles while demonstrating explainable AI concepts.", technologies: ["Neuro-Symbolic AI", "Python", "Constraint Satisfaction"], duration: "1 Month", role: "AI Developer", featured: true },
     { icon: <ShoppingCart className="h-5 w-5" />, title: "E-Commerce Website for Games", highlights: ["Secure user authentication", "Product & cart management", "Responsive storefront UI"], description: "A responsive e-commerce platform for digital game sales with secure authentication, product management, shopping cart and an intuitive user experience.", technologies: ["HTML", "CSS", "JavaScript", "PHP", "MySQL"], duration: "3 Months", role: "Full Stack Developer" },
@@ -419,13 +421,13 @@ const ProjectsSection = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="md:col-span-2 lg:col-span-3 order-2"
+              className="md:col-span-2 lg:col-span-3"
             >
               <TiltCard>
                 <div
-                  className="relative rounded-2xl p-8 sm:p-10 backdrop-blur-xl overflow-hidden h-full"
+                  className="relative rounded-2xl backdrop-blur-xl overflow-hidden h-full grid lg:grid-cols-[1.15fr_1fr]"
                   style={{
-                    background: "linear-gradient(135deg, rgba(0,245,212,0.08) 0%, rgba(56,189,248,0.05) 50%, rgba(0,255,136,0.05) 100%)",
+                    background: "linear-gradient(135deg, rgba(0,245,212,0.08) 0%, rgba(56,189,248,0.05) 50%, rgba(124,58,237,0.08) 100%)",
                     border: "1px solid rgba(0,245,212,0.35)",
                     boxShadow: "0 0 60px rgba(0,245,212,0.2), inset 0 0 30px rgba(0,245,212,0.05)",
                   }}
@@ -433,57 +435,68 @@ const ProjectsSection = () => {
                   <div className="absolute inset-0 rounded-2xl pointer-events-none"
                        style={{ boxShadow: "0 0 0 1px rgba(0,245,212,0.4)", animation: "pulse 3s ease-in-out infinite" }} />
 
-                  <div className="flex items-start justify-between flex-wrap gap-4 mb-5">
-                    <div className="flex items-center gap-4">
-                      <div className="w-14 h-14 rounded-xl flex items-center justify-center text-[#00F5D4]"
-                           style={{ background: "rgba(0,245,212,0.12)", border: "1px solid rgba(0,245,212,0.4)", boxShadow: "0 0 25px rgba(0,245,212,0.3)" }}>
-                        {featured.icon}
+                  {/* Artwork (right on desktop, top on mobile) */}
+                  <div className="relative order-first lg:order-last min-h-[280px] sm:min-h-[340px] lg:min-h-0 overflow-hidden">
+                    <div className="absolute inset-0 pointer-events-none"
+                         style={{ background: "radial-gradient(circle at 55% 50%, rgba(124,58,237,0.28), rgba(0,245,212,0.12) 40%, transparent 70%)" }} />
+                    <img
+                      src={aerisRobot.url}
+                      alt="Aeris AI agent mascot — a white robot with a butterfly orbiting a digital globe"
+                      loading="lazy"
+                      width={1254}
+                      height={1254}
+                      className="absolute inset-0 w-full h-full object-contain p-4 transition-transform duration-500 group-hover:scale-[1.03]"
+                    />
+                    <div className="absolute inset-0 pointer-events-none hidden lg:block"
+                         style={{ background: "linear-gradient(90deg, rgba(5,8,22,0.85) 0%, transparent 22%, transparent 88%, rgba(5,8,22,0.5) 100%)" }} />
+                    <div className="absolute inset-0 pointer-events-none lg:hidden"
+                         style={{ background: "linear-gradient(0deg, rgba(5,8,22,0.85) 0%, transparent 25%)" }} />
+                  </div>
+
+                  <div className="relative p-6 sm:p-10">
+                    <div className="flex items-start justify-between flex-wrap gap-4 mb-4">
+                      <div className="flex items-center gap-4">
+                        <div className="w-14 h-14 rounded-xl flex items-center justify-center text-[#00F5D4] flex-shrink-0"
+                             style={{ background: "rgba(0,245,212,0.12)", border: "1px solid rgba(0,245,212,0.4)", boxShadow: "0 0 25px rgba(0,245,212,0.3)" }}>
+                          <Bot className="h-7 w-7" />
+                        </div>
+                        <h3 className="text-2xl sm:text-3xl font-bold text-white">{aeris.title}</h3>
                       </div>
-                      <h3 className="text-2xl sm:text-3xl font-bold text-white">{featured.title}</h3>
+                      <div className="flex gap-2 flex-wrap">
+                        <span className="flex items-center gap-1 text-[11px] px-3 py-1.5 rounded-full font-mono font-medium text-[#00F5D4] border border-[#00F5D4]/40 bg-[#00F5D4]/10">
+                          <Sparkles className="h-3 w-3" /> FEATURED
+                        </span>
+                        <span className="flex items-center gap-1.5 text-[11px] px-3 py-1.5 rounded-full font-mono text-[#FACC15] border border-[#FACC15]/35 bg-[#FACC15]/10">
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#FACC15] animate-pulse" /> IN DEVELOPMENT
+                        </span>
+                      </div>
                     </div>
-                    <div className="flex gap-2">
-                      <span className="flex items-center gap-1 text-[11px] px-3 py-1.5 rounded-full font-mono font-medium text-[#00F5D4] border border-[#00F5D4]/40 bg-[#00F5D4]/10">
-                        <Sparkles className="h-3 w-3" /> FEATURED
-                      </span>
-                      <span className="flex items-center gap-1 text-[11px] px-3 py-1.5 rounded-full font-mono font-medium text-[#00FF88] border border-[#00FF88]/40 bg-[#00FF88]/10 shadow-[0_0_15px_rgba(0,255,136,0.25)]">
-                        <CheckCircle2 className="h-3 w-3" /> COMPLETED
-                      </span>
+
+                    {aeris.tagline && <p className="text-sm italic text-[#38BDF8]/80 mb-3">"{aeris.tagline}"</p>}
+                    <p className="text-white/75 leading-relaxed mb-5">{aeris.description}</p>
+                    <Highlights items={aeris.highlights} />
+
+                    <div className="flex flex-wrap gap-2 mb-5">
+                      {aeris.technologies.map((t) => (
+                        <span key={t} className="text-xs font-mono px-3 py-1.5 rounded-md text-[#38BDF8] hover:text-white hover:shadow-[0_0_12px_rgba(56,189,248,0.5)] transition-all"
+                              style={{ background: "rgba(11,17,32,0.7)", border: "1px solid rgba(56,189,248,0.25)" }}>
+                          {t}
+                        </span>
+                      ))}
                     </div>
-                  </div>
 
-                  <p className="text-white/75 leading-relaxed mb-6 max-w-4xl">{featured.description}</p>
-                  <Highlights items={featured.highlights} />
+                    <ProjectInfo p={aeris} onStackEnter={handleStackEnter} onStackLeave={handleStackLeave} />
 
-                  <div className="flex flex-wrap gap-2 mb-6">
-                    {featured.technologies.map((t) => (
-                      <span key={t} className="text-xs font-mono px-3 py-1.5 rounded-md text-[#38BDF8] hover:text-white hover:shadow-[0_0_12px_rgba(56,189,248,0.5)] transition-all"
-                            style={{ background: "rgba(11,17,32,0.7)", border: "1px solid rgba(56,189,248,0.25)" }}>
-                        {t}
-                      </span>
-                    ))}
-                  </div>
+                    <div className="h-px bg-gradient-to-r from-transparent via-[#00F5D4]/30 to-transparent mb-5" />
 
-                  <ProjectInfo p={featured} onStackEnter={handleStackEnter} onStackLeave={handleStackLeave} />
-
-                  <div className="h-px bg-gradient-to-r from-transparent via-[#00F5D4]/30 to-transparent mb-5" />
-
-                  <div className="flex flex-wrap gap-3">
-                    <button className="group/btn flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-semibold text-[#050816] bg-gradient-to-r from-[#00F5D4] to-[#38BDF8] hover:shadow-[0_0_25px_rgba(0,245,212,0.5)] transition-all duration-300 hover:-translate-y-0.5 hover:scale-[1.03]">
-                      <Rocket className="h-4 w-4 group-hover/btn:rotate-12 transition-transform" /> View Project
-                    </button>
-                    <a
-                      href={featured.githubUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="group/btn inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-medium text-white border border-white/15 bg-white/5 hover:border-[#00F5D4]/60 hover:bg-[#00F5D4]/10 hover:shadow-[0_0_15px_rgba(0,245,212,0.3)] transition-all duration-300 hover:-translate-y-0.5"
-                    >
-                      <Github className="h-4 w-4 group-hover/btn:rotate-12 transition-transform" /> GitHub
-                    </a>
-                    {featured.caseStudy && (
-                      <button className="group/btn flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-medium text-white border border-[#7C3AED]/40 bg-[#7C3AED]/10 hover:bg-[#7C3AED]/20 hover:shadow-[0_0_15px_rgba(124,58,237,0.4)] transition-all duration-300 hover:-translate-y-0.5">
-                        <FileText className="h-4 w-4 group-hover/btn:rotate-12 transition-transform" /> Case Study
+                    <div className="flex flex-wrap gap-3">
+                      <button onClick={() => setAerisOpen(true)} className="group/btn flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-semibold text-[#050816] bg-gradient-to-r from-[#00F5D4] to-[#38BDF8] hover:shadow-[0_0_25px_rgba(0,245,212,0.5)] transition-all duration-300 hover:-translate-y-0.5 hover:scale-[1.03]">
+                        <Rocket className="h-4 w-4 group-hover/btn:rotate-12 transition-transform" /> View
                       </button>
-                    )}
+                      <button className="group/btn inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-medium text-white border border-white/15 bg-white/5 hover:border-[#00F5D4]/60 hover:bg-[#00F5D4]/10 transition-all duration-300 hover:-translate-y-0.5">
+                        <Github className="h-4 w-4 group-hover/btn:rotate-12 transition-transform" /> Code
+                      </button>
+                    </div>
                   </div>
                 </div>
               </TiltCard>
@@ -497,7 +510,6 @@ const ProjectsSection = () => {
                 viewport={{ once: true, margin: "-30px" }}
                 transition={{ duration: 0.5, delay: i * 0.08 }}
                 className="h-full"
-                style={{ order: i < 3 ? 1 : 3 }}
               >
                 <TiltCard>
                   <div
