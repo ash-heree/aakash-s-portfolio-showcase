@@ -135,69 +135,104 @@ const useHoverCapable = () => {
   return capable;
 };
 
-const TechPopup = ({
-  technologies,
-  rect,
-  onMouseEnter,
-  onMouseLeave,
-}: {
-  technologies: string[];
-  rect: DOMRect;
-  onMouseEnter?: () => void;
-  onMouseLeave?: () => void;
-}) => {
+const POPUP_GAP = 12;
+
+// Popup is portalled to <body> with ABSOLUTE page coordinates, so it scrolls with its card.
+// It is a React child of StackTrigger, so React's mouseenter/leave treat trigger + popup as one hover area.
+const TechPopup = ({ technologies, anchorRef }: { technologies: string[]; anchorRef: React.RefObject<HTMLElement> }) => {
   const popupRef = useRef<HTMLDivElement>(null);
-  const [pos, setPos] = useState<{ top: number; left: number } | null>(null);
+  const [pos, setPos] = useState<{ top: number; left: number; above: boolean } | null>(null);
 
-  // Place the popup beside the trigger (right, else left, else above/below) so it never covers the cursor.
   useLayoutEffect(() => {
-    const el = popupRef.current;
-    if (!el) return;
-    const w = el.offsetWidth;
-    const h = el.offsetHeight;
-    const vw = window.innerWidth;
-    const vh = window.innerHeight;
-    const GAP = 12;
-    const clampTop = (t: number) => Math.max(8, Math.min(t, vh - h - 8));
-    const clampLeft = (l: number) => Math.max(8, Math.min(l, vw - w - 8));
-    const left = clampLeft(rect.left + rect.width / 2 - w / 2);
-    const top = rect.top - GAP - h >= 8 ? rect.top - GAP - h : clampTop(rect.bottom + GAP);
-    setPos({ top, left });
-  }, [rect]);
+    const place = () => {
+      const el = popupRef.current;
+      const anchor = anchorRef.current;
+      if (!el || !anchor) return;
+      const rect = anchor.getBoundingClientRect();
+      const w = el.offsetWidth;
+      const h = el.offsetHeight; // includes the transparent hover bridge
+      const vw = document.documentElement.clientWidth;
+      const above = rect.top - h >= 8;
+      const leftV = Math.max(8, Math.min(rect.left + rect.width / 2 - w / 2, vw - w - 8));
+      const topV = above ? rect.top - h : rect.bottom;
+      setPos({ top: topV + window.scrollY, left: leftV + window.scrollX, above });
+    };
+    place();
+    window.addEventListener("resize", place);
+    return () => window.removeEventListener("resize", place);
+  }, [anchorRef]);
 
+  const above = pos?.above ?? true;
   return createPortal(
-    <motion.div
+    <div
       ref={popupRef}
+      onMouseMove={(e) => e.stopPropagation()}
       style={{
-        position: "fixed",
+        position: "absolute",
         top: pos?.top ?? 0,
         left: pos?.left ?? 0,
         visibility: pos ? "visible" : "hidden",
         zIndex: 9990,
-        pointerEvents: "none",
-        willChange: "transform, opacity",
+        // transparent padding = hover bridge between trigger and popup
+        paddingBottom: above ? POPUP_GAP : 0,
+        paddingTop: above ? 0 : POPUP_GAP,
       }}
-      initial={{ opacity: 0, scale: 0.98, y: 6 }}
-      animate={pos ? { opacity: 1, scale: 1, y: 0 } : { opacity: 0, scale: 0.98, y: 6 }}
-      transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
-      aria-hidden
-      className="rounded-2xl border border-[#00F5D4]/40 bg-[#0B1120]/95 backdrop-blur-2xl p-4 shadow-[0_0_35px_rgba(0,245,212,0.2)] min-w-[260px] max-w-[340px]"
     >
-      <p className="text-[10px] font-mono uppercase tracking-widest text-[#00F5D4]/80 mb-3">// TECH.STACK</p>
-      <ul className="space-y-2.5">
-        {technologies.map((t) => {
-          const mapped = techIconMap[t];
-          const Icon = mapped?.Icon ?? Code2;
-          return (
-            <li key={t} className="flex items-center gap-3 text-sm text-white/90">
-              <Icon className="h-5 w-5 flex-shrink-0" style={{ color: mapped?.color ?? "#00F5D4" }} />
-              <span>{t}</span>
-            </li>
-          );
-        })}
-      </ul>
-    </motion.div>,
+      <motion.div
+        style={{ willChange: "transform, opacity" }}
+        initial={{ opacity: 0, scale: 0.98, y: 6 }}
+        animate={pos ? { opacity: 1, scale: 1, y: 0 } : { opacity: 0, scale: 0.98, y: 6 }}
+        transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+        role="tooltip"
+        className="rounded-2xl border border-[#00F5D4]/40 bg-[#0B1120]/95 backdrop-blur-2xl p-4 shadow-[0_0_35px_rgba(0,245,212,0.2)] min-w-[260px] max-w-[340px]"
+      >
+        <p className="text-[10px] font-mono uppercase tracking-widest text-[#00F5D4]/80 mb-3">// TECH.STACK</p>
+        <ul className="space-y-2.5">
+          {technologies.map((t) => {
+            const mapped = techIconMap[t];
+            const Icon = mapped?.Icon ?? Code2;
+            return (
+              <li key={t} className="flex items-center gap-3 text-sm text-white/90">
+                <Icon className="h-5 w-5 flex-shrink-0" style={{ color: mapped?.color ?? "#00F5D4" }} />
+                <span>{t}</span>
+              </li>
+            );
+          })}
+        </ul>
+      </motion.div>
+    </div>,
     document.body
+  );
+};
+
+const StackTrigger = ({ technologies }: { technologies: string[] }) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const [open, setOpen] = useState(false);
+  const hoverCapable = useHoverCapable();
+
+  // Touch: close when tapping anywhere outside the trigger/popup.
+  useEffect(() => {
+    if (!open || hoverCapable) return;
+    const onDown = (e: PointerEvent) => {
+      const t = e.target as Node;
+      if (ref.current?.contains(t) || (t as HTMLElement).closest?.('[role="tooltip"]')) return;
+      setOpen(false);
+    };
+    document.addEventListener("pointerdown", onDown);
+    return () => document.removeEventListener("pointerdown", onDown);
+  }, [open, hoverCapable]);
+
+  return (
+    <div
+      ref={ref}
+      onMouseEnter={hoverCapable ? () => setOpen(true) : undefined}
+      onMouseLeave={hoverCapable ? () => setOpen(false) : undefined}
+      onClick={hoverCapable ? undefined : () => setOpen((o) => !o)}
+      className="cursor-pointer"
+    >
+      <MetricTile icon={<Wrench className="h-3 w-3" />} label="Stack" value={`${technologies.length} Technologies`} />
+      {open && <TechPopup technologies={technologies} anchorRef={ref} />}
+    </div>
   );
 };
 
@@ -268,7 +303,6 @@ const MetricTile = ({ icon, label, value, accent = false, pulse = false }: { ico
 );
 
 const ProjectInfo = ({ p, compact = false, onStackEnter, onStackLeave }: { p: Project; compact?: boolean; onStackEnter?: (technologies: string[], rect: DOMRect) => void; onStackLeave?: () => void }) => {
-  const stackRef = useRef<HTMLDivElement>(null);
   return (
     <motion.div
       initial={{ opacity: 0, y: 12 }}
@@ -288,55 +322,16 @@ const ProjectInfo = ({ p, compact = false, onStackEnter, onStackLeave }: { p: Pr
         <MetricTile icon={<Calendar className="h-3 w-3" />} label="Duration" value={p.duration} />
         <MetricTile icon={<UserCircle2 className="h-3 w-3" />} label="Role" value={<span className="truncate">{p.role}</span>} />
         <MetricTile icon={<Target className="h-3 w-3" />} label="Status" value={p.status ?? "Completed"} accent pulse={(p.status ?? "Completed") === "Completed"} />
-        <div
-          ref={stackRef}
-          onMouseEnter={() => {
-            if (stackRef.current) onStackEnter?.(p.technologies, stackRef.current.getBoundingClientRect());
-          }}
-          onMouseLeave={() => onStackLeave?.()}
-        >
-          <MetricTile icon={<Wrench className="h-3 w-3" />} label="Stack" value={`${p.technologies.length} Technologies`} />
-        </div>
+        <StackTrigger technologies={p.technologies} />
       </div>
     </motion.div>
   );
 };
 
 const ProjectsSection = () => {
-  const hoverCapable = useHoverCapable();
-  const [stackHover, setStackHover] = useState<{ technologies: string[]; rect: DOMRect } | null>(null);
   const [aerisOpen, setAerisOpen] = useState(false);
-  const popupHoverRef = useRef(false);
-  const leaveTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  const clearLeaveTimer = () => {
-    if (leaveTimerRef.current) {
-      clearTimeout(leaveTimerRef.current);
-      leaveTimerRef.current = null;
-    }
-  };
-
-  const handleStackEnter = (technologies: string[], rect: DOMRect) => {
-    clearLeaveTimer();
-    if (hoverCapable) setStackHover({ technologies, rect });
-  };
-
-  const scheduleClose = () => {
-    clearLeaveTimer();
-    leaveTimerRef.current = setTimeout(() => {
-      if (!popupHoverRef.current) setStackHover(null);
-    }, 120);
-  };
-
-  const handleStackLeave = () => scheduleClose();
-  const handlePopupEnter = () => {
-    popupHoverRef.current = true;
-    clearLeaveTimer();
-  };
-  const handlePopupLeave = () => {
-    popupHoverRef.current = false;
-    scheduleClose();
-  };
+  const handleStackEnter = undefined;
+  const handleStackLeave = undefined;
 
   const aeris: Project = { icon: <Bot className="h-5 w-5" />, title: "Aeris — Personal AI Agent", highlights: ["Personal task automation", "AI/LLM-powered interaction", "Modular agent architecture"], tagline: "An intelligent personal AI agent designed to understand, remember, automate, and assist.", description: "A personal AI agent designed to assist with everyday tasks, understand user requests, manage information, work with files, use external tools, and automate tasks through an intelligent agent-based architecture.", technologies: ["Python", "AI / LLM", "FastAPI", "React", "Vite", "JavaScript / TypeScript", "REST APIs", "SQLite / PostgreSQL", "Git", "GitHub"], duration: "Ongoing", role: "AI Developer", status: "In Development", hasDetails: true };
 
@@ -599,14 +594,6 @@ const ProjectsSection = () => {
         </DialogContent>
       </Dialog>
 
-      {stackHover && (
-        <TechPopup
-          technologies={stackHover.technologies}
-          rect={stackHover.rect}
-          onMouseEnter={handlePopupEnter}
-          onMouseLeave={handlePopupLeave}
-        />
-      )}
     </section>
   );
 };
