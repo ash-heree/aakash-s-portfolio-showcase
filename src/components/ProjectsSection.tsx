@@ -240,13 +240,13 @@ const StackTrigger = ({ technologies }: { technologies: string[] }) => {
   return (
     <div
       ref={ref}
-      onMouseEnter={hoverCapable ? () => setOpen(true) : undefined}
-      onMouseLeave={hoverCapable ? () => setOpen(false) : undefined}
+      onMouseEnter={hoverCapable ? openNow : undefined}
+      onMouseLeave={hoverCapable ? scheduleClose : undefined}
       onClick={hoverCapable ? undefined : () => setOpen((o) => !o)}
       className="cursor-pointer"
     >
       <MetricTile icon={<Wrench className="h-3 w-3" />} label="Stack" value={`${technologies.length} Technologies`} />
-      {open && <TechPopup technologies={technologies} anchorRef={ref} />}
+      {open && <TechPopup technologies={technologies} anchorRef={ref} onHoverStart={openNow} onHoverEnd={scheduleClose} />}
     </div>
   );
 };
