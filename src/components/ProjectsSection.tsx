@@ -167,6 +167,8 @@ const TechPopup = ({ technologies, anchorRef, onHoverStart, onHoverEnd }: { tech
     <div
       ref={popupRef}
       onMouseMove={(e) => e.stopPropagation()}
+      onMouseEnter={onHoverStart}
+      onMouseLeave={onHoverEnd}
       style={{
         position: "absolute",
         top: pos?.top ?? 0,
