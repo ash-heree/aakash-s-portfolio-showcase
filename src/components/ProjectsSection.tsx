@@ -158,8 +158,14 @@ const TechPopup = ({ technologies, anchorRef, onHoverStart, onHoverEnd }: { tech
       setPos({ top: topV + window.scrollY, left: leftV + window.scrollX, above });
     };
     place();
+    // Re-place on scroll/resize: page-absolute coords stay correct only if the
+    // anchor's layout position is re-measured after late layout shifts.
     window.addEventListener("resize", place);
-    return () => window.removeEventListener("resize", place);
+    window.addEventListener("scroll", place, { passive: true });
+    return () => {
+      window.removeEventListener("resize", place);
+      window.removeEventListener("scroll", place);
+    };
   }, [anchorRef]);
 
   const above = pos?.above ?? true;
