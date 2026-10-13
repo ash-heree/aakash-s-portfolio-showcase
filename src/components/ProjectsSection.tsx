@@ -139,7 +139,7 @@ const POPUP_GAP = 12;
 
 // Popup is portalled to <body> with ABSOLUTE page coordinates, so it scrolls with its card.
 // It is a React child of StackTrigger, so React's mouseenter/leave treat trigger + popup as one hover area.
-const TechPopup = ({ technologies, anchorRef }: { technologies: string[]; anchorRef: React.RefObject<HTMLElement> }) => {
+const TechPopup = ({ technologies, anchorRef, onHoverStart, onHoverEnd }: { technologies: string[]; anchorRef: React.RefObject<HTMLElement>; onHoverStart: () => void; onHoverEnd: () => void }) => {
   const popupRef = useRef<HTMLDivElement>(null);
   const [pos, setPos] = useState<{ top: number; left: number; above: boolean } | null>(null);
 
