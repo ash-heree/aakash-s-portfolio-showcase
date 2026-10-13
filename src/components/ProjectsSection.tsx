@@ -139,7 +139,7 @@ const POPUP_GAP = 12;
 
 // Popup is portalled to <body> with ABSOLUTE page coordinates, so it scrolls with its card.
 // It is a React child of StackTrigger, so React's mouseenter/leave treat trigger + popup as one hover area.
-const TechPopup = ({ technologies, anchorRef }: { technologies: string[]; anchorRef: React.RefObject<HTMLElement> }) => {
+const TechPopup = ({ technologies, anchorRef, onHoverStart, onHoverEnd }: { technologies: string[]; anchorRef: React.RefObject<HTMLElement>; onHoverStart: () => void; onHoverEnd: () => void }) => {
   const popupRef = useRef<HTMLDivElement>(null);
   const [pos, setPos] = useState<{ top: number; left: number; above: boolean } | null>(null);
 
@@ -158,8 +158,14 @@ const TechPopup = ({ technologies, anchorRef }: { technologies: string[]; anchor
       setPos({ top: topV + window.scrollY, left: leftV + window.scrollX, above });
     };
     place();
+    // Re-place on scroll/resize: page-absolute coords stay correct only if the
+    // anchor's layout position is re-measured after late layout shifts.
     window.addEventListener("resize", place);
-    return () => window.removeEventListener("resize", place);
+    window.addEventListener("scroll", place, { passive: true });
+    return () => {
+      window.removeEventListener("resize", place);
+      window.removeEventListener("scroll", place);
+    };
   }, [anchorRef]);
 
   const above = pos?.above ?? true;
@@ -167,6 +173,8 @@ const TechPopup = ({ technologies, anchorRef }: { technologies: string[]; anchor
     <div
       ref={popupRef}
       onMouseMove={(e) => e.stopPropagation()}
+      onMouseEnter={onHoverStart}
+      onMouseLeave={onHoverEnd}
       style={{
         position: "absolute",
         top: pos?.top ?? 0,
@@ -209,6 +217,19 @@ const StackTrigger = ({ technologies }: { technologies: string[] }) => {
   const ref = useRef<HTMLDivElement>(null);
   const [open, setOpen] = useState(false);
   const hoverCapable = useHoverCapable();
+  const closeTimer = useRef<number | undefined>(undefined);
+
+  // Small grace period before closing so fast crossings between the box and
+  // the popup (or over the gap bridge) don't flicker it shut.
+  const openNow = () => {
+    window.clearTimeout(closeTimer.current);
+    setOpen(true);
+  };
+  const scheduleClose = () => {
+    window.clearTimeout(closeTimer.current);
+    closeTimer.current = window.setTimeout(() => setOpen(false), 140);
+  };
+  useEffect(() => () => window.clearTimeout(closeTimer.current), []);
 
   // Touch: close when tapping anywhere outside the trigger/popup.
   useEffect(() => {
@@ -225,13 +246,13 @@ const StackTrigger = ({ technologies }: { technologies: string[] }) => {
   return (
     <div
       ref={ref}
-      onMouseEnter={hoverCapable ? () => setOpen(true) : undefined}
-      onMouseLeave={hoverCapable ? () => setOpen(false) : undefined}
+      onMouseEnter={hoverCapable ? openNow : undefined}
+      onMouseLeave={hoverCapable ? scheduleClose : undefined}
       onClick={hoverCapable ? undefined : () => setOpen((o) => !o)}
       className="cursor-pointer"
     >
       <MetricTile icon={<Wrench className="h-3 w-3" />} label="Stack" value={`${technologies.length} Technologies`} />
-      {open && <TechPopup technologies={technologies} anchorRef={ref} />}
+      {open && <TechPopup technologies={technologies} anchorRef={ref} onHoverStart={openNow} onHoverEnd={scheduleClose} />}
     </div>
   );
 };
