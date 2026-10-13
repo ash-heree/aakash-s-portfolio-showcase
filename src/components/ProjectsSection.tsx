@@ -211,6 +211,19 @@ const StackTrigger = ({ technologies }: { technologies: string[] }) => {
   const ref = useRef<HTMLDivElement>(null);
   const [open, setOpen] = useState(false);
   const hoverCapable = useHoverCapable();
+  const closeTimer = useRef<number | undefined>(undefined);
+
+  // Small grace period before closing so fast crossings between the box and
+  // the popup (or over the gap bridge) don't flicker it shut.
+  const openNow = () => {
+    window.clearTimeout(closeTimer.current);
+    setOpen(true);
+  };
+  const scheduleClose = () => {
+    window.clearTimeout(closeTimer.current);
+    closeTimer.current = window.setTimeout(() => setOpen(false), 140);
+  };
+  useEffect(() => () => window.clearTimeout(closeTimer.current), []);
 
   // Touch: close when tapping anywhere outside the trigger/popup.
   useEffect(() => {
