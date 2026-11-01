@@ -283,6 +283,7 @@ const StackTrigger = ({ technologies }: { technologies: string[] }) => {
       ref={ref}
       onMouseEnter={hoverCapable ? openNow : undefined}
       onMouseLeave={hoverCapable ? scheduleClose : undefined}
+      onMouseMove={hoverCapable ? onTriggerMove : undefined}
       onClick={hoverCapable ? undefined : () => setOpen((o) => !o)}
       className="cursor-pointer"
     >
