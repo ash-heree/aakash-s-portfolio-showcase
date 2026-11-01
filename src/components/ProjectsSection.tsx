@@ -169,7 +169,6 @@ const TechPopup = ({ technologies, anchorRef, onHoverStart, onHoverEnd }: { tech
   return createPortal(
     <div
       ref={popupRef}
-      onMouseMove={(e) => e.stopPropagation()}
       onMouseEnter={onHoverStart}
       onMouseLeave={onHoverEnd}
       style={{
