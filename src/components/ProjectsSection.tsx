@@ -235,7 +235,9 @@ const StackTrigger = ({ technologies }: { technologies: string[] }) => {
   // After a scroll/resize close, the pointer may still be physically over the
   // box (the page moved under it), so mouseenter won't fire again. A single
   // mousemove over the box re-opens it — moving away simply never triggers it.
-  const pendingReopen = useRef(false);
+  // (Flag declared next to closeTimer above.)
+
+
 
   // Scrolling or resizing immediately closes the popup so it never floats at a
   // stale position. Passive listeners; removed as soon as the popup is closed.
