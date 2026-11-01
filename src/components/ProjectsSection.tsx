@@ -214,11 +214,16 @@ const StackTrigger = ({ technologies }: { technologies: string[] }) => {
   const [open, setOpen] = useState(false);
   const hoverCapable = useHoverCapable();
   const closeTimer = useRef<number | undefined>(undefined);
+  // After a scroll/resize close, the pointer may still be physically over the
+  // box (the page moved under it), so mouseenter won't fire again. A single
+  // mousemove over the box re-opens it — moving away simply never triggers it.
+  const pendingReopen = useRef(false);
 
   // Small grace period before closing so fast crossings between the box and
   // the popup (or over the gap bridge) don't flicker it shut.
   const openNow = () => {
     window.clearTimeout(closeTimer.current);
+    pendingReopen.current = false;
     setOpen(true);
   };
   const scheduleClose = () => {
