@@ -227,6 +227,38 @@ const StackTrigger = ({ technologies }: { technologies: string[] }) => {
   };
   useEffect(() => () => window.clearTimeout(closeTimer.current), []);
 
+  // After a scroll/resize close, the pointer may still be physically over the
+  // box (the page moved under it), so mouseenter won't fire again. A single
+  // mousemove over the box re-opens it — moving away simply never triggers it.
+  const pendingReopen = useRef(false);
+
+  // Scrolling or resizing immediately closes the popup so it never floats at a
+  // stale position. Passive listeners; removed as soon as the popup is closed.
+  useEffect(() => {
+    if (!open) return;
+    const close = () => {
+      pendingReopen.current = true;
+      setOpen(false);
+    };
+    window.addEventListener("scroll", close, { passive: true });
+    window.addEventListener("resize", close);
+    return () => {
+      window.removeEventListener("scroll", close);
+      window.removeEventListener("resize", close);
+    };
+  }, [open]);
+
+  // Also close when the trigger (its project card) is scrolled out of view.
+  useEffect(() => {
+    if (!open || !ref.current) return;
+    const io = new IntersectionObserver(
+      (entries) => { if (!entries.some((en) => en.isIntersecting)) setOpen(false); },
+      { threshold: 0 }
+    );
+    io.observe(ref.current);
+    return () => io.disconnect();
+  }, [open]);
+
   // Touch: close when tapping anywhere outside the trigger/popup.
   useEffect(() => {
     if (!open || hoverCapable) return;
@@ -238,6 +270,13 @@ const StackTrigger = ({ technologies }: { technologies: string[] }) => {
     document.addEventListener("pointerdown", onDown);
     return () => document.removeEventListener("pointerdown", onDown);
   }, [open, hoverCapable]);
+
+  const onTriggerMove = () => {
+    if (pendingReopen.current) {
+      pendingReopen.current = false;
+      openNow();
+    }
+  };
 
   return (
     <div
