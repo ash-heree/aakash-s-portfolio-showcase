@@ -139,10 +139,15 @@ const POPUP_GAP = 12;
 
 // Popup is portalled to <body> with ABSOLUTE page coordinates, so it scrolls with its card.
 // It is a React child of StackTrigger, so React's mouseenter/leave treat trigger + popup as one hover area.
+// NOTE: this element must NOT stop mousemove propagation — the portalled popup never
+// overlaps the card in the DOM, so stopping propagation here only freezes the global
+// mousemove listeners (custom cursor) while the pointer is over the popup.
 const TechPopup = ({ technologies, anchorRef, onHoverStart, onHoverEnd }: { technologies: string[]; anchorRef: React.RefObject<HTMLElement>; onHoverStart: () => void; onHoverEnd: () => void }) => {
   const popupRef = useRef<HTMLDivElement>(null);
   const [pos, setPos] = useState<{ top: number; left: number; above: boolean } | null>(null);
 
+  // Measured exactly once when the popup mounts. Scrolling/resizing close the
+  // popup (handled in StackTrigger), so no per-scroll re-measurement is needed.
   useLayoutEffect(() => {
     const place = () => {
       const el = popupRef.current;
@@ -158,14 +163,6 @@ const TechPopup = ({ technologies, anchorRef, onHoverStart, onHoverEnd }: { tech
       setPos({ top: topV + window.scrollY, left: leftV + window.scrollX, above });
     };
     place();
-    // Re-place on scroll/resize: page-absolute coords stay correct only if the
-    // anchor's layout position is re-measured after late layout shifts.
-    window.addEventListener("resize", place);
-    window.addEventListener("scroll", place, { passive: true });
-    return () => {
-      window.removeEventListener("resize", place);
-      window.removeEventListener("scroll", place);
-    };
   }, [anchorRef]);
 
   const above = pos?.above ?? true;
