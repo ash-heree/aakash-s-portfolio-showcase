@@ -139,10 +139,15 @@ const POPUP_GAP = 12;
 
 // Popup is portalled to <body> with ABSOLUTE page coordinates, so it scrolls with its card.
 // It is a React child of StackTrigger, so React's mouseenter/leave treat trigger + popup as one hover area.
+// NOTE: this element must NOT stop mousemove propagation — the portalled popup never
+// overlaps the card in the DOM, so stopping propagation here only freezes the global
+// mousemove listeners (custom cursor) while the pointer is over the popup.
 const TechPopup = ({ technologies, anchorRef, onHoverStart, onHoverEnd }: { technologies: string[]; anchorRef: React.RefObject<HTMLElement>; onHoverStart: () => void; onHoverEnd: () => void }) => {
   const popupRef = useRef<HTMLDivElement>(null);
   const [pos, setPos] = useState<{ top: number; left: number; above: boolean } | null>(null);
 
+  // Measured exactly once when the popup mounts. Scrolling/resizing close the
+  // popup (handled in StackTrigger), so no per-scroll re-measurement is needed.
   useLayoutEffect(() => {
     const place = () => {
       const el = popupRef.current;
@@ -158,21 +163,12 @@ const TechPopup = ({ technologies, anchorRef, onHoverStart, onHoverEnd }: { tech
       setPos({ top: topV + window.scrollY, left: leftV + window.scrollX, above });
     };
     place();
-    // Re-place on scroll/resize: page-absolute coords stay correct only if the
-    // anchor's layout position is re-measured after late layout shifts.
-    window.addEventListener("resize", place);
-    window.addEventListener("scroll", place, { passive: true });
-    return () => {
-      window.removeEventListener("resize", place);
-      window.removeEventListener("scroll", place);
-    };
   }, [anchorRef]);
 
   const above = pos?.above ?? true;
   return createPortal(
     <div
       ref={popupRef}
-      onMouseMove={(e) => e.stopPropagation()}
       onMouseEnter={onHoverStart}
       onMouseLeave={onHoverEnd}
       style={{
@@ -218,11 +214,16 @@ const StackTrigger = ({ technologies }: { technologies: string[] }) => {
   const [open, setOpen] = useState(false);
   const hoverCapable = useHoverCapable();
   const closeTimer = useRef<number | undefined>(undefined);
+  // After a scroll/resize close, the pointer may still be physically over the
+  // box (the page moved under it), so mouseenter won't fire again. A single
+  // mousemove over the box re-opens it — moving away simply never triggers it.
+  const pendingReopen = useRef(false);
 
   // Small grace period before closing so fast crossings between the box and
   // the popup (or over the gap bridge) don't flicker it shut.
   const openNow = () => {
     window.clearTimeout(closeTimer.current);
+    pendingReopen.current = false;
     setOpen(true);
   };
   const scheduleClose = () => {
@@ -230,6 +231,40 @@ const StackTrigger = ({ technologies }: { technologies: string[] }) => {
     closeTimer.current = window.setTimeout(() => setOpen(false), 140);
   };
   useEffect(() => () => window.clearTimeout(closeTimer.current), []);
+
+  // After a scroll/resize close, the pointer may still be physically over the
+  // box (the page moved under it), so mouseenter won't fire again. A single
+  // mousemove over the box re-opens it — moving away simply never triggers it.
+  // (Flag declared next to closeTimer above.)
+
+
+
+  // Scrolling or resizing immediately closes the popup so it never floats at a
+  // stale position. Passive listeners; removed as soon as the popup is closed.
+  useEffect(() => {
+    if (!open) return;
+    const close = () => {
+      pendingReopen.current = true;
+      setOpen(false);
+    };
+    window.addEventListener("scroll", close, { passive: true });
+    window.addEventListener("resize", close);
+    return () => {
+      window.removeEventListener("scroll", close);
+      window.removeEventListener("resize", close);
+    };
+  }, [open]);
+
+  // Also close when the trigger (its project card) is scrolled out of view.
+  useEffect(() => {
+    if (!open || !ref.current) return;
+    const io = new IntersectionObserver(
+      (entries) => { if (!entries.some((en) => en.isIntersecting)) setOpen(false); },
+      { threshold: 0 }
+    );
+    io.observe(ref.current);
+    return () => io.disconnect();
+  }, [open]);
 
   // Touch: close when tapping anywhere outside the trigger/popup.
   useEffect(() => {
@@ -243,11 +278,19 @@ const StackTrigger = ({ technologies }: { technologies: string[] }) => {
     return () => document.removeEventListener("pointerdown", onDown);
   }, [open, hoverCapable]);
 
+  const onTriggerMove = () => {
+    if (pendingReopen.current) {
+      pendingReopen.current = false;
+      openNow();
+    }
+  };
+
   return (
     <div
       ref={ref}
       onMouseEnter={hoverCapable ? openNow : undefined}
       onMouseLeave={hoverCapable ? scheduleClose : undefined}
+      onMouseMove={hoverCapable ? onTriggerMove : undefined}
       onClick={hoverCapable ? undefined : () => setOpen((o) => !o)}
       className="cursor-pointer"
     >
