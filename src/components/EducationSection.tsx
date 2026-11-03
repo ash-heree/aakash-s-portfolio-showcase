@@ -4,12 +4,31 @@ import { GraduationCap } from "lucide-react";
 const EducationSection = () => {
   const reduced = useReducedMotion();
 
-  // Distinct GPU-friendly entrance per card: transform + opacity only.
+  // Four genuinely different, GPU-friendly cinematic entrances (transform + opacity + filter only).
   const entrances = [
-    { initial: { opacity: 0, x: -64, y: 24 }, animate: { opacity: 1, x: 0, y: 0 } },        // MCA — slide from left
-    { initial: { opacity: 0, x: 64, y: 24 }, animate: { opacity: 1, x: 0, y: 0 } },         // BCA — slide from right
-    { initial: { opacity: 0, y: 48, scale: 0.98 }, animate: { opacity: 1, y: 0, scale: 1 } }, // Higher Sec — rise from bottom
-    { initial: { opacity: 0, scale: 0.94 }, animate: { opacity: 1, scale: 1 } },             // Secondary — soft zoom-in
+    { // MCA — long slide in from the left with a 3D Y-rotation
+      initial: { opacity: 0, x: -340, rotateY: -38, transformPerspective: 900 },
+      animate: { opacity: 1, x: 0, rotateY: 0, transformPerspective: 900 },
+    },
+    { // BCA — slide in from the right with a perspective tilt and a slightly springier curve
+      initial: { opacity: 0, x: 300, rotateY: 30, transformPerspective: 800 },
+      animate: { opacity: 1, x: 0, rotateY: 0, transformPerspective: 800 },
+    },
+    { // Higher Secondary — cinematic rise from far below with blur-to-sharp focus
+      initial: { opacity: 0, y: 150, filter: "blur(14px)" },
+      animate: { opacity: 1, y: 0, filter: "blur(0px)" },
+    },
+    { // Secondary — 3D flip + zoom combo, rotating naturally into place
+      initial: { opacity: 0, scale: 0.7, rotateY: -50, rotate: -6, transformPerspective: 1000 },
+      animate: { opacity: 1, scale: 1, rotateY: 0, rotate: 0, transformPerspective: 1000 },
+    },
+  ];
+  // Per-card duration + easing so each entrance has its own motion curve.
+  const transitions = [
+    { duration: 1.05, ease: [0.22, 1, 0.36, 1] as const },   // MCA — smooth expo landing
+    { duration: 1.15, ease: [0.34, 1.12, 0.64, 1] as const }, // BCA — gentle settle with micro-overshoot
+    { duration: 1.0, ease: [0.23, 1, 0.32, 1] as const },     // Higher Sec — cinematic rise
+    { duration: 1.1, ease: [0.18, 0.94, 0.26, 1] as const },  // Secondary — natural flip-rotate finish
   ];
 
   const education = [
@@ -61,8 +80,11 @@ const EducationSection = () => {
                 key={i}
                 initial={reduced ? false : entrances[i].initial}
                 whileInView={entrances[i].animate}
-                viewport={{ once: true, margin: "-30px" }}
-                transition={{ duration: 0.72, delay: i * 0.14, ease: [0.25, 0.46, 0.45, 0.94] }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{
+                  ...transitions[i],
+                  delay: reduced ? 0 : 0.2 * i, // 200ms sequential stagger
+                }}
                 whileHover={{ y: -6 }}
                 className="group rounded-2xl p-6 backdrop-blur-xl transition-all duration-300"
                 style={{
