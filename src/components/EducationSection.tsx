@@ -1,7 +1,17 @@
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { GraduationCap } from "lucide-react";
 
 const EducationSection = () => {
+  const reduced = useReducedMotion();
+
+  // Distinct GPU-friendly entrance per card: transform + opacity only.
+  const entrances = [
+    { initial: { opacity: 0, x: -64, y: 24 }, animate: { opacity: 1, x: 0, y: 0 } },        // MCA — slide from left
+    { initial: { opacity: 0, x: 64, y: 24 }, animate: { opacity: 1, x: 0, y: 0 } },         // BCA — slide from right
+    { initial: { opacity: 0, y: 48, scale: 0.98 }, animate: { opacity: 1, y: 0, scale: 1 } }, // Higher Sec — rise from bottom
+    { initial: { opacity: 0, scale: 0.94 }, animate: { opacity: 1, scale: 1 } },             // Secondary — soft zoom-in
+  ];
+
   const education = [
     { degree: "Master of Computer Applications (MCA)", institution: "University of Madras (IDE)", period: "2024 - 2026", status: "Pursuing", percentage: "In Progress" },
     { degree: "Bachelor of Computer Applications (BCA)", institution: "S.A. College of Arts & Science", period: "2021 - 2024", status: "Completed", percentage: "68%" },
