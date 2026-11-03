@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { Github, Linkedin, Mail, ChevronDown } from "lucide-react";
+import { Github, Linkedin, Mail, ChevronDown, FileDown } from "lucide-react";
 
 const ROLES = ["MCA Student", "Full Stack Developer", "Python Enthusiast"];
 
@@ -216,6 +216,14 @@ const HeroSection = () => {
               >
                 Get In Touch
               </button>
+              <a
+                href="/resume.pdf"
+                download="Aakash_S_Resume.pdf"
+                className="group inline-flex items-center gap-2 px-6 py-3 rounded-lg font-semibold text-[#00F5D4] border border-[#00F5D4]/40 bg-[#00F5D4]/5 backdrop-blur-md hover:bg-[#00F5D4]/15 hover:border-[#00F5D4] hover:shadow-[0_0_25px_rgba(0,245,212,0.35)] transition-all duration-300 hover:-translate-y-0.5"
+              >
+                <FileDown className="w-4 h-4 transition-transform duration-300 group-hover:translate-y-0.5" />
+                Download Resume
+              </a>
             </motion.div>
 
             <motion.div
