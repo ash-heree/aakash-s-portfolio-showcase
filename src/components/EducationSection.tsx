@@ -59,10 +59,10 @@ const EducationSection = () => {
             {education.map((edu, i) => (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={reduced ? false : entrances[i].initial}
+                whileInView={entrances[i].animate}
                 viewport={{ once: true, margin: "-30px" }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
+                transition={{ duration: 0.72, delay: i * 0.14, ease: [0.25, 0.46, 0.45, 0.94] }}
                 whileHover={{ y: -6 }}
                 className="group rounded-2xl p-6 backdrop-blur-xl transition-all duration-300"
                 style={{
