@@ -80,8 +80,11 @@ const EducationSection = () => {
                 key={i}
                 initial={reduced ? false : entrances[i].initial}
                 whileInView={entrances[i].animate}
-                viewport={{ once: true, margin: "-30px" }}
-                transition={{ duration: 0.72, delay: i * 0.14, ease: [0.25, 0.46, 0.45, 0.94] }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{
+                  ...transitions[i],
+                  delay: reduced ? 0 : 0.2 * i, // 200ms sequential stagger
+                }}
                 whileHover={{ y: -6 }}
                 className="group rounded-2xl p-6 backdrop-blur-xl transition-all duration-300"
                 style={{
