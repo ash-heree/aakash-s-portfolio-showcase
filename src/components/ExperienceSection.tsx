@@ -1,7 +1,8 @@
 import { Laptop, BarChart3, Brain, GraduationCap } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 
 const ExperienceSection = () => {
+  const reduced = useReducedMotion();
   const experiences = [
     {
       icon: <Brain className="h-5 w-5" />,
@@ -91,10 +92,10 @@ const ExperienceSection = () => {
               {experiences.map((exp, i) => (
                 <motion.div
                   key={i}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true, margin: "-30px" }}
-                  transition={{ duration: 0.5, delay: i * 0.1 }}
+                  initial={reduced ? false : { opacity: 0, x: i % 2 === 0 ? -180 : 180, rotateY: i % 2 === 0 ? -20 : 20, transformPerspective: 1000, filter: "blur(8px)" }}
+                  whileInView={{ opacity: 1, x: 0, rotateY: 0, transformPerspective: 1000, filter: "blur(0px)" }}
+                  viewport={{ once: true, margin: "-60px" }}
+                  transition={{ duration: 0.9, delay: reduced ? 0 : i * 0.16, ease: [0.22, 1, 0.36, 1] }}
                   className="relative pl-16 sm:pl-20"
                 >
                   {/* node */}

@@ -5,7 +5,27 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { useState, useRef } from "react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
+
+// Section identity: each card gets a different 3D rotation / zoom / slide entrance, cycled sequentially.
+const ACHIEVEMENT_ENTRANCES = [
+  { // 3D flip in from the left
+    initial: { opacity: 0, rotateY: -60, x: -130, transformPerspective: 900 },
+    animate: { opacity: 1, rotateY: 0, x: 0, transformPerspective: 900 },
+  },
+  { // controlled zoom with blur-to-sharp focus
+    initial: { opacity: 0, scale: 0.55, filter: "blur(14px)" },
+    animate: { opacity: 1, scale: 1, filter: "blur(0px)" },
+  },
+  { // tilted slide in from the right
+    initial: { opacity: 0, rotate: -7, x: 150, y: 60, filter: "blur(8px)" },
+    animate: { opacity: 1, rotate: 0, x: 0, y: 0, filter: "blur(0px)" },
+  },
+  { // 3D flip up from below
+    initial: { opacity: 0, rotateX: 65, y: 110, transformPerspective: 900 },
+    animate: { opacity: 1, rotateX: 0, y: 0, transformPerspective: 900 },
+  },
+];
 
 interface Achievement {
   title: string;
@@ -15,6 +35,7 @@ interface Achievement {
 }
 
 const AchievementsSection = () => {
+  const reduced = useReducedMotion();
   const [selectedItem, setSelectedItem] = useState<{ type: string; index: number } | null>(null);
   const [isEditing, setIsEditing] = useState(false);
   const [editedData, setEditedData] = useState<Achievement | null>(null);
@@ -237,10 +258,10 @@ const AchievementsSection = () => {
                 {group.items.map((it, index) => (
                   <motion.div
                     key={index}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-30px" }}
-                    transition={{ duration: 0.5, delay: index * 0.08 }}
+                    initial={reduced ? false : ACHIEVEMENT_ENTRANCES[index % 4].initial}
+                    whileInView={ACHIEVEMENT_ENTRANCES[index % 4].animate}
+                    viewport={{ once: true, margin: "-60px" }}
+                    transition={{ duration: 0.9, delay: reduced ? 0 : index * 0.17, ease: [0.22, 1, 0.36, 1] }}
                   >
                     <FinderCard item={it} icon={group.icon} onClick={() => setSelectedItem({ type: group.type, index })} />
                   </motion.div>

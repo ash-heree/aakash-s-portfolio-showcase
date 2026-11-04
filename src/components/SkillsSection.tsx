@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { useEffect, useRef } from "react";
 import { Code2, Layout, Server, Database, Wrench, Brain, Network, LineChart, Waves, Package, Table, Palette } from "lucide-react";
 import {
@@ -204,7 +204,24 @@ const ProficiencyBar = ({ name, value, delay }: { name: string; value: number; d
   </div>
 );
 
+// Section identity: alternating 3D flip entrances — left flip, upward blur-rise, right flip.
+const SKILL_ENTRANCES = [
+  { // flip in from the left
+    initial: { opacity: 0, x: -150, rotateY: -55, transformPerspective: 900 },
+    animate: { opacity: 1, x: 0, rotateY: 0, transformPerspective: 900 },
+  },
+  { // rise from below with a blur-to-sharp focus
+    initial: { opacity: 0, y: 130, scale: 0.92, filter: "blur(12px)" },
+    animate: { opacity: 1, y: 0, scale: 1, filter: "blur(0px)" },
+  },
+  { // flip in from the right
+    initial: { opacity: 0, x: 150, rotateY: 55, transformPerspective: 900 },
+    animate: { opacity: 1, x: 0, rotateY: 0, transformPerspective: 900 },
+  },
+];
+
 const SkillsSection = () => {
+  const reduced = useReducedMotion();
   return (
     <section
       id="skills"
@@ -233,10 +250,10 @@ const SkillsSection = () => {
             {CATEGORIES.map((cat, i) => (
               <motion.div
                 key={cat.title}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-30px" }}
-                transition={{ duration: 0.5, delay: i * 0.08 }}
+                initial={reduced ? false : SKILL_ENTRANCES[i % 3].initial}
+                whileInView={SKILL_ENTRANCES[i % 3].animate}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ duration: 0.9, delay: reduced ? 0 : i * 0.16, ease: [0.22, 1, 0.36, 1] }}
                 whileHover={{ y: -8 }}
                 className="gradient-border group relative rounded-2xl overflow-hidden bg-[#050816]/70 backdrop-blur-xl transition-all duration-300 hover:shadow-[0_20px_50px_rgba(0,245,212,0.2)]"
               >
@@ -266,10 +283,10 @@ const SkillsSection = () => {
 
             {/* proficiency widget */}
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-30px" }}
-              transition={{ duration: 0.5, delay: 0.4 }}
+              initial={reduced ? false : { opacity: 0, scale: 0.78, rotateX: 42, y: 90, transformPerspective: 1000, filter: "blur(10px)" }}
+              whileInView={{ opacity: 1, scale: 1, rotateX: 0, y: 0, transformPerspective: 1000, filter: "blur(0px)" }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.95, delay: reduced ? 0 : 0.55, ease: [0.22, 1, 0.36, 1] }}
               whileHover={{ y: -8 }}
               className="gradient-border group relative rounded-2xl overflow-hidden bg-[#050816]/70 backdrop-blur-xl transition-all duration-300 hover:shadow-[0_20px_50px_rgba(124,58,237,0.2)]"
             >
