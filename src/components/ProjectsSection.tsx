@@ -1,6 +1,6 @@
 import { Hand, ShoppingCart, BarChart3, CloudSun, ExternalLink, Github, Brain, Car, Shield, Sparkles, CheckCircle2, Calendar, UserCircle2, Target, Wrench, FileText, Rocket, Database, LineChart, Eye, Puzzle, Video, Code2, Monitor, Bot, Server } from "lucide-react";
 import { SiPython, SiFlask, SiPandas, SiHtml5, SiCss, SiJavascript, SiPhp, SiMysql, SiStreamlit, SiDotnet, SiFastapi, SiReact, SiVite, SiTypescript, SiPostgresql, SiGit, SiGithub } from "react-icons/si";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { useState, useRef, useLayoutEffect, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
@@ -393,6 +393,7 @@ const ProjectInfo = ({ p, compact = false, onStackEnter, onStackLeave }: { p: Pr
 };
 
 const ProjectsSection = () => {
+  const reduced = useReducedMotion();
   const [aerisOpen, setAerisOpen] = useState(false);
   const handleStackEnter = undefined;
   const handleStackLeave = undefined;
@@ -476,10 +477,10 @@ const ProjectsSection = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
+              initial={reduced ? false : { opacity: 0, x: -280, scale: 0.94, rotateY: 24, transformPerspective: 1400, filter: "blur(10px)" }}
+              whileInView={{ opacity: 1, x: 0, scale: 1, rotateY: 0, transformPerspective: 1400, filter: "blur(0px)" }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 1.05, ease: [0.22, 1, 0.36, 1] }}
               className="md:col-span-2 lg:col-span-3"
             >
               <TiltCard>
@@ -564,10 +565,18 @@ const ProjectsSection = () => {
             {others.map((p, i) => (
               <motion.div
                 key={p.title}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-30px" }}
-                transition={{ duration: 0.5, delay: i * 0.08 }}
+                initial={
+                  reduced
+                    ? false
+                    : i % 3 === 0
+                      ? { opacity: 0, x: -160, rotateY: -24, transformPerspective: 1000 }
+                      : i % 3 === 1
+                        ? { opacity: 0, x: 110, y: 90, scale: 0.9, rotate: 2.5, filter: "blur(10px)" }
+                        : { opacity: 0, x: 160, rotateY: 24, transformPerspective: 1000 }
+                }
+                whileInView={{ opacity: 1, x: 0, y: 0, scale: 1, rotate: 0, rotateY: 0, transformPerspective: 1000, filter: "blur(0px)" }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ duration: 0.9, delay: reduced ? 0 : (i % 3) * 0.15, ease: [0.22, 1, 0.36, 1] }}
                 className="h-full"
               >
                 <TiltCard>
