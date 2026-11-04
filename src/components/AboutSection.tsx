@@ -50,10 +50,10 @@ const Terminal = () => {
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, x: 30 }}
-      whileInView={{ opacity: 1, x: 0 }}
+      initial={{ opacity: 0, x: 130, rotateY: 14, transformPerspective: 1100, filter: "blur(10px)" }}
+      whileInView={{ opacity: 1, x: 0, rotateY: 0, transformPerspective: 1100, filter: "blur(0px)" }}
       viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 0.7 }}
+      transition={{ duration: 0.95, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
       className="gradient-border rounded-xl overflow-hidden bg-[#050816]/90 backdrop-blur-xl shadow-[0_0_60px_rgba(0,245,212,0.15)]"
     >
       <div className="flex items-center gap-2 px-4 py-3 bg-[#0B1120] border-b border-white/5">
@@ -117,10 +117,10 @@ const StatCard = ({
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0, y: 44, scale: 0.94, filter: "blur(6px)" }}
+      whileInView={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
       viewport={{ once: true, margin: "-40px" }}
-      transition={{ duration: 0.5, delay }}
+      transition={{ duration: 0.75, delay }}
       whileHover={{ y: -6 }}
       className="gradient-border group relative rounded-2xl p-5 bg-[#050816]/70 backdrop-blur-xl transition-all duration-300 hover:shadow-[0_10px_40px_rgba(0,245,212,0.25)]"
     >
@@ -264,10 +264,10 @@ const AboutSection = () => {
         <div className="grid lg:grid-cols-2 gap-10 lg:gap-14 items-start">
           {/* LEFT: premium glass card */}
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={reduced ? false : { opacity: 0, x: -130, rotateY: -14, transformPerspective: 1100, filter: "blur(10px)" }}
+            whileInView={{ opacity: 1, x: 0, rotateY: 0, transformPerspective: 1100, filter: "blur(0px)" }}
             viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.7 }}
+            transition={{ duration: 0.95, ease: [0.22, 1, 0.36, 1] }}
             className="gradient-border rounded-2xl p-7 sm:p-9 bg-white/[0.04] backdrop-blur-2xl shadow-[0_20px_60px_rgba(0,0,0,0.5)]"
           >
             <div className="space-y-7">
