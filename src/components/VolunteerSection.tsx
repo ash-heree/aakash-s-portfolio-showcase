@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { Heart, Image as ImageIcon, FolderTree } from "lucide-react";
 
 const activities = [
@@ -75,6 +75,12 @@ const WaveBackground = () => {
 };
 
 const VolunteerSection = () => {
+  const reduced = useReducedMotion();
+  const cardEntrances = [
+    { opacity: 0, x: -140, rotateY: -28, transformPerspective: 900, filter: "blur(9px)" },
+    { opacity: 0, y: 130, scale: 0.88, rotateX: 18, transformPerspective: 900, filter: "blur(12px)" },
+    { opacity: 0, x: 140, rotateY: 28, transformPerspective: 900, filter: "blur(9px)" },
+  ];
   return (
     <section
       id="volunteer"
@@ -119,10 +125,10 @@ const VolunteerSection = () => {
             return (
               <motion.div
                 key={a.title}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={reduced ? false : cardEntrances[i]}
+                whileInView={{ opacity: 1, x: 0, y: 0, scale: 1, rotate: 0, rotateX: 0, rotateY: 0, transformPerspective: 900, filter: "blur(0px)" }}
                 viewport={{ once: true, margin: "-60px" }}
-                transition={{ duration: 0.55, delay: i * 0.12, ease: [0.25, 0.46, 0.45, 0.94] }}
+                transition={{ duration: 0.92, delay: reduced ? 0 : i * 0.17, ease: [0.22, 1, 0.36, 1] }}
                 className="group relative"
               >
                 {/* glow border */}
