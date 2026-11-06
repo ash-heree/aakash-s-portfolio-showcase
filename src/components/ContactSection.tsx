@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { Mail, Phone, MapPin, Linkedin, Github, Send, CheckCircle2, AlertCircle, Loader2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const ContactSection = () => {
+  const reduced = useReducedMotion();
   const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
@@ -113,10 +114,10 @@ const ContactSection = () => {
             {/* Contact form - terminal style */}
             <motion.form
               onSubmit={submit}
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
+              initial={reduced ? false : { opacity: 0, x: -150, scale: 0.94, rotateY: -16, transformPerspective: 1100, filter: "blur(9px)" }}
+              whileInView={{ opacity: 1, x: 0, scale: 1, rotateY: 0, transformPerspective: 1100, filter: "blur(0px)" }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.95, ease: [0.22, 1, 0.36, 1] }}
               className="lg:col-span-3 rounded-2xl overflow-hidden backdrop-blur-xl"
               style={{
                 background: "rgba(11,17,32,0.85)",
@@ -204,11 +205,7 @@ const ContactSection = () => {
             </motion.form>
 
             {/* Contact cards */}
-            <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.15 }}
+            <div
               className="lg:col-span-2 space-y-3"
             >
               {contactInfo.map((info, i) => {
@@ -227,8 +224,11 @@ const ContactSection = () => {
                 return (
                   <motion.div
                     key={info.label}
-                    whileHover={{ x: 4, scale: 1.01 }}
-                    transition={{ duration: 0.2 }}
+                    initial={reduced ? false : { opacity: 0, x: i % 2 === 0 ? 120 : -90, y: i % 2 === 0 ? 0 : 48, scale: 0.94, rotateY: i % 2 === 0 ? 14 : -12, transformPerspective: 900, filter: "blur(7px)" }}
+                    whileInView={{ opacity: 1, x: 0, y: 0, scale: 1, rotateY: 0, transformPerspective: 900, filter: "blur(0px)" }}
+                    viewport={{ once: true, margin: "-50px" }}
+                    transition={{ duration: 0.82, delay: reduced ? 0 : i * 0.14, ease: [0.22, 1, 0.36, 1] }}
+                    whileHover={{ x: 4, scale: 1.01, transition: { duration: 0.2 } }}
                     className="rounded-xl p-4 backdrop-blur-xl transition-all duration-300 hover:border-[#00F5D4]/50 hover:shadow-[0_0_20px_rgba(0,245,212,0.2)]"
                     style={{
                       background: "rgba(11,17,32,0.7)",
@@ -243,7 +243,7 @@ const ContactSection = () => {
                   </motion.div>
                 );
               })}
-            </motion.div>
+            </div>
           </div>
 
           <motion.div
